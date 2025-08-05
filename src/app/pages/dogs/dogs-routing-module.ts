@@ -1,0 +1,36 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { FilterDogs } from './filter-dogs/filter-dogs';
+import { CreateDog } from './create-dog/create-dog';
+import { DogDetails } from './dog-details/dog-details';
+import { EditDog } from './edit-dog/edit-dog';
+
+const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'filter-dogs',
+    pathMatch: 'full'
+  },
+  {
+    path: 'filter-dogs',
+    component: FilterDogs
+  },
+  {
+    path: 'create-dog',
+    component: CreateDog
+  },
+  {
+    path: 'dog-details',
+    component: DogDetails
+  },
+  {
+    path: 'edit-dog',
+    component: EditDog
+  }
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class DogsRoutingModule { }
