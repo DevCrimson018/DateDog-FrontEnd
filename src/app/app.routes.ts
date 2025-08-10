@@ -4,9 +4,9 @@ export const routes: Routes = [
     {
         path: '',
         loadChildren: () => import('./pages/general/general-module').then(m => m.GeneralModule)
-    },
+    }, 
     {
-        path: 'boarding',
+        path: 'credentials',
         loadChildren: () => import('./pages/credentials/credentials-module').then(m => m.CredentialsModule)
     },
     {

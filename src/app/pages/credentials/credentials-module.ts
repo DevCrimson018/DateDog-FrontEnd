@@ -9,10 +9,10 @@ import { ForgotPassword } from './forgot-password/forgot-password';
 
 
 @NgModule({
-  declarations: [
+  declarations: [ 
     Credentials,
     Register,
-    Login,
+    Login, 
     ForgotPassword
   ],
   imports: [
