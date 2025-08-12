@@ -1,0 +1,243 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
+
+.dog-register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5e6ca 0%, #e8cfa9 100%);
+  font-family: 'Comic Neue', cursive;
+  padding: 20px;
+}
+
+.dog-register-card {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 40px 30px;
+  width: 100%;
+  max-width: 700px;
+  border: 3px solid #f8d7a3;
+}
+
+.dog-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.dog-title {
+  color: #8b5a2b;
+  margin-bottom: 5px;
+  font-size: 2rem;
+}
+
+.dog-subtitle {
+  color: #a78a6e;
+  margin-bottom: 0;
+  font-size: 1rem;
+}
+
+.dog-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-section {
+  background: #fffdf8;
+  border-radius: 15px;
+  padding: 20px;
+  border: 2px dashed #f0d9b5;
+}
+
+.section-title {
+  color: #8b5a2b;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-row {
+  display: flex;
+  gap: 15px;
+  
+  @media (max-width: 600px) {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 15px;
+  flex: 1;
+}
+
+.dog-label {
+  color: #8b5a2b;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dog-input, select.dog-input {
+  padding: 12px 15px;
+  border: 2px solid #f0d9b5;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: white;
+  font-family: 'Comic Neue', cursive;
+  
+  &:focus {
+    outline: none;
+    border-color: #d4a76a;
+    box-shadow: 0 0 0 3px rgba(212, 167, 106, 0.2);
+  }
+}
+
+/* Estilos para la foto de perfil */
+.profile-photo-container {
+  display: flex;
+  justify-content: center;
+}
+
+.profile-photo-preview {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #f8d7a3;
+  position: relative;
+  
+  .profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.file-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.file-upload-label {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  
+  &.full-width {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.file-info {
+  color: #a78a6e;
+  font-size: 0.8rem;
+  margin-top: 5px;
+  display: block;
+  text-align: center;
+}
+
+/* Estilos para las galerías de fotos */
+.photos-container {
+  margin-top: 15px;
+}
+
+.photos-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+  min-height: 80px;
+}
+
+.photo-thumbnail {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  border: 2px solid #f0d9b5;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .remove-photo {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 12px;
+    line-height: 1;
+  }
+}
+
+.dog-button {
+  background: #d4a76a;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  
+  &:hover {
+    background: #c2955b;
+  }
+  
+  &:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+  
+  &.small {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .dog-register-card {
+    padding: 25px 15px;
+  }
+  
+  .dog-title {
+    font-size: 1.7rem;
+  }
+  
+  .section-title {
+    font-size: 1.1rem;
+  }
+}
