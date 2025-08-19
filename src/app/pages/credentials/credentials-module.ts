@@ -6,6 +6,7 @@ import { Credentials } from './credentials';
 import { Register } from './register/register';
 import { Login } from './login/login';
 import { ForgotPassword } from './forgot-password/forgot-password';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,6 +18,8 @@ import { ForgotPassword } from './forgot-password/forgot-password';
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     CredentialsRoutingModule
   ]
 })

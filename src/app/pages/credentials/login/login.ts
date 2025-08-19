@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { CredentialsService } from '../../../core/services/credentials.service';
 
 @Component({
   selector: 'app-login',
@@ -18,11 +19,12 @@ export class Login {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private CredentialService: CredentialsService
   ) {
     this.loginForm = this.fb.group({
-      usuario: ['', [Validators.required, Validators.minLength(3)]],
-      contrasena: ['', [Validators.required, Validators.minLength(6)]]
+      credential: ['', [Validators.required, Validators.minLength(3)]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
@@ -31,16 +33,19 @@ export class Login {
       this.isLoading = true;
       this.errorMessage = '';
       
-      // Simulación de autenticación
-      setTimeout(() => {
-        if (this.loginForm.value.usuario.toLowerCase() === 'lucky' && 
-            this.loginForm.value.contrasena === 'hueso123') {
-          this.router.navigate(['/register']);
-        } else {
-          this.errorMessage = '¡Guau! Credenciales incorrectas. ¿Olvidaste tu hueso?';
-        }
-        this.isLoading = false;
-      }, 1500);
+      this.CredentialService.logIn(this.loginForm.value).then((res: any) => {
+        if(res.erroCode){
+          this.errorMessage = res.errorDescription;
+          this.isLoading = false;
+          
+        }else{
+          console.log(res);
+          this.isLoading = false;
+          this.router.navigate(['../'])
+        } 
+
+      })
+
     }
   }
 
