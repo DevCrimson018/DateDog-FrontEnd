@@ -1,1 +1,114 @@
-<p>filter-dogs works!</p>
+<div class="dog-search-container">
+  <div class="dog-search-card">
+    <div class="dog-header">
+      <h1 class="dog-title">🔍 Consulta de Perros</h1>
+      <p class="dog-subtitle">Encuentra perros según tus criterios de búsqueda</p>
+    </div>
+
+    <!-- Formulario de Búsqueda -->
+    <form [formGroup]="searchForm" (ngSubmit)="onSearch()" class="search-form">
+      <div class="form-section">
+        <h2 class="section-title">🎯 Filtros de Búsqueda</h2>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="breed" class="dog-label">
+              <i class="icon dog-icon">🏷️</i> Raza
+            </label>
+            <select id="breed" formControlName="breed" class="dog-input">
+              <option value="" selected>Todas las razas</option>
+              <option *ngFor="let breed of breeds" [value]="breed">{{breed}}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="sex" class="dog-label">
+              <i class="icon dog-icon">♂️♀️</i> Sexo
+            </label>
+            <select id="sex" formControlName="sex" class="dog-input">
+              <option value="" selected>Ambos sexos</option>
+              <option *ngFor="let sex of sexes" [value]="sex">{{sex}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="country" class="dog-label">
+              <i class="icon dog-icon">🌎</i> País
+            </label>
+            <select id="country" formControlName="country" class="dog-input">
+              <option value="" selected>Todos los países</option>
+              <option *ngFor="let country of countries" [value]="country">{{country}}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="province" class="dog-label">
+              <i class="icon dog-icon">🏞️</i> Provincia
+            </label>
+            <select id="province" formControlName="province" class="dog-input">
+              <option value="" selected>Todas las provincias</option>
+              <option *ngFor="let province of provinces" [value]="province">{{province}}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="city" class="dog-label">
+              <i class="icon dog-icon">🏙️</i> Ciudad
+            </label>
+            <select id="city" formControlName="city" class="dog-input">
+              <option value="" selected>Todas las ciudades</option>
+              <option *ngFor="let city of cities" [value]="city">{{city}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="dog-button primary">
+            <i class="icon">🔍</i> Buscar Perros
+          </button>
+          <button type="button" class="dog-button secondary" (click)="clearFilters()">
+            <i class="icon">🗑️</i> Limpiar
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Resultados de Búsqueda -->
+    <div *ngIf="showResults" class="results-section">
+      <h2 class="section-title">📋 Resultados de la Búsqueda</h2>
+      
+      <div *ngIf="searchResults.length === 0" class="no-results">
+        <p>🐾 ¡No se encontraron perros con los filtros seleccionados!</p>
+      </div>
+
+      <div *ngIf="searchResults.length > 0" class="results-grid">
+        <div *ngFor="let dog of searchResults" class="dog-card">
+          <div class="dog-card-header">
+            <img [src]="dog.profilePhoto" [alt]="dog.name" class="dog-card-image">
+            <div class="dog-card-info">
+              <h3 class="dog-card-name">{{dog.name}}</h3>
+              <p class="dog-card-breed">{{dog.breed}}, {{dog.sex}}</p>
+              <p class="dog-card-location">📍 {{dog.location}}</p>
+            </div>
+          </div>
+          
+          <div class="dog-card-details">
+            <p class="dog-card-birthday">
+              <i class="icon">🎂</i> 
+              {{dog.sex === 'Hembra' ? 'Nacida' : 'Nacido'}}: {{formatBirthDate(dog.birthDate)}}
+            </p>
+            <p class="dog-card-age">Edad: {{getAge(dog.birthDate)}}</p>
+          </div>
+
+          <div class="dog-card-actions">
+            <button class="dog-button small">
+              <i class="icon">👀</i> Ver Detalles
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

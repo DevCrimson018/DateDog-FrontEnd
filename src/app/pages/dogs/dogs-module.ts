@@ -7,6 +7,7 @@ import { FilterDogs } from './filter-dogs/filter-dogs';
 import { CreateDog } from './create-dog/create-dog';
 import { DogDetails } from './dog-details/dog-details';
 import { EditDog } from './edit-dog/edit-dog';
+import { ReactiveFormsModule,  } from '@angular/forms';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { EditDog } from './edit-dog/edit-dog';
   ],
   imports: [
     CommonModule,
-    DogsRoutingModule
+    DogsRoutingModule,
+    ReactiveFormsModule   
   ]
 })
 export class DogsModule { }
