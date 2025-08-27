@@ -12,7 +12,7 @@ export class CountriesService {
 
   getCountries(){
     return firstValueFrom(
-      this.http.get(`${environment.apiUrl}/country`)
+      this.http.get<any[]>(`${environment.apiUrl}/country`)
     )
   }
 

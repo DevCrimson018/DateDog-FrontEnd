@@ -16,5 +16,10 @@ export class CredentialsService {
       this.http.post(`${environment.apiUrl}/credential/login`, credentials)
     )
   }
-
+  
+  register(newUser: any){
+    return firstValueFrom(
+      this.http.post(`${environment.apiUrl}/credential/register`, newUser)
+    )
+  }
 }
