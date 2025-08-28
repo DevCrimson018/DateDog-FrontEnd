@@ -1,1 +1,95 @@
-<p>user-details works!</p>
+<div class="user-detail-container">
+  <div class="user-profile-card">
+    <!-- Header -->
+    <div class="user-header">
+      <h1 class="user-title">👤 Detalles del Usuario</h1>
+    </div>
+
+    <!-- Información del Usuario -->
+    <div class="user-info-section">
+      <div class="user-profile-main">
+        <!-- Foto de Perfil -->
+        <div class="user-photo-container">
+          <img [src]="userData.profilePhoto" alt="Foto de perfil" class="user-profile-image">
+        </div>
+
+        <!-- Información Principal -->
+        <div class="user-basic-info">
+          <h2 class="user-name">{{userData.name}}</h2>
+          
+          <div class="info-grid">
+            <div class="info-item">
+              <span class="info-label">Edad:</span>
+              <span class="info-value">{{userData.age}} años</span>
+            </div>
+            
+            <div class="info-item">
+              <span class="info-label">Sexo:</span>
+              <span class="info-value">{{userData.sex}}</span>
+            </div>
+            
+            <div class="info-item">
+              <span class="info-label">Ciudad:</span>
+              <span class="info-value">{{userData.city}}</span>
+            </div>
+            
+            <div class="info-item">
+              <span class="info-label">Provincia:</span>
+              <span class="info-value">{{userData.province}}</span>
+            </div>
+            
+            <div class="info-item">
+              <span class="info-label">País:</span>
+              <span class="info-value">{{userData.country}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección de Perros -->
+    <div class="dogs-section">
+      <h2 class="dogs-title">🐕 Mis Perros</h2>
+      
+      <div *ngIf="userData.dogs.length === 0" class="no-dogs">
+        <p>📝 No hay perros registrados</p>
+      </div>
+
+      <div *ngIf="userData.dogs.length > 0" class="dogs-grid">
+        <div *ngFor="let dog of userData.dogs" class="dog-card">
+          <div class="dog-card-header">
+            <img [src]="dog.profilePhoto" [alt]="dog.name" class="dog-card-image">
+            <div class="dog-card-info">
+              <h3 class="dog-card-name">{{dog.name}}</h3>
+              <p class="dog-card-breed">
+                {{dog.breed}} 
+                <span class="sex-symbol">{{getSexSymbol(dog.sex)}}</span>
+                {{getSexLabel(dog.sex)}}
+              </p>
+              <p class="dog-card-age">🎂 {{dog.age}} años</p>
+            </div>
+          </div>
+          
+          <div class="dog-card-actions">
+            <button class="dog-button small">
+              <i class="icon">👀</i> Ver Detalles
+            </button>
+            <button class="dog-button small secondary">
+              <i class="icon">✏️</i> Editar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Acciones -->
+    <div class="user-actions">
+      <button class="dog-button">
+        <i class="icon">✏️</i> Editar Perfil
+      </button>
+      <button class="dog-button secondary">
+        <i class="icon">🐕</i> Agregar Perro
+      </button>
+    </div>
+  </div>
+</div>
