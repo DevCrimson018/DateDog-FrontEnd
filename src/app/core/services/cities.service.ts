@@ -9,16 +9,34 @@ import { environment } from '../../../environment.prod';
 export class CitiesService {
     private http = inject(HttpClient);
 
-  getCities(countryId: string, provinceId: string){
+  filterCities(filter: any){
     return firstValueFrom(
-      this.http.post<any[]>(`${environment.apiUrl}/city/filter`, {
-        filter: {
-          countryId: countryId,
-          provinceId: provinceId
-        },
-        skip: 0,
-        limit: 10
-      })
+      this.http.post<any[]>(`${environment.apiUrl}/city/filter`, filter)
     )
   }
+
+  getCity(_id: string) {
+    return firstValueFrom(
+      this.http.get<any>(`${environment.apiUrl}/city/${_id}`)
+    )
+  }
+
+  addCity(newCity: any) {
+    return firstValueFrom(
+      this.http.post<any[]>(`${environment.apiUrl}/city/add`, newCity)
+    )
+  }
+
+  updateCity(_id: string, updatedCity: any) {
+    return firstValueFrom(
+      this.http.put<any>(`${environment.apiUrl}/city/${_id}`, updatedCity)
+    )
+  }
+
+  deleteCity(_id: string) {
+    return firstValueFrom(
+      this.http.delete<any>(`${environment.apiUrl}/city/${_id}`)
+    )
+  }
+
 }

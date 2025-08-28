@@ -67,8 +67,15 @@ export class Register {
 
   async getCities(){
     try {
-      this.cities = await this.cityService.getCities(this.registerForm.value.address.countryId, this.registerForm.value.address.provinceId);
-       console.log(this.cities);
+      this.cities = await this.cityService.filterCities({
+                                                      filter: {
+                                                        countryId: this.registerForm.value.address.countryId,
+                                                        provinceId: this.registerForm.value.address.provinceId
+                                                      },
+                                                      skip: 0,
+                                                      limit: 10
+                                                    });
+      console.log(this.cities);
       console.log(this.registerForm.value.address.countryId);
       console.log(this.registerForm.value.address.provinceId);
     } catch (error) {
@@ -78,7 +85,12 @@ export class Register {
 
   async getProvinces(){
     try {
-      this.provinces = await this.provinceService.getProvinces(this.registerForm.value.address.countryId);
+      this.provinces = await this.provinceService.filterProvinces({
+                                                                  filter: {
+                                                                    countryId: this.registerForm.value.address.countryId
+                                                                  },
+                                                                  skip: 0,
+                                                                  limit: 10});
       console.log(this.provinces);
       console.log(this.registerForm.value.address.countryId);
       
@@ -90,7 +102,7 @@ export class Register {
 
   async getCountries(){
     try {
-      this.countries = await this.countryService.getCountries();
+      this.countries = await this.countryService.filterCountries();
       console.log(this.countries);
       
     } catch (error) {

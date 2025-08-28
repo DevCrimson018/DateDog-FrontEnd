@@ -9,15 +9,33 @@ import { environment } from '../../../environment.prod';
 export class ProvincesService {
   private http = inject(HttpClient);
 
-  getProvinces(countryId: string){
+  filterProvinces(filter: any){
     return firstValueFrom(
-      this.http.post<any[]>(`${environment.apiUrl}/province/filter`, {
-        filter: {
-          countryId: countryId
-        },
-        skip: 0,
-        limit: 10
-      })
+      this.http.post<any[]>(`${environment.apiUrl}/province/filter`, filter)
+    )
+  }
+
+  getProvince(_id: string) {
+    return firstValueFrom(
+      this.http.get<any>(`${environment.apiUrl}/province/${_id}`)
+    )
+  }
+
+  addProvince(newProvince: any) {
+    return firstValueFrom(
+      this.http.post<any[]>(`${environment.apiUrl}/province/add`, newProvince)
+    )
+  }
+
+  updateProvince(_id: string, updatedProvince: any) {
+    return firstValueFrom(
+      this.http.put<any>(`${environment.apiUrl}/province/${_id}`, updatedProvince)
+    )
+  }
+
+  deleteProvince(_id: string) {
+    return firstValueFrom(
+      this.http.delete<any>(`${environment.apiUrl}/province/${_id}`)
     )
   }
 }
