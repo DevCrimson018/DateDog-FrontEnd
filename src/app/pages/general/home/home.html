@@ -1,1 +1,211 @@
-<p>home works!</p>
+<div class="home-container">
+  <!-- Header -->
+  <header class="home-header">
+    <div class="header-content">
+      <h1 class="app-title">🐾 DateDog</h1>
+      <p class="app-subtitle">La red social para amantes de perros</p>
+    </div>
+  </header>
+
+  <div class="dashboard-content">
+    <!-- Sidebar - Perros Perdidos -->
+    <aside class="sidebar">
+           <nav class="main-menu">
+        <div class="menu-header">
+          <h3>Menú Principal</h3>
+          <button class="close-menu" (click)="toggleMenu()">×</button>
+        </div>
+        <ul class="menu-list">
+          <li *ngFor="let item of menuItems" 
+              [class.active]="item.active"
+              class="menu-item">
+            <span class="menu-icon">{{item.icon}}</span>
+            <span class="menu-label">{{item.label}}</span>
+          </li>
+        </ul>
+      </nav>
+      <div class="lost-dogs-section">
+        <h2 class="section-title">🚨 Perros Perdidos</h2>
+        <div class="lost-dogs-list">
+          <div *ngFor="let dog of lostDogs" class="lost-dog-card">
+            <img [src]="dog.photo" [alt]="dog.name" class="lost-dog-photo">
+            <div class="lost-dog-info">
+              <h4>{{dog.name}}</h4>
+              <p>{{dog.breed}}</p>
+              <small>Visto: {{dog.lastSeen}}</small>
+              <small>{{dog.date}}</small>
+              <button class="contact-btn" (click)="contactOwner(dog.contact)">
+                📞 Contactar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Perras en Celo Destacadas -->
+
+            <section class="create-post-section">
+        <div class="create-post-card">
+          <h3>📝 Crear Publicación</h3>
+          <textarea 
+           
+            placeholder="¿Qué está haciendo tu perro hoy?"
+            class="post-textarea"
+            rows="3"
+          ></textarea>
+          
+          <!-- Preview de Fotos -->
+          <div *ngIf="newPost.photos.length > 0" class="photos-preview">
+            <div *ngFor="let photo of newPost.photos; let i = index" class="photo-preview">
+              <img [src]="photo" alt="Preview">
+              <button class="remove-photo" (click)="removePhoto(i)">×</button>
+            </div>
+          </div>
+
+          <div class="post-actions">
+            <label class="action-btn">
+              <input 
+                type="file" 
+                (change)="onFileSelected($event)" 
+                accept="image/*" 
+                multiple 
+                style="display: none;"
+              >
+              📸 Fotos
+            </label>
+
+            <label class="action-btn">
+              <input 
+                type="file" 
+                accept="image/*" 
+                multiple 
+                style="display: none;"
+              >
+              🔥 Celo
+            </label>
+
+            <button class="post-btn" (click)="createPost()">
+              Publicar
+            </button>
+          </div>
+        </div>
+      </section>
+
+
+
+
+      <section class="featured-section">
+        <h2 class="section-title">🔥 Perras en Celo</h2>
+        <div class="heat-dogs-grid">
+          <div *ngFor="let dog of dogsInHeat" class="heat-dog-card">
+            <div class="heat-badge">🔥 EN CELO</div>
+            <img [src]="dog.profilePhoto" [alt]="dog.name" class="heat-dog-photo">
+            <div class="heat-dog-info">
+              <h3>{{dog.name}}</h3>
+              <p>{{dog.breed}} - {{dog.age}} años</p>
+              <button class="heat-btn" (click)="showDogDetails(dog)">
+                💖 Ver Detalles
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Feed Principal -->
+      <section class="feed-section">
+        <h2 class="section-title">📱 Feed de la Comunidad</h2>
+        <div class="posts-grid">
+          <div *ngFor="let post of posts" class="post-card">
+            <div class="post-header">
+              <div class="post-dog-info">
+                <h4>{{post.dogName}}</h4>
+                <p>{{post.breed}}</p>
+              </div>
+              <span class="post-time">{{post.time}}</span>
+            </div>
+            
+            <p class="post-content">{{post.content}}</p>
+            
+            <img [src]="post.photo" [alt]="post.dogName" class="post-photo">
+            
+            <div class="post-actions">
+              <button class="action-btn" (click)="likePost(post)">
+                ❤️ {{post.likes}}
+              </button>
+              <button class="action-btn">
+                💬 {{post.comments}}
+              </button>
+              <button class="action-btn">
+                🔗 Compartir
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Modal de Detalles de Perra en Celo -->
+  <div *ngIf="selectedDog" class="modal-overlay" (click)="closeDetails()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <button class="close-btn" (click)="closeDetails()">×</button>
+      
+      <div class="modal-header">
+        <div class="dog-heat-badge">🔥 EN CELO</div>
+        <h2>{{selectedDog.name}}</h2>
+        <p>{{selectedDog.breed}} - {{selectedDog.age}} años</p>
+      </div>
+
+      <div class="modal-body">
+        <div class="owner-info">
+          <img [src]="selectedDog.owner.photo" [alt]="selectedDog.owner.name" class="owner-photo">
+          <div class="owner-details">
+            <h4>Dueña/o: {{selectedDog.owner.name}}</h4>
+            <p>📞 {{selectedDog.owner.phone}}</p>
+          </div>
+        </div>
+
+        <div class="breeding-info">
+          <h4>💕 Busca apareamiento con:</h4>
+          <p>{{selectedDog.requiredBreed}}</p>
+          <p class="description">{{selectedDog.description}}</p>
+        </div>
+
+        <div class="dog-photos">
+          <h4>📸 Álbum</h4>
+          <div class="photos-grid">
+            <img *ngFor="let photo of selectedDog.photos" [src]="photo" [alt]="selectedDog.name">
+          </div>
+        </div>
+
+        <div class="social-stats">
+          <div class="stat">
+            <span>❤️</span>
+            <strong>{{selectedDog.likes}}</strong>
+          </div>
+          <div class="stat">
+            <span>💬</span>
+            <strong>{{selectedDog.comments}}</strong>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="modal-btn primary" (click)="contactOwner(selectedDog.owner.phone)">
+            📞 Contactar
+          </button>
+          <button class="modal-btn">
+            ❤️ Like
+          </button>
+          <button class="modal-btn">
+            💬 Comentar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
