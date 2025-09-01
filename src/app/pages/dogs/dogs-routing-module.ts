@@ -20,7 +20,7 @@ const routes: Routes = [
     component: CreateDog
   },
   {
-    path: 'dog-details',
+    path: 'dog-details/:_id',
     component: DogDetails
   },
   {

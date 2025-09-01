@@ -21,17 +21,18 @@
           
           <div class="info-item">
             <span class="info-label">Raza:</span>
-            <span class="info-value">{{dogData.breed}}</span>
+            <span class="info-value">{{dogData.idBreed.name}}</span>
           </div>
           
           <div class="info-item">
             <span class="info-label">Dueño:</span>
-            <span class="info-value">{{dogData.owner}}</span>
+            <span class="info-value">{{dogData.idOwner.firstName}}</span>
           </div>
           
           <div class="info-item">
             <span class="info-label">Dirección:</span>
-            <span class="info-value">{{dogData.address}}</span>
+            <span class="info-value">{{dogData.address.countryId.name}} <br> {{dogData.address.provinceId.name}} <br> {{dogData.address.cityId.name}}</span>
+            
           </div>
         </div>
       </div>
@@ -42,9 +43,11 @@
         <div class="photos-group">
           <h3 class="photos-title">📸 Fotos Generales</h3>
           <div class="photos-grid">
-            <div *ngFor="let photo of dogData.generalPhotos; let i = index" class="photo-item">
-              <img [src]="photo" [alt]="'Foto general ' + (i+1)" (click)="openPhoto(photo)">
-            </div>
+            @for (image of dogData.photos; track $index) {
+              <div class="photo-item">
+                <img [src]="image" [alt]="'Foto General ' + ($index + 1)">
+              </div>
+            }
           </div>
         </div>
 
@@ -52,9 +55,11 @@
         <div class="photos-group">
           <h3 class="photos-title">💉 Fotos de Vacunas</h3>
           <div class="photos-grid">
-            <div *ngFor="let vaccine of dogData.vaccinePhotos; let i = index" class="photo-item">
-              <img [src]="vaccine" [alt]="'Vacuna ' + (i+1)" (click)="openPhoto(vaccine)">
-            </div>
+            @for (vaccine of dogData.vaccines; track $index) {
+              <div class="photo-item">
+                <img [src]="vaccine" [alt]="'Vacuna ' + ($index + 1)">
+              </div>
+            }
           </div>
         </div>
       </div>
