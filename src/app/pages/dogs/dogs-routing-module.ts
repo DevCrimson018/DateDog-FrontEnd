@@ -24,7 +24,7 @@ const routes: Routes = [
     component: DogDetails
   },
   {
-    path: 'edit-dog',
+    path: 'edit-dog/:_id',
     component: EditDog
   }
 ];

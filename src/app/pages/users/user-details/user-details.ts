@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
+import { UsersService } from '../../../core/services/users.service';
+import { DogsService } from '../../../core/services/dogs.service';
+import { skip } from 'rxjs';
 
 @Component({
   selector: 'app-user-details',
@@ -8,31 +11,30 @@ import { Component } from '@angular/core';
 })
 export class UserDetails {
   // Datos del usuario (ejemplo)
-  userData = {
-    profilePhoto: 'assets/user-default-avatar.png',
-    name: 'Juana Pérez',
-    age: 30,
-    sex: 'Femenino',
-    city: 'Santo Domingo',
-    province: 'Distrito Nacional',
-    country: 'República Dominicana',
-    dogs: [
+  _id = input.required<string>()
+
+  userData:any
+  dogs: any[] = []
+
+  userService = inject(UsersService);
+  dogService = inject(DogsService)
+
+  async ngOnInit() {
+    this.userData = await this.userService.getUser(this._id())
+    this.dogs = await this.dogService.filterDogs(
       {
-        name: 'Max',
-        breed: 'Golden Retriever',
-        sex: 'Macho',
-        profilePhoto: 'assets/dog-sample1.jpg',
-        age: 4
-      },
-      {
-        name: 'Luna',
-        breed: 'Poodle',
-        sex: 'Hembra',
-        profilePhoto: 'assets/dog-sample2.jpg',
-        age: 2
+        filter:{
+          idOwner: this._id
+        },
+        skip: 0,
+        limit: 10
       }
-    ]
-  };
+    )
+    console.log(this.userData);
+    console.log(this.dogs);
+    
+    
+  }
 
   getSexSymbol(sex: string): string {
     return sex === 'Macho' ? '♂' : '♀';

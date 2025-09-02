@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BreedsService } from '../../../core/services/breeds.service';
+import { CitiesService } from '../../../core/services/cities.service';
+import { CountriesService } from '../../../core/services/countries.service';
+import { ProvincesService } from '../../../core/services/provinces.service';
+import { DogsService } from '../../../core/services/dogs.service';
 
 @Component({
   selector: 'app-create-dog',
@@ -13,18 +18,100 @@ export class CreateDog {
   profileImage: string | ArrayBuffer | null = 'assets/dog-default-avatar.png';
   generalImages: (string | ArrayBuffer)[] = [];
   vaccineImages: (string | ArrayBuffer)[] = [];
-  breeds = ['Labrador', 'Bulldog', 'Pastor Alemán', 'Chihuahua', 'Golden Retriever', 'Otro'];
+  countries: any[] = [];
+  provinces: any[] = [];
+  cities: any[] = [];
+  breeds: any[] = [];
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private dogService: DogsService,
+    private breedService: BreedsService,
+    private countryService: CountriesService,
+    private provinceService: ProvincesService,
+    private cityService: CitiesService
+  ) {
     this.dogForm = this.fb.group({
       profilePhoto: [null],
       name: ['', [Validators.required, Validators.minLength(2)]],
+      dateOfBirth: ['', Validators.required],
       sex: ['', Validators.required],
-      breed: ['', Validators.required],
-      generalPhotos: [[]],
-      vaccinePhotos: [[]]
+      idBreed: ['', Validators.required],
+      photos: [[]],
+      vaccines: [[]],
+      address: this.fb.group({
+        cityId: [''],
+        provinceId: [''],
+        countryId: [''],
+      })
     });
   }
+
+  async ngOnInit(){
+    await this.getBreeds()
+    await this.getCountries()
+  }
+
+  async getBreeds(){
+    this.breeds = await this.breedService.filterBreeds(
+      {
+        filter: {
+
+        },
+        skip: 0,
+        limit: 10
+      }
+    )
+
+    console.log(this.breeds);
+  }
+
+
+    async getCities(){
+    try {
+      this.cities = await this.cityService.filterCities({
+                                                      filter: {
+                                                        countryId: this.dogForm.value.address.countryId,
+                                                        provinceId: this.dogForm.value.address.provinceId
+                                                      },
+                                                      skip: 0,
+                                                      limit: 10
+                                                    });
+      console.log(this.cities);
+      console.log(this.dogForm.value.address.countryId);
+      console.log(this.dogForm.value.address.provinceId);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async getProvinces(){
+    try {
+      this.provinces = await this.provinceService.filterProvinces({
+                                                                  filter: {
+                                                                    countryId: this.dogForm.value.address.countryId
+                                                                  },
+                                                                  skip: 0,
+                                                                  limit: 10});
+      console.log(this.provinces);
+      console.log(this.dogForm.value.address.countryId);
+      
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async getCountries(){
+    try {
+      this.countries = await this.countryService.filterCountries();
+      console.log(this.countries);
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
 
   onProfilePhotoSelected(event: any): void {
     const file = event.target.files[0];
@@ -67,9 +154,11 @@ export class CreateDog {
     array.splice(index, 1);
   }
 
-  onSubmit(): void {
+  async onSubmit() {
     if (this.dogForm.valid) {
-      console.log('Formulario enviado', this.dogForm.value);
+      let message = await this.dogService.addDog(this.dogForm.value)
+      console.log('Formulario enviado', message);
+
       // Aquí iría la lógica para guardar la información del perro
     }
   }

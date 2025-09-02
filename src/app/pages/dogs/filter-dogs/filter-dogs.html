@@ -12,12 +12,16 @@
         
         <div class="form-row">
           <div class="form-group">
-            <label for="breed" class="dog-label">
+            <label for="idBreed" class="dog-label">
               <i class="icon dog-icon">🏷️</i> Raza
             </label>
-            <select id="breed" formControlName="breed" class="dog-input">
+            <select id="idBreed" formControlName="idBreed" class="dog-input">
               <option value="" selected>Todas las razas</option>
-              <option *ngFor="let breed of breeds" [value]="breed">{{breed}}</option>
+              @for (breed of breeds; track $index) {
+                <option [value]="breed._id" >
+                    {{breed.name}}
+                </option>
+              }
             </select>
           </div>
 
@@ -27,39 +31,53 @@
             </label>
             <select id="sex" formControlName="sex" class="dog-input">
               <option value="" selected>Ambos sexos</option>
-              <option *ngFor="let sex of sexes" [value]="sex">{{sex}}</option>
+              <option value="M">Masculino</option>
+              <option value="F">Femenino</option>
             </select>
           </div>
         </div>
 
-        <div class="form-row">
+        <div class="form-row" formGroupName="address">
           <div class="form-group">
-            <label for="country" class="dog-label">
+            <label for="countryId" class="dog-label">
               <i class="icon dog-icon">🌎</i> País
             </label>
-            <select id="country" formControlName="country" class="dog-input">
+            <select id="countryId" formControlName="countryId" class="dog-input" (change)="getProvinces()">
               <option value="" selected>Todos los países</option>
-              <option *ngFor="let country of countries" [value]="country">{{country}}</option>
+              @for (country of countries; track $index) {
+                <option [value]="country._id">
+                  {{country.name}}
+                </option>
+              }
+              <!-- <option *ngFor="let country of countries" [value]="country">{{country}}</option> -->
             </select>
           </div>
 
           <div class="form-group">
-            <label for="province" class="dog-label">
+            <label for="provinceId" class="dog-label">
               <i class="icon dog-icon">🏞️</i> Provincia
             </label>
-            <select id="province" formControlName="province" class="dog-input">
+            <select id="provinceId" formControlName="provinceId" class="dog-input" (change)="getCities()">
               <option value="" selected>Todas las provincias</option>
-              <option *ngFor="let province of provinces" [value]="province">{{province}}</option>
+              @for (province of provinces; track $index) {
+                <option [value]="province._id">
+                  {{province.name}}
+                </option>
+              }
             </select>
           </div>
 
           <div class="form-group">
-            <label for="city" class="dog-label">
+            <label for="cityId" class="dog-label">
               <i class="icon dog-icon">🏙️</i> Ciudad
             </label>
-            <select id="city" formControlName="city" class="dog-input">
+            <select id="cityId" formControlName="cityId" class="dog-input">
               <option value="" selected>Todas las ciudades</option>
-              <option *ngFor="let city of cities" [value]="city">{{city}}</option>
+              @for (city of cities; track $index) {
+                <option [value]="city._id">
+                  {{city.name}}
+                </option>
+              }
             </select>
           </div>
         </div>
@@ -89,7 +107,7 @@
             <img [src]="dog.profilePhoto" [alt]="dog.name" class="dog-card-image">
             <div class="dog-card-info">
               <h3 class="dog-card-name">{{dog.name}}</h3>
-              <p class="dog-card-breed">{{dog.breed}}, {{dog.sex}}</p>
+              <p class="dog-card-breed">{{dog.idBreed.name}}, {{dog.sex === 'M' ? 'Masculino' : 'Femenino' }}</p>
               <p class="dog-card-location">📍 {{dog.location}}</p>
             </div>
           </div>
@@ -97,9 +115,9 @@
           <div class="dog-card-details">
             <p class="dog-card-birthday">
               <i class="icon">🎂</i> 
-              {{dog.sex === 'Hembra' ? 'Nacida' : 'Nacido'}}: {{formatBirthDate(dog.birthDate)}}
+              {{dog.sex === 'Hembra' ? 'Nacida' : 'Nacido'}}: {{formatBirthDate(dog.dateOfBirth)}}
             </p>
-            <p class="dog-card-age">Edad: {{getAge(dog.birthDate)}}</p>
+            <p class="dog-card-age">Edad: {{getAge(dog.dateOfBirth)}}</p>
           </div>
 
           <div class="dog-card-actions">

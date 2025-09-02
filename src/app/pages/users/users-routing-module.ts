@@ -14,11 +14,11 @@ const routes: Routes = [
     component: FilterUsers
   },
   {
-    path: 'edit-user',
+    path: 'edit-user/:_id',
     component: UserDetails
   },
   {
-    path: 'user-details',
+    path: 'user-details/:_id',
     component: UserDetails
   }
 ];

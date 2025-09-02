@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { BreedsService } from '../../../core/services/breeds.service';
+import { CitiesService } from '../../../core/services/cities.service';
+import { CountriesService } from '../../../core/services/countries.service';
+import { DogsService } from '../../../core/services/dogs.service';
+import { ProvincesService } from '../../../core/services/provinces.service';
+import { skip } from 'rxjs';
 
 @Component({
   selector: 'app-filter-dogs',
@@ -13,54 +19,113 @@ searchForm: FormGroup;
   showResults = false;
 
   // Datos de ejemplo para los selects
-  breeds = ['Labrador', 'Poodle', 'Bulldog', 'Pastor Alemán', 'Chihuahua', 'Golden Retriever'];
-  sexes = ['Macho', 'Hembra'];
-  countries = ['República Dominicana', 'México', 'España', 'Colombia', 'Argentina'];
-  provinces = ['Distrito Nacional', 'Santo Domingo', 'Santiago', 'La Vega', 'Puerto Plata'];
-  cities = ['Santo Domingo Este', 'Santo Domingo Oeste', 'Santo Domingo Norte', 'Zona Colonial'];
+  countries: any[] = [];
+  provinces: any[] = [];
+  cities: any[] = [];
+  breeds: any[] = [];
 
   // Resultados de ejemplo
-  searchResults = [
-    {
-      name: 'Max',
-      breed: 'Labrador',
-      sex: 'Macho',
-      birthDate: '2020-03-12',
-      profilePhoto: 'assets/dog-sample1.jpg',
-      location: 'Santo Domingo, DN'
-    },
-    {
-      name: 'Luna',
-      breed: 'Poodle',
-      sex: 'Hembra', 
-      birthDate: '2021-06-25',
-      profilePhoto: 'assets/dog-sample2.jpg',
-      location: 'Santiago, ST'
-    },
-    {
-      name: 'Rocky',
-      breed: 'Bulldog',
-      sex: 'Macho',
-      birthDate: '2019-11-15',
-      profilePhoto: 'assets/dog-sample3.jpg',
-      location: 'La Vega, LV'
-    }
-  ];
+  searchResults: any[] = [];
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private dogService: DogsService,
+    private breedService: BreedsService,
+    private countryService: CountriesService,
+    private provinceService: ProvincesService,
+    private cityService: CitiesService
+  ) {
     this.searchForm = this.fb.group({
-      breed: [''],
+      idBreed: [''],
       sex: [''],
-      country: [''],
-      province: [''],
-      city: ['']
+      address: this.fb.group({
+        countryId: [''],
+        provinceId: [''],
+        cityId: ['']
+      })
     });
   }
 
-  onSearch(): void {
+  async ngOnInit() {
+    await this.getBreeds()
+    await this.getCountries()
+  }
+
+
+  async getBreeds(){
+    this.breeds = await this.breedService.filterBreeds(
+      {
+        filter: {
+
+        },
+        skip: 0,
+        limit: 10
+      }
+    )
+
+    console.log(this.breeds);
+  }
+
+
+  async getCities(){
+    try {
+      this.cities = await this.cityService.filterCities({
+                                                      filter: {
+                                                        countryId: this.searchForm.value.address.countryId,
+                                                        provinceId: this.searchForm.value.address.provinceId
+                                                      },
+                                                      skip: 0,
+                                                      limit: 10
+                                                    });
+      console.log(this.cities);
+      console.log(this.searchForm.value.address.countryId);
+      console.log(this.searchForm.value.address.provinceId);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async getProvinces(){
+    try {
+      this.provinces = await this.provinceService.filterProvinces({
+                                                                  filter: {
+                                                                    countryId: this.searchForm.value.address.countryId
+                                                                  },
+                                                                  skip: 0,
+                                                                  limit: 10});
+      console.log(this.provinces);
+      console.log(this.searchForm.value.address.countryId);
+      
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async getCountries(){
+    try {
+      this.countries = await this.countryService.filterCountries();
+      console.log(this.countries);
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async onSearch() {
     this.showResults = true;
     // Aquí iría la lógica real de búsqueda con tu API
-    console.log('Buscando con filtros:', this.searchForm.value);
+
+    this.searchResults = await this.dogService.filterDogs(
+      {
+        filter: {
+          sex: this.searchForm.value.sex
+        },
+        skip: 0,
+        limit: 10
+      }
+    )
+    console.log('Buscando con filtros:', this.searchResults);
   }
 
   clearFilters(): void {
