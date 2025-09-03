@@ -5,6 +5,7 @@ import { CitiesService } from '../../../core/services/cities.service';
 import { CountriesService } from '../../../core/services/countries.service';
 import { ProvincesService } from '../../../core/services/provinces.service';
 import { DogsService } from '../../../core/services/dogs.service';
+import { Getters } from '../../../core/functions/getters';
 
 @Component({
   selector: 'app-create-dog',
@@ -22,6 +23,9 @@ export class CreateDog {
   provinces: any[] = [];
   cities: any[] = [];
   breeds: any[] = [];
+
+  getter = new Getters()
+
 
   constructor(
     private fb: FormBuilder,
@@ -67,19 +71,13 @@ export class CreateDog {
   }
 
 
-    async getCities(){
+  async getCities(){
     try {
-      this.cities = await this.cityService.filterCities({
-                                                      filter: {
-                                                        countryId: this.dogForm.value.address.countryId,
-                                                        provinceId: this.dogForm.value.address.provinceId
-                                                      },
-                                                      skip: 0,
-                                                      limit: 10
-                                                    });
-      console.log(this.cities);
-      console.log(this.dogForm.value.address.countryId);
-      console.log(this.dogForm.value.address.provinceId);
+      const filter = {
+        countryId: this.dogForm.value.address.countryId,
+        provinceId: this.dogForm.value.address.provinceId
+      }
+      this.cities = await this.getter.getCities(filterCities(filter, 0, 10))
     } catch (error) {
       console.log(error);
     }
@@ -87,16 +85,10 @@ export class CreateDog {
 
   async getProvinces(){
     try {
-      this.provinces = await this.provinceService.filterProvinces({
-                                                                  filter: {
-                                                                    countryId: this.dogForm.value.address.countryId
-                                                                  },
-                                                                  skip: 0,
-                                                                  limit: 10});
-      console.log(this.provinces);
-      console.log(this.dogForm.value.address.countryId);
-      
-      
+      const filter = {
+        countryId: this.dogForm.value.address.countryId
+      }
+      this.provinces = await this.getter.getProvinces(filterProvinces(filter, 0, 10))
     } catch (error) {
       console.log(error);
     }
@@ -104,9 +96,7 @@ export class CreateDog {
 
   async getCountries(){
     try {
-      this.countries = await this.countryService.filterCountries();
-      console.log(this.countries);
-      
+      this.countries = await this.getter.getCountries();  
     } catch (error) {
       console.log(error);
     }
@@ -163,3 +153,11 @@ export class CreateDog {
     }
   }
 }
+function filterCities(filter: { countryId: any; provinceId: any; }, arg1: number, arg2: number): any {
+  throw new Error('Function not implemented.');
+}
+
+function filterProvinces(filter: { countryId: any; }, arg1: number, arg2: number): any {
+  throw new Error('Function not implemented.');
+}
+

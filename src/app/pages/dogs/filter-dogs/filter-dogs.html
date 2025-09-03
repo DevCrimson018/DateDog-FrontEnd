@@ -108,7 +108,7 @@
             <div class="dog-card-info">
               <h3 class="dog-card-name">{{dog.name}}</h3>
               <p class="dog-card-breed">{{dog.idBreed.name}}, {{dog.sex === 'M' ? 'Masculino' : 'Femenino' }}</p>
-              <p class="dog-card-location">📍 {{dog.location}}</p>
+              <p class="dog-card-location">📍 {{dog.address.cityId.name}} {{dog.address.provinceId.name}} {{dog.address.countryId.name}}</p>
             </div>
           </div>
           

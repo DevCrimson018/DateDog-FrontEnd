@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CountriesService } from '../../../core/services/countries.service';
-import { ProvincesService } from '../../../core/services/provinces.service';
-import { CitiesService } from '../../../core/services/cities.service';
 import { CredentialsService } from '../../../core/services/credentials.service';
+import { filterCities, filterProvinces } from '../../../core/models/filters';
+import { Getters } from '../../../core/functions/getters';
 
 @Component({
   selector: 'app-register',
@@ -19,13 +18,13 @@ export class Register {
   cities: any[] = [];
   profileImage: string | ArrayBuffer | null = 'assets/dog-default-avatar.png'; // Ruta a imagen por defecto
   selectedFile: File | null = null;
+  getter = new Getters()
+  
 
   constructor(
     private fb: FormBuilder,
     private credentialService: CredentialsService,
-    private countryService: CountriesService,
-    private provinceService: ProvincesService,
-    private cityService: CitiesService
+
   ) {
 
 
@@ -67,17 +66,11 @@ export class Register {
 
   async getCities(){
     try {
-      this.cities = await this.cityService.filterCities({
-                                                      filter: {
-                                                        countryId: this.registerForm.value.address.countryId,
-                                                        provinceId: this.registerForm.value.address.provinceId
-                                                      },
-                                                      skip: 0,
-                                                      limit: 10
-                                                    });
-      console.log(this.cities);
-      console.log(this.registerForm.value.address.countryId);
-      console.log(this.registerForm.value.address.provinceId);
+      const filter = {
+        countryId: this.registerForm.value.address.countryId,
+        provinceId: this.registerForm.value.address.provinceId
+      }
+      this.cities = await this.getter.getCities(filterCities(filter, 0, 10))
     } catch (error) {
       console.log(error);
     }
@@ -85,16 +78,10 @@ export class Register {
 
   async getProvinces(){
     try {
-      this.provinces = await this.provinceService.filterProvinces({
-                                                                  filter: {
-                                                                    countryId: this.registerForm.value.address.countryId
-                                                                  },
-                                                                  skip: 0,
-                                                                  limit: 10});
-      console.log(this.provinces);
-      console.log(this.registerForm.value.address.countryId);
-      
-      
+      const filter = {
+        countryId: this.registerForm.value.address.countryId
+      }
+      this.provinces = await this.getter.getProvinces(filterProvinces(filter, 0, 10))
     } catch (error) {
       console.log(error);
     }
@@ -102,9 +89,7 @@ export class Register {
 
   async getCountries(){
     try {
-      this.countries = await this.countryService.filterCountries();
-      console.log(this.countries);
-      
+      this.countries = await this.getter.getCountries();
     } catch (error) {
       console.log(error);
     }

@@ -15,7 +15,7 @@
 
         <!-- Información Principal -->
         <div class="user-basic-info">
-          <h2 class="user-name">{{userData.name}}</h2>
+          <h2 class="user-name">{{userData.firstName}} {{userData.lastName}}</h2>
           
           <div class="info-grid">
             <div class="info-item">
@@ -56,9 +56,6 @@
       </div>
 
       <div *ngIf="userData.dogsQuantity > 0" class="dogs-grid">
-        <!-- <div *ngFor="let dog of dogs" class="dog-card">
-          
-        </div> -->
 
         @for (dog of dogs; track $index) {
           <div class="dog-card">

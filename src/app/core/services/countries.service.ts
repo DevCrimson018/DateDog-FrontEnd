@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { environment } from '../../../environment.prod';
+import { shortCountryProjection } from '../models/short-projections';
+import { countryProjection } from '../models/projections';
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +14,13 @@ export class CountriesService {
 
   filterCountries(){
     return firstValueFrom(
-      this.http.get<any[]>(`${environment.apiUrl}/country`)
+      this.http.get<shortCountryProjection[]>(`${environment.apiUrl}/country`)
     )
   }
 
   getCountry(_id: string) {
     return firstValueFrom(
-      this.http.get<any>(`${environment.apiUrl}/country/${_id}`)
+      this.http.get<countryProjection>(`${environment.apiUrl}/country/${_id}`)
     )
   }
 

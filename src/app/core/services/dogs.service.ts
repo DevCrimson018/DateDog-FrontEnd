@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { environment } from '../../../environment.prod';
+import { dogProjection } from '../models/projections';
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +12,13 @@ export class DogsService {
 
   filterDogs(filter: any) {
     return firstValueFrom(
-      this.http.post<any[]>(`${environment.apiUrl}/dog/filter`, filter)
+      this.http.post<dogProjection[]>(`${environment.apiUrl}/dog/filter`, filter)
     )
   }
 
   getDog(_id: string) {
     return firstValueFrom(
-      this.http.get<any>(`${environment.apiUrl}/dog/${_id}`)
+      this.http.get<dogProjection>(`${environment.apiUrl}/dog/${_id}`)
     )
   }
 

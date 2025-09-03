@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { environment } from '../../../environment.prod';
+import { shortUserProjection } from '../models/short-projections';
+import { userProjection } from '../models/projections';
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +13,13 @@ export class UsersService {
 
   filterUsers(filter: any) {
     return firstValueFrom(
-      this.http.post<any[]>(`${environment.apiUrl}/user/filter`, filter)
+      this.http.post<shortUserProjection[]>(`${environment.apiUrl}/user/filter`, filter)
     )
   }
 
   getUser(_id: string) {
     return firstValueFrom(
-      this.http.get<any>(`${environment.apiUrl}/user/${_id}`)
+      this.http.get<userProjection>(`${environment.apiUrl}/user/${_id}`)
     )
   }
 

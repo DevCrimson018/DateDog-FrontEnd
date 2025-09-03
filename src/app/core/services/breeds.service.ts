@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { environment } from '../../../environment.prod';
+import { shortBreedProjection } from '../models/short-projections';
+import { breedProjection } from '../models/projections';
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +13,13 @@ export class BreedsService {
 
   filterBreeds(filter: any){
     return firstValueFrom(
-      this.http.post<any[]>(`${environment.apiUrl}/breed/filter`, filter)
+      this.http.post<shortBreedProjection[]>(`${environment.apiUrl}/breed/filter`, filter)
     )
   }
 
   getBreed(_id: string){
     return firstValueFrom(
-        this.http.get<any>(`${environment.apiUrl}/breed/${_id}`)
+        this.http.get<breedProjection>(`${environment.apiUrl}/breed/${_id}`)
     )
   }
 

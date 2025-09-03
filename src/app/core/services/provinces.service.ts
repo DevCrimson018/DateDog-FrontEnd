@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { environment } from '../../../environment.prod';
+import { shortProvinceProjection } from '../models/short-projections';
+import { provinceProjection } from '../models/projections';
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +13,13 @@ export class ProvincesService {
 
   filterProvinces(filter: any){
     return firstValueFrom(
-      this.http.post<any[]>(`${environment.apiUrl}/province/filter`, filter)
+      this.http.post<shortProvinceProjection[]>(`${environment.apiUrl}/province/filter`, filter)
     )
   }
 
   getProvince(_id: string) {
     return firstValueFrom(
-      this.http.get<any>(`${environment.apiUrl}/province/${_id}`)
+      this.http.get<provinceProjection>(`${environment.apiUrl}/province/${_id}`)
     )
   }
 

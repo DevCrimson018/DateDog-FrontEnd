@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BreedsService } from '../../../core/services/breeds.service';
-import { CitiesService } from '../../../core/services/cities.service';
-import { CountriesService } from '../../../core/services/countries.service';
 import { DogsService } from '../../../core/services/dogs.service';
-import { ProvincesService } from '../../../core/services/provinces.service';
-import { skip } from 'rxjs';
+import { Getters } from '../../../core/functions/getters';
+import { filterCities, filterProvinces } from '../../../core/models/filters';
 
 @Component({
   selector: 'app-filter-dogs',
@@ -27,13 +25,12 @@ searchForm: FormGroup;
   // Resultados de ejemplo
   searchResults: any[] = [];
 
+  getter = new Getters()
+
   constructor(
     private fb: FormBuilder,
     private dogService: DogsService,
     private breedService: BreedsService,
-    private countryService: CountriesService,
-    private provinceService: ProvincesService,
-    private cityService: CitiesService
   ) {
     this.searchForm = this.fb.group({
       idBreed: [''],
@@ -68,50 +65,35 @@ searchForm: FormGroup;
 
 
   async getCities(){
-    try {
-      this.cities = await this.cityService.filterCities({
-                                                      filter: {
-                                                        countryId: this.searchForm.value.address.countryId,
-                                                        provinceId: this.searchForm.value.address.provinceId
-                                                      },
-                                                      skip: 0,
-                                                      limit: 10
-                                                    });
-      console.log(this.cities);
-      console.log(this.searchForm.value.address.countryId);
-      console.log(this.searchForm.value.address.provinceId);
-    } catch (error) {
-      console.log(error);
+      try {
+        const filter = {
+          countryId: this.searchForm.value.address.countryId,
+          provinceId: this.searchForm.value.address.provinceId
+        }
+        this.cities = await this.getter.getCities(filterCities(filter, 0, 10))
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }
-
-  async getProvinces(){
-    try {
-      this.provinces = await this.provinceService.filterProvinces({
-                                                                  filter: {
-                                                                    countryId: this.searchForm.value.address.countryId
-                                                                  },
-                                                                  skip: 0,
-                                                                  limit: 10});
-      console.log(this.provinces);
-      console.log(this.searchForm.value.address.countryId);
-      
-      
-    } catch (error) {
-      console.log(error);
+  
+    async getProvinces(){
+      try {
+        const filter = {
+          countryId: this.searchForm.value.address.countryId
+        }
+        this.provinces = await this.getter.getProvinces(filterProvinces(filter, 0, 10))
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }
-
-  async getCountries(){
-    try {
-      this.countries = await this.countryService.filterCountries();
-      console.log(this.countries);
-      
-    } catch (error) {
-      console.log(error);
+  
+    async getCountries(){
+      try {
+        this.countries = await this.getter.getCountries();
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }
-
   async onSearch() {
     this.showResults = true;
     // Aquí iría la lógica real de búsqueda con tu API
