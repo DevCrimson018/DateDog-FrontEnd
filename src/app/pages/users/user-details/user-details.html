@@ -20,27 +20,27 @@
           <div class="info-grid">
             <div class="info-item">
               <span class="info-label">Edad:</span>
-              <span class="info-value">{{userData.age}} años</span>
+              <span class="info-value">{{getAge(userData.dateOfBirth)}}</span>
             </div>
             
             <div class="info-item">
               <span class="info-label">Sexo:</span>
-              <span class="info-value">{{userData.sex}}</span>
+              <span class="info-value">{{getSexLabel(userData.sex)}}</span>
             </div>
             
             <div class="info-item">
               <span class="info-label">Ciudad:</span>
-              <span class="info-value">{{userData.city}}</span>
+              <span class="info-value">{{userData.address.cityId.name}}</span>
             </div>
             
             <div class="info-item">
               <span class="info-label">Provincia:</span>
-              <span class="info-value">{{userData.province}}</span>
+              <span class="info-value">{{userData.address.provinceId.name}}</span>
             </div>
             
             <div class="info-item">
               <span class="info-label">País:</span>
-              <span class="info-value">{{userData.country}}</span>
+              <span class="info-value">{{userData.address.countryId.name}}</span>
             </div>
           </div>
         </div>
@@ -51,13 +51,18 @@
     <div class="dogs-section">
       <h2 class="dogs-title">🐕 Mis Perros</h2>
       
-      <div *ngIf="userData.dogs.length === 0" class="no-dogs">
+      <div *ngIf="userData.dogsQuantity === 0" class="no-dogs">
         <p>📝 No hay perros registrados</p>
       </div>
 
-      <div *ngIf="userData.dogs.length > 0" class="dogs-grid">
-        <div *ngFor="let dog of userData.dogs" class="dog-card">
-          <div class="dog-card-header">
+      <div *ngIf="userData.dogsQuantity > 0" class="dogs-grid">
+        <!-- <div *ngFor="let dog of dogs" class="dog-card">
+          
+        </div> -->
+
+        @for (dog of dogs; track $index) {
+          <div class="dog-card">
+            <div class="dog-card-header">
             <img [src]="dog.profilePhoto" [alt]="dog.name" class="dog-card-image">
             <div class="dog-card-info">
               <h3 class="dog-card-name">{{dog.name}}</h3>
@@ -66,7 +71,7 @@
                 <span class="sex-symbol">{{getSexSymbol(dog.sex)}}</span>
                 {{getSexLabel(dog.sex)}}
               </p>
-              <p class="dog-card-age">🎂 {{dog.age}} años</p>
+              <p class="dog-card-age">🎂 {{getAge(dog.dateOfBirth)}}</p>
             </div>
           </div>
           
@@ -78,7 +83,8 @@
               <i class="icon">✏️</i> Editar
             </button>
           </div>
-        </div>
+          </div>
+        }
       </div>
     </div>
 
