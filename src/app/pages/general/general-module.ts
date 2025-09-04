@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { GeneralRoutingModule } from './general-routing-module';
 import { General } from './general';
 import { Home } from './home/home';
+import { FormsModule } from '@angular/forms'; // ← Añade esta importación
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { Home } from './home/home';
   ],
   imports: [
     CommonModule,
-    GeneralRoutingModule
+    GeneralRoutingModule,
+    FormsModule
   ]
 })
 export class GeneralModule { }

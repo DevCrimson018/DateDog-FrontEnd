@@ -1,208 +1,160 @@
-<div class="home-container">
+<div class="nearby-dogs-container">
   <!-- Header -->
-  <header class="home-header">
-    <div class="header-content">
-      <h1 class="app-title">🐾 DateDog</h1>
-      <p class="app-subtitle">La red social para amantes de perros</p>
-    </div>
-  </header>
+  <div class="header">
+    <h1>🐕 Perros Cerca de Ti</h1>
+    <p>Descubre compañeros caninos en tu área</p>
+  </div>
 
-  <div class="dashboard-content">
-    <!-- Sidebar - Perros Perdidos -->
-    <aside class="sidebar">
-           <nav class="main-menu">
-        <div class="menu-header">
-          <h3>Menú Principal</h3>
-          <button class="close-menu" (click)="toggleMenu()">×</button>
+  <!-- Controles de Vista -->
+  <div class="view-controls">
+    <button 
+      [class.active]="!showMapView" 
+      (click)="showMapView = false"
+      class="view-btn"
+    >
+      📋 Lista
+    </button>
+    <button 
+      [class.active]="showMapView" 
+      (click)="showMapView = true"
+      class="view-btn"
+    >
+      🗺️ Mapa
+    </button>
+  </div>
+
+  <!-- Filtros -->
+  <div class="filters-section">
+    <div class="filter-group">
+      <label>Distancia: {{filters.distance}} km</label>
+      <input 
+        type="range" 
+        [(ngModel)]="filters.distance" 
+        min="1" 
+        max="20" 
+        (change)="filterDogs()"
+      >
+    </div>
+
+    <div class="filter-row">
+      <select [(ngModel)]="filters.breed" (change)="filterDogs()">
+        <option value="">Todas las razas</option>
+        <option *ngFor="let breed of breedOptions" [value]="breed">{{breed}}</option>
+      </select>
+
+      <select [(ngModel)]="filters.size" (change)="filterDogs()">
+        <option value="">Todos los tamaños</option>
+        <option *ngFor="let size of sizeOptions" [value]="size">{{size}}</option>
+      </select>
+
+      <select [(ngModel)]="filters.gender" (change)="filterDogs()">
+        <option value="">Ambos sexos</option>
+        <option *ngFor="let gender of genderOptions" [value]="gender">{{gender}}</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Vista de Mapa (Placeholder) -->
+  <div *ngIf="showMapView" class="map-view">
+    <div class="map-placeholder">
+      <div class="map-icon">🗺️</div>
+      <h3>Vista de Mapa</h3>
+      <p>Aquí se mostrarían los perros en un mapa interactivo</p>
+      <small>✨ Próximamente con integración de Google Maps</small>
+    </div>
+  </div>
+
+  <!-- Vista de Lista -->
+  <div *ngIf="!showMapView" class="list-view">
+    <div *ngFor="let dog of nearbyDogs" class="dog-card">
+      <div class="card-header">
+        <img [src]="dog.photos[0]" [alt]="dog.name" class="dog-photo">
+        
+        <div class="dog-basic-info">
+          <h3>{{dog.name}}</h3>
+          <p>{{dog.breed}} • {{dog.age}} años • {{dog.gender}}</p>
+          <span class="distance">📍 {{dog.distance}} km</span>
         </div>
-        <ul class="menu-list">
-          <li *ngFor="let item of menuItems" 
-              [class.active]="item.active"
-              class="menu-item">
-            <span class="menu-icon">{{item.icon}}</span>
-            <span class="menu-label">{{item.label}}</span>
-          </li>
-        </ul>
-      </nav>
-      <div class="lost-dogs-section">
-        <h2 class="section-title">🚨 Perros Perdidos</h2>
-        <div class="lost-dogs-list">
-          <div *ngFor="let dog of lostDogs" class="lost-dog-card">
-            <img [src]="dog.photo" [alt]="dog.name" class="lost-dog-photo">
-            <div class="lost-dog-info">
-              <h4>{{dog.name}}</h4>
-              <p>{{dog.breed}}</p>
-              <small>Visto: {{dog.lastSeen}}</small>
-              <small>{{dog.date}}</small>
-              <button class="contact-btn" (click)="contactOwner(dog.contact)">
-                📞 Contactar
-              </button>
-            </div>
+
+        <div class="online-status" [class.online]="dog.isOnline">
+          {{dog.isOnline ? '🟢 En línea' : '⚫ Inactivo'}}
+        </div>
+      </div>
+
+      <div class="card-body">
+        <p class="description">{{dog.description}}</p>
+        
+        <div class="location-info">
+          <span class="location">🏠 {{dog.location}}</span>
+          <span class="walk-time">🚶‍♂️ {{calculateWalkTime(dog.distance)}}</span>
+        </div>
+
+        <div class="owner-info">
+          <img [src]="dog.owner.photo" [alt]="dog.owner.name" class="owner-photo">
+          <div class="owner-details">
+            <span class="owner-name">{{dog.owner.name}}</span>
+            <span class="owner-rating">⭐ {{dog.owner.rating}}</span>
           </div>
         </div>
       </div>
-    </aside>
 
-    
-
-    <!-- Main Content -->
-    <main class="main-content">
-      <!-- Perras en Celo Destacadas -->
-
-            <section class="create-post-section">
-        <div class="create-post-card">
-          <h3>📝 Crear Publicación</h3>
-          <textarea 
-           
-            placeholder="¿Qué está haciendo tu perro hoy?"
-            class="post-textarea"
-            rows="3"
-          ></textarea>
-          
-          <!-- Preview de Fotos -->
-          <div *ngIf="newPost.photos.length > 0" class="photos-preview">
-            <div *ngFor="let photo of newPost.photos; let i = index" class="photo-preview">
-              <img [src]="photo" alt="Preview">
-              <button class="remove-photo" (click)="removePhoto(i)">×</button>
-            </div>
-          </div>
-
-          <div class="post-actions">
-            <label class="action-btn">
-              <input 
-                type="file" 
-                (change)="onFileSelected($event)" 
-                accept="image/*" 
-                multiple 
-                style="display: none;"
-              >
-              📸 Fotos
-            </label>
-
-            <label class="action-btn">
-              <input 
-                type="file" 
-                accept="image/*" 
-                multiple 
-                style="display: none;"
-              >
-              🔥 Celo
-            </label>
-
-            <button class="post-btn" (click)="createPost()">
-              Publicar
-            </button>
-          </div>
-        </div>
-      </section>
-
-
-
-
-      <section class="featured-section">
-        <h2 class="section-title">🔥 Perras en Celo</h2>
-        <div class="heat-dogs-grid">
-          <div *ngFor="let dog of dogsInHeat" class="heat-dog-card">
-            <div class="heat-badge">🔥 EN CELO</div>
-            <img [src]="dog.profilePhoto" [alt]="dog.name" class="heat-dog-photo">
-            <div class="heat-dog-info">
-              <h3>{{dog.name}}</h3>
-              <p>{{dog.breed}} - {{dog.age}} años</p>
-              <button class="heat-btn" (click)="showDogDetails(dog)">
-                💖 Ver Detalles
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Feed Principal -->
-      <section class="feed-section">
-        <h2 class="section-title">📱 Feed de la Comunidad</h2>
-        <div class="posts-grid">
-          <div *ngFor="let post of posts" class="post-card">
-            <div class="post-header">
-              <div class="post-dog-info">
-                <h4>{{post.dogName}}</h4>
-                <p>{{post.breed}}</p>
-              </div>
-              <span class="post-time">{{post.time}}</span>
-            </div>
-            
-            <p class="post-content">{{post.content}}</p>
-            
-            <img [src]="post.photo" [alt]="post.dogName" class="post-photo">
-            
-            <div class="post-actions">
-              <button class="action-btn" (click)="likePost(post)">
-                ❤️ {{post.likes}}
-              </button>
-              <button class="action-btn">
-                💬 {{post.comments}}
-              </button>
-              <button class="action-btn">
-                🔗 Compartir
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
+      <div class="card-actions">
+        <button class="action-btn primary" (click)="sendWalkRequest(dog)">
+          🐾 Solicitar Paseo
+        </button>
+        <button class="action-btn" (click)="showDogDetails(dog)">
+          👀 Ver Perfil
+        </button>
+      </div>
+    </div>
   </div>
 
-  <!-- Modal de Detalles de Perra en Celo -->
+  <!-- Modal de Detalles -->
   <div *ngIf="selectedDog" class="modal-overlay" (click)="closeDetails()">
     <div class="modal-content" (click)="$event.stopPropagation()">
       <button class="close-btn" (click)="closeDetails()">×</button>
       
       <div class="modal-header">
-        <div class="dog-heat-badge">🔥 EN CELO</div>
-        <h2>{{selectedDog.name}}</h2>
-        <p>{{selectedDog.breed}} - {{selectedDog.age}} años</p>
+        <img [src]="selectedDog.photos[0]" [alt]="selectedDog.name" class="modal-dog-photo">
+        <div class="modal-dog-info">
+          <h2>{{selectedDog.name}}</h2>
+          <p>{{selectedDog.breed}} • {{selectedDog.age}} años • {{selectedDog.gender}}</p>
+          <span class="modal-distance">📍 {{selectedDog.distance}} km de ti</span>
+        </div>
       </div>
 
       <div class="modal-body">
-        <div class="owner-info">
-          <img [src]="selectedDog.owner.photo" [alt]="selectedDog.owner.name" class="owner-photo">
-          <div class="owner-details">
-            <h4>Dueña/o: {{selectedDog.owner.name}}</h4>
-            <p>📞 {{selectedDog.owner.phone}}</p>
-          </div>
+        <div class="modal-section">
+          <h4>📋 Descripción</h4>
+          <p>{{selectedDog.description}}</p>
         </div>
 
-        <div class="breeding-info">
-          <h4>💕 Busca apareamiento con:</h4>
-          <p>{{selectedDog.requiredBreed}}</p>
-          <p class="description">{{selectedDog.description}}</p>
+        <div class="modal-section">
+          <h4>📍 Ubicación</h4>
+          <p>{{selectedDog.location}}</p>
+          <small>{{calculateWalkTime(selectedDog.distance)}}</small>
         </div>
 
-        <div class="dog-photos">
-          <h4>📸 Álbum</h4>
-          <div class="photos-grid">
-            <img *ngFor="let photo of selectedDog.photos" [src]="photo" [alt]="selectedDog.name">
-          </div>
-        </div>
-
-        <div class="social-stats">
-          <div class="stat">
-            <span>❤️</span>
-            <strong>{{selectedDog.likes}}</strong>
-          </div>
-          <div class="stat">
-            <span>💬</span>
-            <strong>{{selectedDog.comments}}</strong>
+        <div class="modal-section">
+          <h4>👤 Dueño</h4>
+          <div class="modal-owner">
+            <img [src]="selectedDog.owner.photo" [alt]="selectedDog.owner.name" class="modal-owner-photo">
+            <div>
+              <p class="owner-name">{{selectedDog.owner.name}}</p>
+              <p class="owner-rating">⭐ {{selectedDog.owner.rating}}/5.0</p>
+            </div>
           </div>
         </div>
 
         <div class="modal-actions">
-          <button class="modal-btn primary" (click)="contactOwner(selectedDog.owner.phone)">
+          <button class="modal-btn primary">
             📞 Contactar
           </button>
           <button class="modal-btn">
-            ❤️ Like
+            💬 Enviar mensaje
           </button>
           <button class="modal-btn">
-            💬 Comentar
+            📅 Programar encuentro
           </button>
         </div>
       </div>

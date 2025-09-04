@@ -7,173 +7,140 @@ import { Component } from '@angular/core';
   styleUrl: './home.scss'
 })
 export class Home {
-  // Perras en celo (featured)
-
-    isMenuOpen = false;
-  
-  // Nueva publicación
-  newPost = {
-    content: '',
-    photos: [] as string[]
+  // Filtros
+  filters = {
+    distance: 5, // km
+    breed: '',
+    size: '',
+    gender: '',
+    activity: ''
   };
 
-    // Menú items
-  menuItems = [
-    { icon: '🏠', label: 'Inicio', active: true },
-    { icon: '👤', label: 'Mi Perfil' },
-    { icon: '✏️', label: 'Editar Perfil' },
-    { icon: '➕', label: 'Crear Perro' },
-    { icon: '🔍', label: 'Buscar Perros' },
-    { icon: '📇', label: 'Buscar Dueños' },
-    { icon: '⭐', label: 'Favoritos' },
-    { icon: '🕓', label: 'Historial' },
-    { icon: '🚪', label: 'Cerrar Sesión' }
-  ];
+  // Opciones de filtros
+  breedOptions = ['Labrador', 'Poodle', 'Bulldog', 'Pastor Alemán', 'Chihuahua', 'Golden Retriever', 'Mixed'];
+  sizeOptions = ['Pequeño', 'Mediano', 'Grande'];
+  genderOptions = ['Macho', 'Hembra'];
+  activityOptions = ['Juguetón', 'Tranquilo', 'Activo', 'Senior'];
 
-  // ... (resto del código anterior de dogsInHeat, lostDogs, posts, etc.)
-
-
-    toggleMenu(): void {
-    this.isMenuOpen = !this.isMenuOpen;
-  }
-
-  onFileSelected(event: any): void {
-    const files = event.target.files;
-    if (files && files.length > 0) {
-      for (let i = 0; i < Math.min(files.length, 4); i++) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          this.newPost.photos.push(e.target?.result as string);
-        };
-        reader.readAsDataURL(files[i]);
-      }
-    }
-  }
-
-  removePhoto(index: number): void {
-    this.newPost.photos.splice(index, 1);
-  }
-
-  createPost(): void {
-    if (this.newPost.content.trim() || this.newPost.photos.length > 0) {
-      const newPost = {
-        dogName: 'Mi Perro', // Esto debería venir del usuario logueado
-        breed: 'Mixed Breed',
-        content: this.newPost.content,
-        //photos: [...this.newPost.photos],
-        likes: 0,
-        comments: 0,
-        time: 'Justo ahora'
-      };
-
-      //this.posts.unshift(newPost);
-      
-      // Reset form
-      this.newPost = {
-        content: '',
-        photos: []
-      };
-    }
-  }
-
-
-  dogsInHeat = [
+  // Perros cercanos (datos de ejemplo)
+  nearbyDogs = [
     {
       id: 1,
-      name: 'Bella',
-      breed: 'Labrador',
+      name: 'Max',
+      breed: 'Golden Retriever',
       age: 3,
-      profilePhoto: 'assets/dogs/bella.jpg',
+      gender: 'Macho',
+      size: 'Grande',
+      distance: 0.8, // km
+      location: 'Parque Mirador Sur',
       owner: {
-        name: 'María García',
-        phone: '+1 809-555-0123',
-        photo: 'assets/users/maria.jpg'
+        name: 'Carlos Rodríguez',
+        photo: 'assets/users/carlos.jpg',
+        rating: 4.8
       },
-      requiredBreed: 'Labrador o Golden Retriever',
-      description: 'Bella está buscando un compañero saludable y de buena genética',
-      photos: ['assets/dogs/bella1.jpg', 'assets/dogs/bella2.jpg'],
-      likes: 24,
-      comments: 8,
-      isInHeat: true
+      photos: ['assets/dogs/max1.jpg'],
+      description: 'Amigable y juguetón. Le encanta correr en el parque.',
+      lastActive: 'Hace 15 min',
+      isOnline: true
     },
     {
       id: 2,
       name: 'Luna',
       breed: 'Husky',
       age: 2,
-      profilePhoto: 'assets/dogs/luna.jpg',
+      gender: 'Hembra',
+      size: 'Mediano',
+      distance: 1.2,
+      location: 'Café Canino',
       owner: {
-        name: 'Carlos Rodríguez',
-        phone: '+1 809-555-0456',
-        photo: 'assets/users/carlos.jpg'
+        name: 'María García',
+        photo: 'assets/users/maria.jpg',
+        rating: 4.9
       },
-      requiredBreed: 'Husky o Malamute',
-      description: 'Luna busca un macho puro para camada de invierno',
-      photos: ['assets/dogs/luna1.jpg', 'assets/dogs/luna2.jpg'],
-      likes: 18,
-      comments: 5,
-      isInHeat: true
-    }
-  ];
-
-  // Perros perdidos
-  lostDogs = [
-    {
-      name: 'Max',
-      breed: 'Golden Retriever',
-      lastSeen: 'Santo Domingo Este',
-      date: 'Hace 2 días',
-      photo: 'assets/dogs/max-lost.jpg',
-      contact: '+1 809-555-0789'
+      photos: ['assets/dogs/luna1.jpg'],
+      description: 'Energética y curiosa. Busca amigos para paseos matutinos.',
+      lastActive: 'Hace 30 min',
+      isOnline: true
     },
     {
+      id: 3,
       name: 'Rocky',
       breed: 'Bulldog',
-      lastSeen: 'Zona Colonial',
-      date: 'Hace 1 día',
-      photo: 'assets/dogs/rocky-lost.jpg',
-      contact: '+1 809-555-0321'
-    }
-  ];
-
-  // Posts normales
-  posts = [
-    {
-      dogName: 'Thor',
-      breed: 'Pastor Alemán',
-      content: '¡Thor cumplió 2 años hoy! 🎉🐕',
-      photo: 'assets/dogs/thor.jpg',
-      likes: 45,
-      comments: 12,
-      time: 'Hace 3 horas'
+      age: 4,
+      gender: 'Macho',
+      size: 'Mediano',
+      distance: 2.5,
+      location: 'Zona Colonial',
+      owner: {
+        name: 'Juan Pérez',
+        photo: 'assets/users/juan.jpg',
+        rating: 4.7
+      },
+      photos: ['assets/dogs/rocky1.jpg'],
+      description: 'Tranquilo y amable. Perfecto para encuentros relajados.',
+      lastActive: 'Hace 1 hora',
+      isOnline: false
     },
     {
-      dogName: 'Coco',
-      breed: 'Poodle',
-      content: 'Paseo matutino en el parque Mirador Sur 🏞️',
-      photo: 'assets/dogs/coco.jpg',
-      likes: 32,
-      comments: 7,
-      time: 'Hace 5 horas'
+      id: 4,
+      name: 'Bella',
+      breed: 'Labrador',
+      age: 5,
+      gender: 'Hembra',
+      size: 'Grande',
+      distance: 0.5,
+      location: 'Playa Dog-Friendly',
+      owner: {
+        name: 'Ana Martínez',
+        photo: 'assets/users/ana.jpg',
+        rating: 4.9
+      },
+      photos: ['assets/dogs/bella1.jpg'],
+      description: 'Adora el agua y jugar con pelotas. ¡Siempre lista para divertirse!',
+      lastActive: 'Hace 5 min',
+      isOnline: true
     }
   ];
 
+  // Estado del mapa
+  showMapView = false;
   selectedDog: any = null;
 
-  showDogDetails(dog: any): void {
+  ngOnInit() {
+    // Aquí iría la lógica para obtener la ubicación real del usuario
+    this.getUserLocation();
+  }
+
+  getUserLocation() {
+    // Simulación - en una app real usarías Geolocation API
+    console.log('Obteniendo ubicación del usuario...');
+  }
+
+  toggleView() {
+    this.showMapView = !this.showMapView;
+  }
+
+  showDogDetails(dog: any) {
     this.selectedDog = dog;
   }
 
-  closeDetails(): void {
+  closeDetails() {
     this.selectedDog = null;
   }
 
-  likePost(post: any): void {
-    post.likes++;
+  calculateWalkTime(distance: number): string {
+    // 5 km/h velocidad promedio de paseo
+    const minutes = Math.round((distance / 5) * 60);
+    return `${minutes} min caminando`;
   }
 
-  contactOwner(phone: string): void {
-    console.log('Contactando al:', phone);
-    // Aquí iría la lógica para contactar
+  sendWalkRequest(dog: any) {
+    console.log('Solicitud de paseo enviada a:', dog.name);
+    // Lógica para enviar solicitud
+  }
+
+  filterDogs() {
+    // Lógica de filtrado (simplificada)
+    console.log('Aplicando filtros:', this.filters);
   }
 }
