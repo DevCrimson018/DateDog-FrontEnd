@@ -26,8 +26,9 @@ export class Getters{
         return countries;
     }
 
-    public async getBreeds(){
-        // const breeds = await this.breedService.filterBreeds()
+    public async getBreeds(filter: any){
+         const breeds = await this.breedService.filterBreeds(filter)
+         return breeds
     }
 
 }

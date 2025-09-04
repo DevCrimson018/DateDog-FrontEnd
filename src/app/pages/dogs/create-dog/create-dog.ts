@@ -6,6 +6,7 @@ import { CountriesService } from '../../../core/services/countries.service';
 import { ProvincesService } from '../../../core/services/provinces.service';
 import { DogsService } from '../../../core/services/dogs.service';
 import { Getters } from '../../../core/functions/getters';
+import { filterBreeds, filterCities, filterProvinces } from '../../../core/models/filters';
 
 @Component({
   selector: 'app-create-dog',
@@ -57,16 +58,10 @@ export class CreateDog {
   }
 
   async getBreeds(){
-    this.breeds = await this.breedService.filterBreeds(
-      {
-        filter: {
+    const filter = {
 
-        },
-        skip: 0,
-        limit: 10
-      }
-    )
-
+    }
+    this.breeds = await this.getter.getBreeds(filterBreeds(filter,0,10))
     console.log(this.breeds);
   }
 
@@ -152,12 +147,5 @@ export class CreateDog {
       // Aquí iría la lógica para guardar la información del perro
     }
   }
-}
-function filterCities(filter: { countryId: any; provinceId: any; }, arg1: number, arg2: number): any {
-  throw new Error('Function not implemented.');
-}
-
-function filterProvinces(filter: { countryId: any; }, arg1: number, arg2: number): any {
-  throw new Error('Function not implemented.');
 }
 

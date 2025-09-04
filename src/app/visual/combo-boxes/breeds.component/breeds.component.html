@@ -1,0 +1,13 @@
+<div class="form-group">
+  <label for="breed" class="dog-label">
+    <i class="icon dog-icon">🏷️</i> Raza
+  </label>
+  <select id="breed" formControlName="idBreed" class="dog-input">
+    <option value="" disabled>Seleccione</option>
+    @for (breed of breeds; track $index) {
+      <option [value]="breed._id" >
+          {{breed.name}}
+      </option>
+    }
+  </select>
+</div>

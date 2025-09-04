@@ -5,6 +5,8 @@ import { CitiesService } from '../../../core/services/cities.service';
 import { CountriesService } from '../../../core/services/countries.service';
 import { DogsService } from '../../../core/services/dogs.service';
 import { ProvincesService } from '../../../core/services/provinces.service';
+import { filterBreeds, filterCities, filterProvinces } from '../../../core/models/filters';
+import { Getters } from '../../../core/functions/getters';
 
 @Component({
   selector: 'app-edit-dog',
@@ -15,6 +17,8 @@ import { ProvincesService } from '../../../core/services/provinces.service';
 export class EditDog {
 
    _id = input.required<string>() 
+
+   getter = new Getters()
 
   editForm: FormGroup;
  
@@ -33,10 +37,6 @@ export class EditDog {
   constructor(
     private fb: FormBuilder,
     private dogService: DogsService,
-    private breedService: BreedsService,
-    private countryService: CountriesService,
-    private provinceService: ProvincesService,
-    private cityService: CitiesService
   ) {
     this.editForm = this.fb.group({
       profilePhoto: [null],
@@ -62,7 +62,10 @@ export class EditDog {
     this.editForm.patchValue({
       name: this.currentDog.name,
       sex: this.currentDog.sex,
-      idBreed: this.currentDog.idBreed._id 
+      idBreed: this.currentDog.idBreed._id,
+      address: {
+        countryId: this.currentDog.address.countryId._id
+      }
     });
   }
 
@@ -77,34 +80,20 @@ export class EditDog {
     }
   }
 
-  async getBreeds(){
-    this.breeds = await this.breedService.filterBreeds(
-      {
-        filter: {
-
-        },
-        skip: 0,
-        limit: 10
-      }
-    )
-
+async getBreeds(){
+    const filter = {}
+    this.breeds = await this.getter.getBreeds(filterBreeds(filter,0,10))
     console.log(this.breeds);
   }
 
 
-    async getCities(){
+  async getCities(){
     try {
-      this.cities = await this.cityService.filterCities({
-                                                      filter: {
-                                                        countryId: this.editForm.value.address.countryId,
-                                                        provinceId: this.editForm.value.address.provinceId
-                                                      },
-                                                      skip: 0,
-                                                      limit: 10
-                                                    });
-      console.log(this.cities);
-      console.log(this.editForm.value.address.countryId);
-      console.log(this.editForm.value.address.provinceId);
+      const filter = {
+        countryId: this.editForm.value.address.countryId,
+        provinceId: this.editForm.value.address.provinceId
+      }
+      this.cities = await this.getter.getCities(filterCities(filter, 0, 10))
     } catch (error) {
       console.log(error);
     }
@@ -112,16 +101,10 @@ export class EditDog {
 
   async getProvinces(){
     try {
-      this.provinces = await this.provinceService.filterProvinces({
-                                                                  filter: {
-                                                                    countryId: this.editForm.value.address.countryId
-                                                                  },
-                                                                  skip: 0,
-                                                                  limit: 10});
-      console.log(this.provinces);
-      console.log(this.editForm.value.address.countryId);
-      
-      
+      const filter = {
+        countryId: this.editForm.value.address.countryId
+      }
+      this.provinces = await this.getter.getProvinces(filterProvinces(filter, 0, 10))
     } catch (error) {
       console.log(error);
     }
@@ -129,9 +112,7 @@ export class EditDog {
 
   async getCountries(){
     try {
-      this.countries = await this.countryService.filterCountries();
-      console.log(this.countries);
-      
+      this.countries = await this.getter.getCountries();  
     } catch (error) {
       console.log(error);
     }
