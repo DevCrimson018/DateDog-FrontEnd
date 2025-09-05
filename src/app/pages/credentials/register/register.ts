@@ -34,7 +34,7 @@ export class Register {
       lastName: ['', [Validators.required, Validators.minLength(2)]],
       dateOfBirth: ['', [Validators.required, Validators.min(1), Validators.max(30)]],
 
-      // sexo: ['', Validators.required],
+      sex: ['', Validators.required],
       email: ['', Validators.required],
       username: ['', [Validators.required, Validators.minLength(4)]],
       password: ['', [Validators.required, Validators.minLength(6)]],

@@ -1,5 +1,6 @@
 import { Component, inject, input  } from '@angular/core';
 import { DogsService } from '../../../core/services/dogs.service';
+import { getAge } from '../../../core/functions/converters-formarters';
 
 @Component({
   selector: 'app-dog-details',
@@ -10,6 +11,8 @@ import { DogsService } from '../../../core/services/dogs.service';
 export class DogDetails {
   _id = input.required<string>();
   dogData:any;
+
+  getAge = getAge;
 
   private dogService = inject(DogsService);
 

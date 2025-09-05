@@ -9,6 +9,7 @@ import { DogDetails } from './dog-details/dog-details';
 import { EditDog } from './edit-dog/edit-dog';
 import { ReactiveFormsModule,  } from '@angular/forms';
 import { ComboBoxesModule } from "../../visual/combo-boxes/combo-boxes-module";
+import { CardsModule } from '../../visual/cards/cards-module';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { ComboBoxesModule } from "../../visual/combo-boxes/combo-boxes-module";
     CommonModule,
     DogsRoutingModule,
     ReactiveFormsModule,
-    ComboBoxesModule
+    ComboBoxesModule,
+    CardsModule
 ]
 })
 export class DogsModule { }

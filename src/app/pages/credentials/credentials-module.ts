@@ -7,6 +7,7 @@ import { Register } from './register/register';
 import { Login } from './login/login';
 import { ForgotPassword } from './forgot-password/forgot-password';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ComboBoxesModule } from "../../visual/combo-boxes/combo-boxes-module";
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    CredentialsRoutingModule
-  ]
+    CredentialsRoutingModule,
+    ComboBoxesModule
+]
 })
 export class CredentialsModule { }

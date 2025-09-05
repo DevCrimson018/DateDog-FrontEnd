@@ -50,15 +50,9 @@
               </select>
             </div>
 
-            <div class="form-group">
-              <label for="idBreed" class="dog-label">
-                <i class="icon dog-icon">🏷️</i> Raza
-              </label>
-              <select id="idBreed" formControlName="idBreed" class="dog-input">
-                <option value="" disabled selected>Seleccione</option>
-                <option *ngFor="let breed of breeds" [value]="breed._id">{{breed.name}}</option>
-              </select>
-            </div>
+            <!-- Combo-Box of Breeds -->
+          <app-breeds  [breeds]="breeds"></app-breeds>
+
             <div class="form-group">
               <label for="dateOfBirth" class="dog-label">
                 <i class="icon dog-icon">🎂</i> dateOfBirth
@@ -116,36 +110,14 @@
        <!-- Sección de ubicación -->
       <div class="form-section" formGroupName="address">
         <h2 class="section-title">📍 Ubicación</h2>
-        <div class="form-group">
-          <label for="countryId" class="dog-label">
-            <i class="icon dog-icon">🌎</i> País
-          </label>
-          <select id="countryId" formControlName="countryId" class="dog-input" (change)="getProvinces()">
-            <option value="" disabled selected>Selecciona tu país</option>
-            <option *ngFor="let country of countries" [value]="country._id">{{country.name}}</option>
-          </select>
-        </div>
+
+        <app-countries  [countries]="countries" (sending)="getProvinces()"></app-countries>
 
         <div class="form-row">
-          <div class="form-group">
-            <label for="provinceId" class="dog-label">
-              <i class="icon dog-icon">🏞️</i> Provincia/Estado
-            </label>
-            <select id="provinceId" formControlName="provinceId" class="dog-input" (change)="getCities()">
-              <option value="" disabled selected>Selecciona primero tu Provincia</option>
-              <option *ngFor="let province of provinces" [value]="province._id">{{province.name}}</option>
-            </select>
-          </div>
+          
+          <app-provinces (sending)="getCities()" [provinces]="provinces"></app-provinces>
 
-          <div class="form-group">
-            <label for="cityId" class="dog-label">
-              <i class="icon dog-icon">🏘️</i> Ciudad
-            </label>
-            <select id="cityId" formControlName="cityId" class="dog-input" >
-              <option value="" disabled selected>Selecciona primero tu Ciudad</option>
-              <option *ngFor="let city of cities" [value]="city._id">{{city.name}}</option>
-            </select>
-          </div>
+          <app-cities [cities]="cities"></app-cities>
         </div>
 
       </div>

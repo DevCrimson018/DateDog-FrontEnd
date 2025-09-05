@@ -1,4 +1,4 @@
-import { Component, Input, Optional, Output, SkipSelf } from '@angular/core';
+import { Component, Input, Optional, SkipSelf } from '@angular/core';
 import { ControlContainer, FormGroupDirective } from '@angular/forms';
 
 @Component({
@@ -17,7 +17,5 @@ export class CitiesComponent {
   ){
 
   }
-
-
 
 }
