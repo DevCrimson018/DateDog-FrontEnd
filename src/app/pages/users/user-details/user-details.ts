@@ -29,7 +29,7 @@ export class UserDetails {
 
   async ngOnInit() {
     this.userData = await this.userService.getUser(this._id())
-    this.dogs = await this.getter.getDogs(filterDogs({idOwner: this._id}, 0, 10))
+    this.dogs = await this.getter.getDogs(filterDogs({idOwner: this._id()}, 0, 10))
     console.log(this.userData);
     console.log(this.dogs);
     

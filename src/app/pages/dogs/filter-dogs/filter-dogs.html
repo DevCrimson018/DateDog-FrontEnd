@@ -47,18 +47,25 @@
     </form>
 
     <!-- Resultados de Búsqueda -->
-    <div *ngIf="showResults" class="results-section">
-      <h2 class="section-title">📋 Resultados de la Búsqueda</h2>
-      
-      <div *ngIf="searchResults.length === 0" class="no-results">
-        <p>🐾 ¡No se encontraron perros con los filtros seleccionados!</p>
-      </div>
-
-      <div *ngIf="searchResults.length > 0" class="results-grid">
-        @for (dog of searchResults; track $index) {
-          <app-dogs-filtered [dog]="dog"></app-dogs-filtered>
+     @if(showResults){
+      <div *ngIf="showResults" class="results-section">
+        <h2 class="section-title">📋 Resultados de la Búsqueda</h2>
+        
+        @if(searchResults.length === 0){
+          <div *ngIf="searchResults.length === 0" class="no-results">
+            <p>🐾 ¡No se encontraron perros con los filtros seleccionados!</p>
+          </div>
         }
+        @if(searchResults.length > 0){
+          <div class="results-grid">
+            @for (dog of searchResults; track $index) {
+              <app-dogs-filtered [dog]="dog"></app-dogs-filtered>
+            }
+          </div>
+        }
+
       </div>
-    </div>
+     }
+    
   </div>
 </div>

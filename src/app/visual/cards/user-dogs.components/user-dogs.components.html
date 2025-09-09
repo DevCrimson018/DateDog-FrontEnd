@@ -1,0 +1,23 @@
+<div class="dog-card">
+    <div class="dog-card-header">
+    <img [src]="dog.profilePhoto" [alt]="dog.name" class="dog-card-image">
+    <div class="dog-card-info">
+      <h3 class="dog-card-name">{{dog.name}}</h3>
+      <p class="dog-card-breed">
+        {{dog.breed}} 
+        <span class="sex-symbol">{{getSexSymbol(dog.sex)}}</span>
+        {{getSexLabel(dog.sex)}}
+      </p>
+      <p class="dog-card-age">🎂 {{getAge(dog.dateOfBirth)}}</p>
+    </div>
+  </div>
+  
+  <div class="dog-card-actions">
+    <button class="dog-button small">
+      <i class="icon">👀</i> Ver Detalles
+    </button>
+    <button class="dog-button small secondary">
+      <i class="icon">✏️</i> Editar
+    </button>
+  </div>
+</div>

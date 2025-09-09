@@ -1,0 +1,116 @@
+
+.dog-card {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  border: 2px solid #d9e6f6;
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.dog-card-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+  
+  .dog-card-image {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #7ebef3;
+  }
+}
+
+.dog-card-info {
+  flex: 1;
+  
+  .dog-card-name {
+    color: #2c3e50;
+    margin: 0 0 5px 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .dog-card-breed {
+    color: #2c3e50;
+    margin: 0 0 5px 0;
+    font-size: 0.9rem;
+    
+    .sex-symbol {
+      font-weight: bold;
+      color: #2c3e50;
+    }
+  }
+  
+  .dog-card-age {
+    color: #29a9ad;
+    margin: 0;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+}
+
+
+.dog-card-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
+}
+
+/* Botones */
+.user-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.dog-button {
+  background: #7ebef3;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  
+  &:hover {
+    background: #7ebef3;
+    transform: translateY(-2px);
+  }
+  
+  &.secondary {
+    background: #2c3e50;
+    
+    &:hover {
+      background: #29a9ad;
+    }
+  }
+  
+  &.small {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+}

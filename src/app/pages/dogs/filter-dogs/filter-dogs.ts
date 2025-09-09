@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { BreedsService } from '../../../core/services/breeds.service';
-import { DogsService } from '../../../core/services/dogs.service';
 import { Getters } from '../../../core/functions/getters';
 import { filterBreeds, filterCities, filterDogs, filterProvinces } from '../../../core/models/filters';
 
@@ -108,6 +106,7 @@ searchForm: FormGroup;
 
   clearFilters(): void {
     this.searchForm.reset();
+    this.searchResults = []
     this.showResults = false;
   }
 }

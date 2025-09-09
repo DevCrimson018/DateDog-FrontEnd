@@ -6,6 +6,7 @@ import { Users } from './users';
 import { FilterUsers } from './filter-users/filter-users';
 import { UserDetails } from './user-details/user-details';
 import { EditUser } from './edit-user/edit-user';
+import { CardsModule } from "../../visual/cards/cards-module";
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { EditUser } from './edit-user/edit-user';
   ],
   imports: [
     CommonModule,
-    UsersRoutingModule
-  ]
+    UsersRoutingModule,
+    CardsModule
+]
 })
 export class UsersModule { }
