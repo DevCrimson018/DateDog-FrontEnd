@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CredentialsService } from '../../../core/services/credentials.service';
 import { filterCities, filterProvinces } from '../../../core/models/filters';
 import { Getters } from '../../../core/functions/getters';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -24,6 +25,7 @@ export class Register {
   constructor(
     private fb: FormBuilder,
     private credentialService: CredentialsService,
+    private router: Router
 
   ) {
 
@@ -55,7 +57,13 @@ export class Register {
 
   async onSubmit(){
     try {
-      const message = await this.credentialService.register(this.registerForm.value)
+      const message:any = await this.credentialService.register(this.registerForm.value);
+      if(message.errorCode){
+        alert(message.errorCode)
+      }else{
+        this.router.navigate(['../'])
+      }
+      
       console.log(message);
       
     } catch (error) {

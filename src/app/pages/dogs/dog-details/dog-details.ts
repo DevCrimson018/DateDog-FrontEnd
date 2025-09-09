@@ -1,6 +1,6 @@
 import { Component, inject, input  } from '@angular/core';
 import { DogsService } from '../../../core/services/dogs.service';
-import { getAge } from '../../../core/functions/converters-formarters';
+import { getAge, getSexLabel } from '../../../core/functions/converters-formarters';
 
 @Component({
   selector: 'app-dog-details',
@@ -13,7 +13,8 @@ export class DogDetails {
   dogData:any;
 
   getAge = getAge;
-
+  getSexLabel = getSexLabel;
+  
   private dogService = inject(DogsService);
 
   async ngOnInit() {

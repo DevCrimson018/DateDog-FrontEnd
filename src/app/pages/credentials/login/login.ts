@@ -34,7 +34,7 @@ export class Login {
       this.errorMessage = '';
       
       this.CredentialService.logIn(this.loginForm.value).then((res: any) => {
-        if(res.erroCode){
+        if(res.errorCode){
           this.errorMessage = res.errorDescription;
           this.isLoading = false;
           

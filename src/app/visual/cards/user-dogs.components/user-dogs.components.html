@@ -13,10 +13,10 @@
   </div>
   
   <div class="dog-card-actions">
-    <button class="dog-button small">
+    <button class="dog-button small" [routerLink]="'/dogs/dog-details/' + dog._id">
       <i class="icon">👀</i> Ver Detalles
     </button>
-    <button class="dog-button small secondary">
+    <button class="dog-button small secondary" [routerLink]="'/dogs/edit-dog/' + dog._id">
       <i class="icon">✏️</i> Editar
     </button>
   </div>

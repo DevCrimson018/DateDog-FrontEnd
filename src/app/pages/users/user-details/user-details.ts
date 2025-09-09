@@ -33,7 +33,6 @@ export class UserDetails {
     console.log(this.userData);
     console.log(this.dogs);
     
-    
   }
 
 

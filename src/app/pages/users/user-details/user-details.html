@@ -51,24 +51,28 @@
     <div class="dogs-section">
       <h2 class="dogs-title">🐕 Mis Perros</h2>
       
-      <div *ngIf="userData.dogsQuantity === 0" class="no-dogs">
-        <p>📝 No hay perros registrados</p>
-      </div>
-
-      <div *ngIf="userData.dogsQuantity > 0" class="dogs-grid">
-
-        @for (dog of dogs; track $index) {
-          <app-user-dogs [dog]="dog"></app-user-dogs>
-        }
-      </div>
+      @if(userData.dogsQuantity === 0){
+        <div lass="no-dogs">
+          <p>📝 No hay perros registrados</p>
+        </div>
+      }
+      
+      @if(userData.dogsQuantity > 0){
+        <div class="dogs-grid">
+          @for (dog of dogs; track $index) {
+            <app-user-dogs [dog]="dog"></app-user-dogs>
+          }
+        </div>
+      }
+      
     </div>
 
     <!-- Acciones -->
     <div class="user-actions">
-      <button class="dog-button">
+      <button class="dog-button" [routerLink]="'/users/edit-user/' + userData._id">
         <i class="icon">✏️</i> Editar Perfil
       </button>
-      <button class="dog-button secondary">
+      <button class="dog-button secondary" routerLink="/dogs/create-dog">
         <i class="icon">🐕</i> Agregar Perro
       </button>
     </div>

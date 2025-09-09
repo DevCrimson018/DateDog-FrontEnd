@@ -48,11 +48,11 @@
 
     <!-- Resultados de Búsqueda -->
      @if(showResults){
-      <div *ngIf="showResults" class="results-section">
+      <div class="results-section">
         <h2 class="section-title">📋 Resultados de la Búsqueda</h2>
         
         @if(searchResults.length === 0){
-          <div *ngIf="searchResults.length === 0" class="no-results">
+          <div  class="no-results">
             <p>🐾 ¡No se encontraron perros con los filtros seleccionados!</p>
           </div>
         }
