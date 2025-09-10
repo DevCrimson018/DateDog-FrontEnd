@@ -1,0 +1,11 @@
+<div class="form-group" formGroupName="address">
+  <label for="countryId" class="dog-label">
+    <i class="icon dog-icon">🌎</i> País
+  </label>
+  <select id="countryId" formControlName="countryId" class="dog-input" (change)="getProvinces()">
+    <option value="" disabled selected>Selecciona tu país</option>
+    @for (country of countries; track $index) {
+        <option [value]="country._id">{{country.name}}</option>
+    }
+  </select>
+</div>

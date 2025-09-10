@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BreedsService } from '../../../core/services/breeds.service';
-import { CitiesService } from '../../../core/services/cities.service';
-import { CountriesService } from '../../../core/services/countries.service';
-import { ProvincesService } from '../../../core/services/provinces.service';
+
 import { DogsService } from '../../../core/services/dogs.service';
 import { Getters } from '../../../core/functions/getters';
+import { filterBreeds, filterCities, filterProvinces } from '../../../core/models/filters';
 
 @Component({
   selector: 'app-create-dog',
@@ -30,10 +28,6 @@ export class CreateDog {
   constructor(
     private fb: FormBuilder,
     private dogService: DogsService,
-    private breedService: BreedsService,
-    private countryService: CountriesService,
-    private provinceService: ProvincesService,
-    private cityService: CitiesService
   ) {
     this.dogForm = this.fb.group({
       profilePhoto: [null],
@@ -57,16 +51,7 @@ export class CreateDog {
   }
 
   async getBreeds(){
-    this.breeds = await this.breedService.filterBreeds(
-      {
-        filter: {
-
-        },
-        skip: 0,
-        limit: 10
-      }
-    )
-
+    this.breeds = await this.getter.getBreeds(filterBreeds({},0,10))
     console.log(this.breeds);
   }
 
@@ -148,16 +133,7 @@ export class CreateDog {
     if (this.dogForm.valid) {
       let message = await this.dogService.addDog(this.dogForm.value)
       console.log('Formulario enviado', message);
-
-      // Aquí iría la lógica para guardar la información del perro
     }
   }
-}
-function filterCities(filter: { countryId: any; provinceId: any; }, arg1: number, arg2: number): any {
-  throw new Error('Function not implemented.');
-}
-
-function filterProvinces(filter: { countryId: any; }, arg1: number, arg2: number): any {
-  throw new Error('Function not implemented.');
 }
 

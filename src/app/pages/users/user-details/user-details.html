@@ -51,46 +51,28 @@
     <div class="dogs-section">
       <h2 class="dogs-title">🐕 Mis Perros</h2>
       
-      <div *ngIf="userData.dogsQuantity === 0" class="no-dogs">
-        <p>📝 No hay perros registrados</p>
-      </div>
-
-      <div *ngIf="userData.dogsQuantity > 0" class="dogs-grid">
-
-        @for (dog of dogs; track $index) {
-          <div class="dog-card">
-            <div class="dog-card-header">
-            <img [src]="dog.profilePhoto" [alt]="dog.name" class="dog-card-image">
-            <div class="dog-card-info">
-              <h3 class="dog-card-name">{{dog.name}}</h3>
-              <p class="dog-card-breed">
-                {{dog.breed}} 
-                <span class="sex-symbol">{{getSexSymbol(dog.sex)}}</span>
-                {{getSexLabel(dog.sex)}}
-              </p>
-              <p class="dog-card-age">🎂 {{getAge(dog.dateOfBirth)}}</p>
-            </div>
-          </div>
-          
-          <div class="dog-card-actions">
-            <button class="dog-button small">
-              <i class="icon">👀</i> Ver Detalles
-            </button>
-            <button class="dog-button small secondary">
-              <i class="icon">✏️</i> Editar
-            </button>
-          </div>
-          </div>
-        }
-      </div>
+      @if(userData.dogsQuantity === 0){
+        <div lass="no-dogs">
+          <p>📝 No hay perros registrados</p>
+        </div>
+      }
+      
+      @if(userData.dogsQuantity > 0){
+        <div class="dogs-grid">
+          @for (dog of dogs; track $index) {
+            <app-user-dogs [dog]="dog"></app-user-dogs>
+          }
+        </div>
+      }
+      
     </div>
 
     <!-- Acciones -->
     <div class="user-actions">
-      <button class="dog-button">
+      <button class="dog-button" [routerLink]="'/users/edit-user/' + userData._id">
         <i class="icon">✏️</i> Editar Perfil
       </button>
-      <button class="dog-button secondary">
+      <button class="dog-button secondary" routerLink="/dogs/create-dog">
         <i class="icon">🐕</i> Agregar Perro
       </button>
     </div>

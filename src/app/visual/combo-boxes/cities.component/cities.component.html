@@ -1,0 +1,11 @@
+<div class="form-group" formGroupName="address">
+  <label for="cityId" class="dog-label">
+    <i class="icon dog-icon">🏘️</i> Ciudad
+  </label>
+  <select id="cityId" formControlName="cityId" class="dog-input" >
+    <option value="" disabled selected>Selecciona primero tu Ciudad</option>
+     @for (city of cities; track $index) {
+        <option [value]="city._id">{{city.name}}</option>
+     }
+  </select>
+</div>

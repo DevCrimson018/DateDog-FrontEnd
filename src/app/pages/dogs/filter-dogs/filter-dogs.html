@@ -11,19 +11,9 @@
         <h2 class="section-title">🎯 Filtros de Búsqueda</h2>
         
         <div class="form-row">
-          <div class="form-group">
-            <label for="idBreed" class="dog-label">
-              <i class="icon dog-icon">🏷️</i> Raza
-            </label>
-            <select id="idBreed" formControlName="idBreed" class="dog-input">
-              <option value="" selected>Todas las razas</option>
-              @for (breed of breeds; track $index) {
-                <option [value]="breed._id" >
-                    {{breed.name}}
-                </option>
-              }
-            </select>
-          </div>
+          
+          <!-- Combo-Box of Breeds -->
+          <app-breeds  [breeds]="breeds"></app-breeds>
 
           <div class="form-group">
             <label for="sex" class="dog-label">
@@ -38,48 +28,11 @@
         </div>
 
         <div class="form-row" formGroupName="address">
-          <div class="form-group">
-            <label for="countryId" class="dog-label">
-              <i class="icon dog-icon">🌎</i> País
-            </label>
-            <select id="countryId" formControlName="countryId" class="dog-input" (change)="getProvinces()">
-              <option value="" selected>Todos los países</option>
-              @for (country of countries; track $index) {
-                <option [value]="country._id">
-                  {{country.name}}
-                </option>
-              }
-              <!-- <option *ngFor="let country of countries" [value]="country">{{country}}</option> -->
-            </select>
-          </div>
+          <app-countries  [countries]="countries" (sending)="getProvinces()"></app-countries>
 
-          <div class="form-group">
-            <label for="provinceId" class="dog-label">
-              <i class="icon dog-icon">🏞️</i> Provincia
-            </label>
-            <select id="provinceId" formControlName="provinceId" class="dog-input" (change)="getCities()">
-              <option value="" selected>Todas las provincias</option>
-              @for (province of provinces; track $index) {
-                <option [value]="province._id">
-                  {{province.name}}
-                </option>
-              }
-            </select>
-          </div>
+          <app-provinces (sending)="getCities()" [provinces]="provinces"></app-provinces>
 
-          <div class="form-group">
-            <label for="cityId" class="dog-label">
-              <i class="icon dog-icon">🏙️</i> Ciudad
-            </label>
-            <select id="cityId" formControlName="cityId" class="dog-input">
-              <option value="" selected>Todas las ciudades</option>
-              @for (city of cities; track $index) {
-                <option [value]="city._id">
-                  {{city.name}}
-                </option>
-              }
-            </select>
-          </div>
+          <app-cities [cities]="cities"></app-cities>
         </div>
 
         <div class="form-actions">
@@ -94,39 +47,25 @@
     </form>
 
     <!-- Resultados de Búsqueda -->
-    <div *ngIf="showResults" class="results-section">
-      <h2 class="section-title">📋 Resultados de la Búsqueda</h2>
-      
-      <div *ngIf="searchResults.length === 0" class="no-results">
-        <p>🐾 ¡No se encontraron perros con los filtros seleccionados!</p>
-      </div>
+     @if(showResults){
+      <div class="results-section">
+        <h2 class="section-title">📋 Resultados de la Búsqueda</h2>
+        
+        @if(searchResults.length === 0){
+          <div  class="no-results">
+            <p>🐾 ¡No se encontraron perros con los filtros seleccionados!</p>
+          </div>
+        }
+        @if(searchResults.length > 0){
+          <div class="results-grid">
+            @for (dog of searchResults; track $index) {
+              <app-dogs-filtered [dog]="dog"></app-dogs-filtered>
+            }
+          </div>
+        }
 
-      <div *ngIf="searchResults.length > 0" class="results-grid">
-        <div *ngFor="let dog of searchResults" class="dog-card">
-          <div class="dog-card-header">
-            <img [src]="dog.profilePhoto" [alt]="dog.name" class="dog-card-image">
-            <div class="dog-card-info">
-              <h3 class="dog-card-name">{{dog.name}}</h3>
-              <p class="dog-card-breed">{{dog.idBreed.name}}, {{dog.sex === 'M' ? 'Masculino' : 'Femenino' }}</p>
-              <p class="dog-card-location">📍 {{dog.address.cityId.name}} {{dog.address.provinceId.name}} {{dog.address.countryId.name}}</p>
-            </div>
-          </div>
-          
-          <div class="dog-card-details">
-            <p class="dog-card-birthday">
-              <i class="icon">🎂</i> 
-              {{dog.sex === 'Hembra' ? 'Nacida' : 'Nacido'}}: {{formatBirthDate(dog.dateOfBirth)}}
-            </p>
-            <p class="dog-card-age">Edad: {{getAge(dog.dateOfBirth)}}</p>
-          </div>
-
-          <div class="dog-card-actions">
-            <button class="dog-button small">
-              <i class="icon">👀</i> Ver Detalles
-            </button>
-          </div>
-        </div>
       </div>
-    </div>
+     }
+    
   </div>
 </div>

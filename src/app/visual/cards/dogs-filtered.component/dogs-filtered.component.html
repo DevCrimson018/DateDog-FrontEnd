@@ -1,0 +1,24 @@
+        <div  class="dog-card">
+          <div class="dog-card-header">
+            <img [src]="dog.profilePhoto" [alt]="dog.name" class="dog-card-image">
+            <div class="dog-card-info">
+              <h3 class="dog-card-name">{{dog.name}}</h3>
+              <p class="dog-card-breed">{{dog.idBreed.name}}, {{dog.sex === 'M' ? 'Masculino' : 'Femenino' }}</p>
+              <p class="dog-card-location">📍 {{dog.address.cityId.name}} {{dog.address.provinceId.name}} {{dog.address.countryId.name}}</p>
+            </div>
+          </div>
+          
+          <div class="dog-card-details">
+            <p class="dog-card-birthday">
+              <i class="icon">🎂</i> 
+              {{dog.sex === 'F' ? 'Nacida' : 'Nacido'}}: {{formatBirthDate(dog.dateOfBirth)}}
+            </p>
+            <p class="dog-card-age">Edad: {{getAge(dog.dateOfBirth)}}</p>
+          </div>
+
+          <div class="dog-card-actions">
+            <button class="dog-button small" [routerLink]="'/dogs/dog-details/' + dog._id">
+              <i class="icon">👀</i> Ver Detalles
+            </button>
+          </div>
+        </div>

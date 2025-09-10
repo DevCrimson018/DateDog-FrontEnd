@@ -8,6 +8,8 @@ import { CreateDog } from './create-dog/create-dog';
 import { DogDetails } from './dog-details/dog-details';
 import { EditDog } from './edit-dog/edit-dog';
 import { ReactiveFormsModule,  } from '@angular/forms';
+import { ComboBoxesModule } from "../../visual/combo-boxes/combo-boxes-module";
+import { CardsModule } from '../../visual/cards/cards-module';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { ReactiveFormsModule,  } from '@angular/forms';
   imports: [
     CommonModule,
     DogsRoutingModule,
-    ReactiveFormsModule   
-  ]
+    ReactiveFormsModule,
+    ComboBoxesModule,
+    CardsModule
+]
 })
 export class DogsModule { }

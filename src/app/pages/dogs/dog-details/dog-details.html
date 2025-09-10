@@ -16,7 +16,12 @@
           
           <div class="info-item">
             <span class="info-label">Sexo:</span>
-            <span class="info-value">{{dogData.sex}}</span>
+            <span class="info-value">{{getSexLabel(dogData.sex)}}</span>
+          </div>
+
+          <div class="info-item">
+            <span class="info-label">Edad:</span>
+            <span class="info-value">{{getAge(dogData.dateOfBirth)}}</span>
           </div>
           
           <div class="info-item">
@@ -24,7 +29,7 @@
             <span class="info-value">{{dogData.idBreed.name}}</span>
           </div>
           
-          <div class="info-item">
+          <div class="info-item" [routerLink]="'/users/user-details/' + dogData.idOwner._id">
             <span class="info-label">Dueño:</span>
             <span class="info-value">{{dogData.idOwner.firstName}}</span>
           </div>
