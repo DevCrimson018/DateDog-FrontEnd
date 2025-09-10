@@ -24,35 +24,6 @@
   </div>
 
   <!-- Filtros -->
-  <div class="filters-section">
-    <div class="filter-group">
-      <label>Distancia: {{filters.distance}} km</label>
-      <input 
-        type="range" 
-        [(ngModel)]="filters.distance" 
-        min="1" 
-        max="20" 
-        (change)="filterDogs()"
-      >
-    </div>
-
-    <div class="filter-row">
-      <select [(ngModel)]="filters.breed" (change)="filterDogs()">
-        <option value="">Todas las razas</option>
-        <option *ngFor="let breed of breedOptions" [value]="breed">{{breed}}</option>
-      </select>
-
-      <select [(ngModel)]="filters.size" (change)="filterDogs()">
-        <option value="">Todos los tamaños</option>
-        <option *ngFor="let size of sizeOptions" [value]="size">{{size}}</option>
-      </select>
-
-      <select [(ngModel)]="filters.gender" (change)="filterDogs()">
-        <option value="">Ambos sexos</option>
-        <option *ngFor="let gender of genderOptions" [value]="gender">{{gender}}</option>
-      </select>
-    </div>
-  </div>
 
   <!-- Vista de Mapa (Placeholder) -->
   <div *ngIf="showMapView" class="map-view">
@@ -84,23 +55,18 @@
       <div class="card-body">
         <p class="description">{{dog.description}}</p>
         
-        <div class="location-info">
-          <span class="location">🏠 {{dog.location}}</span>
-          <span class="walk-time">🚶‍♂️ {{calculateWalkTime(dog.distance)}}</span>
-        </div>
 
         <div class="owner-info">
           <img [src]="dog.owner.photo" [alt]="dog.owner.name" class="owner-photo">
           <div class="owner-details">
             <span class="owner-name">{{dog.owner.name}}</span>
-            <span class="owner-rating">⭐ {{dog.owner.rating}}</span>
           </div>
         </div>
       </div>
 
       <div class="card-actions">
-        <button class="action-btn primary" (click)="sendWalkRequest(dog)">
-          🐾 Solicitar Paseo
+          <button class="action-btn">
+          👀 Ver Perfil del Perro
         </button>
         <button class="action-btn" (click)="showDogDetails(dog)">
           👀 Ver Perfil
@@ -109,55 +75,4 @@
     </div>
   </div>
 
-  <!-- Modal de Detalles -->
-  <div *ngIf="selectedDog" class="modal-overlay" (click)="closeDetails()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-      <button class="close-btn" (click)="closeDetails()">×</button>
-      
-      <div class="modal-header">
-        <img [src]="selectedDog.photos[0]" [alt]="selectedDog.name" class="modal-dog-photo">
-        <div class="modal-dog-info">
-          <h2>{{selectedDog.name}}</h2>
-          <p>{{selectedDog.breed}} • {{selectedDog.age}} años • {{selectedDog.gender}}</p>
-          <span class="modal-distance">📍 {{selectedDog.distance}} km de ti</span>
-        </div>
-      </div>
-
-      <div class="modal-body">
-        <div class="modal-section">
-          <h4>📋 Descripción</h4>
-          <p>{{selectedDog.description}}</p>
-        </div>
-
-        <div class="modal-section">
-          <h4>📍 Ubicación</h4>
-          <p>{{selectedDog.location}}</p>
-          <small>{{calculateWalkTime(selectedDog.distance)}}</small>
-        </div>
-
-        <div class="modal-section">
-          <h4>👤 Dueño</h4>
-          <div class="modal-owner">
-            <img [src]="selectedDog.owner.photo" [alt]="selectedDog.owner.name" class="modal-owner-photo">
-            <div>
-              <p class="owner-name">{{selectedDog.owner.name}}</p>
-              <p class="owner-rating">⭐ {{selectedDog.owner.rating}}/5.0</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="modal-actions">
-          <button class="modal-btn primary">
-            📞 Contactar
-          </button>
-          <button class="modal-btn">
-            💬 Enviar mensaje
-          </button>
-          <button class="modal-btn">
-            📅 Programar encuentro
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>

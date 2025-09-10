@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FilterUsers } from './filter-users/filter-users';
 import { UserDetails } from './user-details/user-details';
+import { EditUser } from './edit-user/edit-user';
 
 const routes: Routes = [
   {
@@ -15,7 +16,7 @@ const routes: Routes = [
   },
   {
     path: 'edit-user/:_id',
-    component: UserDetails
+    component: EditUser
   },
   {
     path: 'user-details/:_id',

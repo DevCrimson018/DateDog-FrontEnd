@@ -1,1 +1,250 @@
-<p>edit-user works!</p>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Información de Usuario</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+<body>
+    <div class="user-edit-container">
+        <div class="user-edit-card">
+            <div class="user-header">
+                <h1 class="user-title">
+                    <i class="fas fa-user-edit"></i>
+                    Editar Información de Usuario
+                </h1>
+            </div>
+
+            <form class="user-form">
+                <!-- Información Básica -->
+                <div class="form-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-user"></i>
+                        Información Básica
+                    </h2>
+                    
+                    <div class="form-group">
+                        <label for="name" class="user-label">
+                            <i class="fas fa-signature"></i>
+                            Nombre completo
+                        </label>
+                        <input 
+                            type="text" 
+                            id="name" 
+                            class="user-input"
+                            value="María Rodríguez"
+                        >
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email" class="user-label">
+                                <i class="fas fa-envelope"></i>
+                                Correo electrónico
+                            </label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                class="user-input"
+                                value="maria.rodriguez@example.com"
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone" class="user-label">
+                                <i class="fas fa-phone"></i>
+                                Teléfono
+                            </label>
+                            <input 
+                                type="tel" 
+                                id="phone" 
+                                class="user-input"
+                                value="+1 809-555-0123"
+                            >
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="username" class="user-label">
+                                <i class="fas fa-at"></i>
+                                Nombre de usuario
+                            </label>
+                            <input 
+                                type="text" 
+                                id="username" 
+                                class="user-input"
+                                value="maria_rdz"
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="birthdate" class="user-label">
+                                <i class="fas fa-birthday-cake"></i>
+                                Fecha de nacimiento
+                            </label>
+                            <input 
+                                type="date" 
+                                id="birthdate" 
+                                class="user-input"
+                                value="1990-05-15"
+                            >
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Foto de Perfil -->
+                <div class="form-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-camera"></i>
+                        Foto de perfil
+                    </h2>
+                    
+                    <div class="photo-upload-container">
+                        <div class="current-photo">
+                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Foto actual" class="profile-image-preview">
+                            <div class="photo-actions">
+                                <label class="file-upload-label">
+                                    <input 
+                                        type="file" 
+                                        accept="image/*" 
+                                        style="display: none;"
+                                    >
+                                    <span class="user-button small secondary">
+                                        <i class="fas fa-camera"></i> Cambiar foto
+                                    </span>
+                                </label>
+                                <button 
+                                    type="button" 
+                                    class="user-button small danger"
+                                >
+                                    <i class="fas fa-trash"></i> Eliminar
+                                </button>
+                            </div>
+                        </div>
+                        <small class="file-info">
+                            Formatos permitidos: JPG, PNG (Máx. 2MB)
+                        </small>
+                    </div>
+                </div>
+
+                <!-- Sección de ubicación -->
+                <div class="form-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Ubicación
+                    </h2>
+                    
+                    <div class="form-group">
+                        <label for="country" class="user-label">
+                            <i class="fas fa-globe-americas"></i>
+                            País
+                        </label>
+                        <select id="country" class="user-select">
+                            <option value="">Selecciona tu país</option>
+                            <option value="do" selected>República Dominicana</option>
+                            <option value="us">Estados Unidos</option>
+                            <option value="es">España</option>
+                            <option value="mx">México</option>
+                            <option value="co">Colombia</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="province" class="user-label">
+                                <i class="fas fa-map"></i>
+                                Provincia/Estado
+                            </label>
+                            <select id="province" class="user-select">
+                                <option value="">Selecciona tu provincia</option>
+                                <option value="santiago" selected>Santiago</option>
+                                <option value="santo-domingo">Santo Domingo</option>
+                                <option value="la-vega">La Vega</option>
+                                <option value="san-cristobal">San Cristóbal</option>
+                                <option value="puerto-plata">Puerto Plata</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="city" class="user-label">
+                                <i class="fas fa-city"></i>
+                                Ciudad
+                            </label>
+                            <select id="city" class="user-select">
+                                <option value="">Selecciona tu ciudad</option>
+                                <option value="santiago" selected>Santiago de los Caballeros</option>
+                                <option value="navarrete">Navarrete</option>
+                                <option value="tamboril">Tamboril</option>
+                                <option value="puerto-plata">Puerto Plata</option>
+                                <option value="villa-gonzalez">Villa González</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botón de Actualizar -->
+                <div class="form-actions">
+                    <button type="submit" class="save-button">
+                        <i class="fas fa-save"></i> Guardar Cambios
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Funcionalidad para cambiar la foto de perfil
+            const fileInput = document.querySelector('input[type="file"]');
+            const profilePreview = document.querySelector('.profile-image-preview');
+            const deleteButton = document.querySelector('.user-button.danger');
+            
+            fileInput.addEventListener('change', function(e) {
+                if (e.target.files && e.target.files[0]) {
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        profilePreview.src = e.target.result;
+                    }
+                    
+                    reader.readAsDataURL(e.target.files[0]);
+                }
+            });
+            
+            deleteButton.addEventListener('click', function() {
+                profilePreview.src = 'https://randomuser.me/api/portraits/women/65.jpg';
+                fileInput.value = '';
+            });
+            
+            // Validación básica del formulario
+            const form = document.querySelector('.user-form');
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validación básica
+                const nameInput = document.getElementById('name');
+                const emailInput = document.getElementById('email');
+                
+                if (!nameInput.value.trim()) {
+                    alert('Por favor, ingresa tu nombre');
+                    nameInput.focus();
+                    return;
+                }
+                
+                if (!emailInput.value.trim()) {
+                    alert('Por favor, ingresa tu correo electrónico');
+                    emailInput.focus();
+                    return;
+                }
+                
+                // Simulación de guardado exitoso
+                alert('¡Información actualizada correctamente!');
+            });
+        });
+    </script>
+</body>
+</html>
