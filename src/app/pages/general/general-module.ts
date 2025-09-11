@@ -4,7 +4,8 @@ import { CommonModule } from '@angular/common';
 import { GeneralRoutingModule } from './general-routing-module';
 import { General } from './general';
 import { Home } from './home/home';
-import { FormsModule } from '@angular/forms'; // ← Añade esta importación
+import { FormsModule } from '@angular/forms';
+import { CardsModule } from "../../visual/cards/cards-module"; // ← Añade esta importación
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { FormsModule } from '@angular/forms'; // ← Añade esta importación
   imports: [
     CommonModule,
     GeneralRoutingModule,
-    FormsModule
-  ]
+    FormsModule,
+    CardsModule
+]
 })
 export class GeneralModule { }

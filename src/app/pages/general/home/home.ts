@@ -1,4 +1,6 @@
 import { Component, inject } from '@angular/core';
+import { DogsService } from '../../../core/services/dogs.service';
+import { filterDogs } from '../../../core/models/filters';
 
 @Component({
   selector: 'app-home',
@@ -8,23 +10,28 @@ import { Component, inject } from '@angular/core';
 })
 export class Home {
 
-  token: any 
+  
   nearbyDogs:any[] = [];
 
   // Estado del mapa
   showMapView = false;
   selectedDog: any = null;
-
   
+  private dogService = inject(DogsService);
 
-  ngOnInit() {
+  async ngOnInit() {
     // Aquí iría la lógica para obtener la ubicación real del usuario
-    console.log(this.token);
-    
+    await this.getNearByDogs()
   }
 
-  filterDogs() {
+  async getNearByDogs() {
     // Lógica de filtrado (simplificada)
-    
+    try {
+      this.nearbyDogs = await this.dogService.nearByDogs(filterDogs({}, 0, 10));
+      console.log(this.nearbyDogs);
+      
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

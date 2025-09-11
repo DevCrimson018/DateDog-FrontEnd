@@ -1,0 +1,152 @@
+.dog-card {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  border-left: 4px solid #52D1D4;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+  
+  .dog-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #52D1D4;
+  }
+  
+  .dog-basic-info {
+    flex: 1;
+    
+    h3 {
+      color: #2C3E50;
+      margin: 0 0 5px 0;
+    }
+    
+    p {
+      color: #2C3E50;
+      margin: 0 0 5px 0;
+      font-size: 0.9rem;
+    }
+    
+    .distance {
+      color: #29A9AD;
+      font-weight: bold;
+      font-size: 0.8rem;
+    }
+  }
+  
+  .online-status {
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    
+    &.online {
+      background: #e8f5e8;
+      color: #2e7d32;
+    }
+    
+    &:not(.online) {
+      background: #D9E6F6;
+      color: #2C3E50;
+    }
+  }
+}
+
+.card-body {
+  .description {
+    color: #2C3E50;
+    line-height: 1.5;
+    margin-bottom: 15px;
+  }
+  
+  .location-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: #D9E6F6;
+    border-radius: 8px;
+    
+    .location, .walk-time {
+      color: #2C3E50;
+      font-size: 0.9rem;
+    }
+  }
+  
+  .owner-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    
+    .owner-photo {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #29A9AD;
+    }
+    
+    .owner-details {
+      .owner-name {
+        font-weight: bold;
+        color: #2C3E50;
+        display: block;
+      }
+      
+      .owner-rating {
+        color: #FFD700; /* Mantenido el dorado para las estrellas */
+        font-size: 0.8rem;
+      }
+    }
+  }
+}
+
+.card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  
+  .action-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Comic Neue', cursive;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    
+    &.primary {
+      background: #2C3E50;
+      color: white;
+      
+      &:hover {
+        background: #52D1D4;
+      }
+    }
+    
+    &:not(.primary) {
+      background: #D9E6F6;
+      color: #2C3E50;
+      
+      &:hover {
+        background: #29A9AD;
+        color: white;
+      }
+    }
+  }
+}

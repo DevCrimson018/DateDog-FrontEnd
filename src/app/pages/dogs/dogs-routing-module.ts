@@ -4,6 +4,7 @@ import { FilterDogs } from './filter-dogs/filter-dogs';
 import { CreateDog } from './create-dog/create-dog';
 import { DogDetails } from './dog-details/dog-details';
 import { EditDog } from './edit-dog/edit-dog';
+import { ownerGuard } from '../../core/guards/owner-guard-guard';
 
 const routes: Routes = [
   {
@@ -25,7 +26,8 @@ const routes: Routes = [
   },
   {
     path: 'edit-dog/:_id',
-    component: EditDog
+    component: EditDog,
+    canActivate: [ownerGuard]
   }
 ];
 

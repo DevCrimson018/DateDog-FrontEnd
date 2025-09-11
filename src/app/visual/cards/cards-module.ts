@@ -3,13 +3,15 @@ import { CommonModule } from '@angular/common';
 import { DogsFilteredComponent } from './dogs-filtered.component/dogs-filtered.component';
 import { UserDogsComponents } from './user-dogs.components/user-dogs.components';
 import { CredentialsRoutingModule } from "../../pages/credentials/credentials-routing-module";
+import { DogsHomeComponent } from './dogs-home.component/dogs-home.component';
 
 
 
 @NgModule({
   declarations: [
     DogsFilteredComponent,
-    UserDogsComponents
+    UserDogsComponents,
+    DogsHomeComponent
   ],
   imports: [
     CommonModule,
@@ -17,7 +19,8 @@ import { CredentialsRoutingModule } from "../../pages/credentials/credentials-ro
 ],
   exports: [
     DogsFilteredComponent,
-    UserDogsComponents
+    UserDogsComponents,
+    DogsHomeComponent
   ]
 })
 export class CardsModule { }

@@ -1,9 +1,12 @@
 import { Routes } from '@angular/router';
+import { loggedGuard } from './core/guards/logged-guard-guard';
+import { adminGuard } from './core/guards/admin-guard-guard';
 
 export const routes: Routes = [
     {
         path: '',
-        loadChildren: () => import('./pages/general/general-module').then(m => m.GeneralModule)
+        loadChildren: () => import('./pages/general/general-module').then(m => m.GeneralModule),
+        canActivate: [adminGuard]
     }, 
     {
         path: 'credentials',

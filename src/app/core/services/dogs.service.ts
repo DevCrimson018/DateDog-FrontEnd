@@ -16,6 +16,13 @@ export class DogsService {
     )
   }
 
+  nearByDogs(filter: any) {
+    return firstValueFrom(
+      this.http.post<dogProjection[]>(`${environment.apiUrl}/dog/nearByDogs`, filter)
+    )
+  }
+
+
   getDog(_id: string) {
     return firstValueFrom(
       this.http.get<dogProjection>(`${environment.apiUrl}/dog/${_id}`)

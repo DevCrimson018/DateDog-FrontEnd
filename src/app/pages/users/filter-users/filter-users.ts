@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './filter-users.scss'
 })
 export class FilterUsers {
-
+  
 }

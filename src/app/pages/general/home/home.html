@@ -26,53 +26,26 @@
   <!-- Filtros -->
 
   <!-- Vista de Mapa (Placeholder) -->
-  <div *ngIf="showMapView" class="map-view">
-    <div class="map-placeholder">
-      <div class="map-icon">🗺️</div>
-      <h3>Vista de Mapa</h3>
-      <p>Aquí se mostrarían los perros en un mapa interactivo</p>
-      <small>✨ Próximamente con integración de Google Maps</small>
+   @if(showMapView){
+    <div class="map-view">
+      <div class="map-placeholder">
+        <div class="map-icon">🗺️</div>
+        <h3>Vista de Mapa</h3>
+        <p>Aquí se mostrarían los perros en un mapa interactivo</p>
+        <small>✨ Próximamente con integración de Google Maps</small>
+      </div>
     </div>
-  </div>
+   }
 
   <!-- Vista de Lista -->
-  <div *ngIf="!showMapView" class="list-view">
-    <div *ngFor="let dog of nearbyDogs" class="dog-card">
-      <div class="card-header">
-        <img [src]="dog.photos[0]" [alt]="dog.name" class="dog-photo">
-        
-        <div class="dog-basic-info">
-          <h3>{{dog.name}}</h3>
-          <p>{{dog.breed}} • {{dog.age}} años • {{dog.gender}}</p>
-          <span class="distance">📍 {{dog.distance}} km</span>
-        </div>
 
-        <div class="online-status" [class.online]="dog.isOnline">
-          {{dog.isOnline ? '🟢 En línea' : '⚫ Inactivo'}}
-        </div>
-      </div>
-
-      <div class="card-body">
-        <p class="description">{{dog.description}}</p>
-        
-
-        <div class="owner-info">
-          <img [src]="dog.owner.photo" [alt]="dog.owner.name" class="owner-photo">
-          <div class="owner-details">
-            <span class="owner-name">{{dog.owner.name}}</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-actions">
-          <button class="action-btn">
-          👀 Ver Perfil del Perro
-        </button>
-        <button class="action-btn">
-          👀 Ver Perfil
-        </button>
-      </div>
+  @if(!showMapView){
+    <div class="list-view">
+      @for (dog of nearbyDogs; track $index) {
+        <app-dogs-home [dog]="dog"></app-dogs-home>
+      }
+      
     </div>
-  </div>
+  }
 
 </div>

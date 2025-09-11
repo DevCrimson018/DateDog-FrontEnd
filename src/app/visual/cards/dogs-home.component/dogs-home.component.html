@@ -1,0 +1,36 @@
+<div class="dog-card">
+  <div class="card-header">
+    <img [src]="dog.profilePhoto" [alt]="dog.name" class="dog-photo">
+    
+    <div class="dog-basic-info">
+      <h3>{{dog.name}}</h3>
+      <p>{{dog.idBreed.name}} • {{getAge(dog.dateOfBirth)}} • {{getSexLabel(dog.sex)}} </p>
+      <span class="distance">📍 {{dog.address.cityId.name}} </span>
+    </div>
+
+    <!-- <div class="online-status" [class.online]="dog.isOnline">
+      {{dog.isOnline ? '🟢 En línea' : '⚫ Inactivo'}}
+    </div> -->
+  </div>
+
+  <div class="card-body">
+    <p class="description">{{dog.description}}</p>
+ 
+
+    <div class="owner-info">
+      <img [src]="dog.idOwner.profilePhoto" [alt]="dog.idOwner.firstName" class="owner-photo">
+      <div class="owner-details">
+        <span class="owner-name">{{dog.idOwner.firstName}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-actions">
+      <button class="action-btn" [routerLink]="'/dogs/dog-details/' + dog._id">
+      👀 Ver Perfil del Perro
+    </button>
+    <button class="action-btn" [routerLink]="'/users/user-details/' + dog.idOwner._id">
+      👀 Ver Perfil
+    </button>
+  </div>
+</div>
