@@ -7,6 +7,7 @@ import { FilterUsers } from './filter-users/filter-users';
 import { UserDetails } from './user-details/user-details';
 import { EditUser } from './edit-user/edit-user';
 import { CardsModule } from "../../visual/cards/cards-module";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -18,6 +19,8 @@ import { CardsModule } from "../../visual/cards/cards-module";
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     UsersRoutingModule,
     CardsModule
 ]

@@ -13,63 +13,58 @@
             <h1>Buscar Dueños</h1>
             <p>Encuentra dueños de mascotas cerca de ti</p>
         </div>
-        
-        <div class="search-section">
-            <h2 class="search-title">
-                <i class="fas fa-filter"></i>
-                Filtros de Búsqueda
-            </h2>
-            
-            <div class="search-form">
-                <div class="form-group full-width">
-                    <label for="name">Nombre o usuario</label>
-                    <input type="text" id="name" class="form-input" placeholder="Ingresa nombre o usuario">
-                </div>
+        <form [formGroup]="searchForm" (submit)="onSearch()">
+            <div class="search-section">
+                <h2 class="search-title">
+                    <i class="fas fa-filter"></i>
+                    Filtros de Búsqueda
+                </h2>
                 
-                <div class="form-group">
-                    <label for="city">Ciudad</label>
-                    <select id="city" class="form-select">
-                        <option value="">Todas las ciudades</option>
-                        <option value="santiago">Santiago</option>
-                        <option value="santo-domingo">Santo Domingo</option>
-                        <option value="la-vega">La Vega</option>
-                        <option value="san-cristobal">San Cristóbal</option>
-                        <option value="puerto-plata">Puerto Plata</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="province">Provincia</label>
-                    <select id="province" class="form-select">
-                        <option value="">Todas las provincias</option>
-                        <option value="santiago">Santiago</option>
-                        <option value="santo-domingo">Santo Domingo</option>
-                        <option value="distrito-nacional">Distrito Nacional</option>
-                        <option value="la-vega">La Vega</option>
-                        <option value="san-cristobal">San Cristóbal</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="country">País</label>
-                    <select id="country" class="form-select">
-                        <option value="">Todos los países</option>
-                        <option value="dominican-republic" selected>República Dominicana</option>
-                        <option value="usa">Estados Unidos</option>
-                        <option value="spain">España</option>
-                        <option value="mexico">México</option>
-                        <option value="colombia">Colombia</option>
-                    </select>
-                </div>
-                
-                <div class="form-group full-width">
-                    <button class="search-btn">
-                        <i class="fas fa-search"></i>
-                        Buscar Usuarios
-                    </button>
+                <div class="search-form">
+                    <div class="form-group full-width">
+                        <label for="name">Nombre o usuario</label>
+                        <input type="text" id="name" class="form-input" placeholder="Ingresa nombre o usuario" formControlName="name">
+                    </div>
+
+                    <div class="form-group" formGroupName="address">
+                        <label for="countryId">País</label>
+                        <select id="countryId" class="form-select" formControlName="countryId" (change)="getProvinces()">
+                            <option value="">Todos los países</option>
+                            @for (country of countries; track $index) {
+                                <option [value]="country._id">{{country.name}}</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group" formGroupName="address">
+                        <label for="provinceId">Provincia</label>
+                        <select id="provinceId" class="form-select" formControlName="provinceId" (change)="getCities()">
+                            <option value="">Todas las provincias</option>
+                            @for (province of provinces; track $index) {
+                                <option [value]="province._id">{{province.name}}</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group" formGroupName="address">
+                        <label for="cityId">Ciudad</label>
+                        <select id="cityId" class="form-select" formControlName="cityId">
+                            <option value="">Todas las ciudades</option>
+                            @for (city of cities; track $index) {
+                                <option [value]="city._id">{{city.name}}</option>
+                            }
+                        </select>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <button class="search-btn">
+                            <i class="fas fa-search"></i>
+                            Buscar Usuarios
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
         
         <div class="results-section">
             <div class="results-header">
@@ -78,206 +73,34 @@
             </div>
             
             <div class="users-list">
-                <div class="user-card">
-                    <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="María Rodríguez" class="user-avatar">
-                    <div class="user-info">
-                        <h3 class="user-name">María Rodríguez</h3>
-                        <p class="user-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            Santiago, República Dominicana
-                        </p>
-                        <div class="user-details">
-                            <span class="user-detail">
-                                <i class="fas fa-paw detail-icon"></i>
-                                3 perros
-                            </span>
-                            <span class="user-detail">
-                                <i class="fas fa-star detail-icon"></i>
-                                4.8 (36 reviews)
-                            </span>
-                            <span class="user-detail">
-                                <i class="fas fa-calendar-alt detail-icon"></i>
-                                Miembro desde 2022
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="user-card">
-                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Carlos Gómez" class="user-avatar">
-                    <div class="user-info">
-                        <h3 class="user-name">Carlos Gómez</h3>
-                        <p class="user-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            Santo Domingo, República Dominicana
-                        </p>
-                        <div class="user-details">
-                            <span class="user-detail">
-                                <i class="fas fa-paw detail-icon"></i>
-                                2 perros
-                            </span>
-                            <span class="user-detail">
-                                <i class="fas fa-star detail-icon"></i>
-                                4.5 (28 reviews)
-                            </span>
-                            <span class="user-detail">
-                                <i class="fas fa-calendar-alt detail-icon"></i>
-                                Miembro desde 2023
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchBtn = document.querySelector('.search-btn');
-            const nameInput = document.getElementById('name');
-            const citySelect = document.getElementById('city');
-            const provinceSelect = document.getElementById('province');
-            const countrySelect = document.getElementById('country');
-            const resultsCount = document.querySelector('.results-count');
-            const usersList = document.querySelector('.users-list');
-            
-            // Datos de ejemplo
-            const users = [
-                {
-                    name: "María Rodríguez",
-                    city: "santiago",
-                    province: "santiago",
-                    country: "dominican-republic",
-                    dogs: 3,
-                    rating: 4.8,
-                    reviews: 36,
-                    memberSince: 2022,
-                    avatar: "https://randomuser.me/api/portraits/women/65.jpg"
-                },
-                {
-                    name: "Carlos Gómez",
-                    city: "santo-domingo",
-                    province: "distrito-nacional",
-                    country: "dominican-republic",
-                    dogs: 2,
-                    rating: 4.5,
-                    reviews: 28,
-                    memberSince: 2023,
-                    avatar: "https://randomuser.me/api/portraits/men/32.jpg"
-                },
-                {
-                    name: "Ana Martínez",
-                    city: "la-vega",
-                    province: "la-vega",
-                    country: "dominican-republic",
-                    dogs: 1,
-                    rating: 4.9,
-                    reviews: 42,
-                    memberSince: 2021,
-                    avatar: "https://randomuser.me/api/portraits/women/44.jpg"
-                }
-            ];
-            
-            // Mostrar todos los usuarios al cargar
-            displayUsers(users);
-            
-            // Evento de búsqueda
-            searchBtn.addEventListener('click', function() {
-                const nameValue = nameInput.value.toLowerCase();
-                const cityValue = citySelect.value;
-                const provinceValue = provinceSelect.value;
-                const countryValue = countrySelect.value;
-                
-                const filteredUsers = users.filter(user => {
-                    return (
-                        (nameValue === '' || user.name.toLowerCase().includes(nameValue)) &&
-                        (cityValue === '' || user.city === cityValue) &&
-                        (provinceValue === '' || user.province === provinceValue) &&
-                        (countryValue === '' || user.country === countryValue)
-                    );
-                });
-                
-                displayUsers(filteredUsers);
-            });
-            
-            // Función para mostrar usuarios
-            function displayUsers(usersArray) {
-                usersList.innerHTML = '';
-                
-                if (usersArray.length === 0) {
-                    usersList.innerHTML = `
-                        <div class="no-results">
-                            <i class="fas fa-search"></i>
-                            <h3>No se encontraron usuarios</h3>
-                            <p>Intenta ajustar los filtros de búsqueda</p>
-                        </div>
-                    `;
-                    resultsCount.textContent = '0 usuarios';
-                    return;
-                }
-                
-                resultsCount.textContent = `${usersArray.length} usuario(s)`;
-                
-                usersArray.forEach(user => {
-                    const userCard = document.createElement('div');
-                    userCard.className = 'user-card';
-                    userCard.innerHTML = `
-                        <img src="${user.avatar}" alt="${user.name}" class="user-avatar">
+                @for (user of searchResults; track $index) {
+                    <div class="user-card">
+                        <img [src]="user.profilePhoto" [alt]="user.firstName" class="user-avatar">
                         <div class="user-info">
-                            <h3 class="user-name">${user.name}</h3>
+                            <h3 class="user-name">{{user.firstName}} {{user.lastName}}</h3>
                             <p class="user-location">
                                 <i class="fas fa-map-marker-alt"></i>
-                                ${getLocationText(user.city, user.province, user.country)}
+                                {{user.address.cityId.name}}, {{user.address.provinceId.name}}
                             </p>
                             <div class="user-details">
                                 <span class="user-detail">
                                     <i class="fas fa-paw detail-icon"></i>
-                                    ${user.dogs} perro(s)
+                                    {{user.dogsQuantity}} perros
                                 </span>
                                 <span class="user-detail">
                                     <i class="fas fa-star detail-icon"></i>
-                                    ${user.rating} (${user.reviews} reviews)
+                                    4.8 (36 reviews)
                                 </span>
                                 <span class="user-detail">
                                     <i class="fas fa-calendar-alt detail-icon"></i>
-                                    Miembro desde ${user.memberSince}
+                                    Miembro desde 2022
                                 </span>
                             </div>
                         </div>
-                    `;
-                    usersList.appendChild(userCard);
-                });
-            }
-            
-            // Función para obtener texto de ubicación
-            function getLocationText(city, province, country) {
-                const cities = {
-                    'santiago': 'Santiago',
-                    'santo-domingo': 'Santo Domingo',
-                    'la-vega': 'La Vega',
-                    'san-cristobal': 'San Cristóbal',
-                    'puerto-plata': 'Puerto Plata'
-                };
-                
-                const provinces = {
-                    'santiago': 'Santiago',
-                    'santo-domingo': 'Santo Domingo',
-                    'distrito-nacional': 'Distrito Nacional',
-                    'la-vega': 'La Vega',
-                    'san-cristobal': 'San Cristóbal'
-                };
-                
-                const countries = {
-                    'dominican-republic': 'República Dominicana',
-                    'usa': 'Estados Unidos',
-                    'spain': 'España',
-                    'mexico': 'México',
-                    'colombia': 'Colombia'
-                };
-                
-                return `${cities[city]}, ${provinces[province]}, ${countries[country]}`;
-            }
-        });
-    </script>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
 </body>
 </html>
