@@ -42,13 +42,14 @@ export class FilterUsers {
     try {
       
     const filter = {
+      name: this.searchForm.value.name || null,
       address: {
         cityId: this.searchForm.value.address.cityId || null,
         provinceId: this.searchForm.value.address.provinceId || null,
         countryId: this.searchForm.value.address.countryId || null
       }
     }
-    this.searchResults = await this.getter.getDogs(filterUsers(filter, 0, 10))
+    this.searchResults = await this.getter.getUsers(filterUsers(filter, 0, 10))
 
     console.log(this.searchResults);
 

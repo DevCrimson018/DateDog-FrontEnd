@@ -44,6 +44,16 @@ export function filterBreeds(filter: any, skip: number, limit: number) {
 
 export function filterUsers(filter: any, skip: number, limit: number) {
 
+    if(filter.name != null){
+        filter["$text"] = {
+            ["$search"]: filter.name
+        }
+    }else{
+        delete filter["$text"]
+    }
+
+    delete  filter.name
+
     if(filter.address){
         filter["address.cityId"] = filter.address.cityId
         filter["address.provinceId"] = filter.address.provinceId

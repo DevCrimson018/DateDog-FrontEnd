@@ -5,6 +5,7 @@ import { CountriesService } from "../services/countries.service";
 import { BreedsService } from "../services/breeds.service";
 import { filterBreeds } from "../models/filters";
 import { DogsService } from "../services/dogs.service";
+import { UsersService } from "../services/users.service";
 
 export class Getters{
     private cityService = inject(CitiesService)
@@ -12,6 +13,7 @@ export class Getters{
     private countryService = inject(CountriesService)
     private breedService = inject(BreedsService)
     private dogService = inject(DogsService)
+    private userService = inject(UsersService)
 
     public  async getCities(filter: any){
         const cities = await this.cityService.filterCities(filter);
@@ -36,6 +38,11 @@ export class Getters{
     public async getDogs(filter: any){
         const dogs = await this.dogService.filterDogs(filter)
         return dogs
+    }
+
+    public async getUsers(filter: any){
+        const users = await this.userService.filterUsers(filter)
+        return users
     }
 
 }
