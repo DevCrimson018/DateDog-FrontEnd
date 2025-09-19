@@ -1,10 +1,7 @@
 import { Component, input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BreedsService } from '../../../core/services/breeds.service';
-import { CitiesService } from '../../../core/services/cities.service';
-import { CountriesService } from '../../../core/services/countries.service';
 import { DogsService } from '../../../core/services/dogs.service';
-import { ProvincesService } from '../../../core/services/provinces.service';
+
 import { filterBreeds, filterCities, filterProvinces } from '../../../core/models/filters';
 import { Getters } from '../../../core/functions/getters';
 
@@ -16,9 +13,9 @@ import { Getters } from '../../../core/functions/getters';
 })
 export class EditDog {
 
-   _id = input.required<string>() 
+  _id = input.required<string>()
 
-   getter = new Getters()
+  getter = new Getters()
 
   editForm: FormGroup;
  
@@ -76,11 +73,10 @@ export class EditDog {
       
     } catch (error) {
       console.log(error);
-      
     }
   }
 
-async getBreeds(){
+  async getBreeds(){
     const filter = {}
     this.breeds = await this.getter.getBreeds(filterBreeds(filter,0,10))
     console.log(this.breeds);
