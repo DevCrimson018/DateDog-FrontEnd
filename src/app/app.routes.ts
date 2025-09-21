@@ -5,8 +5,7 @@ import { adminGuard } from './core/guards/admin-guard-guard';
 export const routes: Routes = [
     {
         path: '',
-        loadChildren: () => import('./pages/general/general-module').then(m => m.GeneralModule),
-        canActivate: [adminGuard]
+        loadChildren: () => import('./pages/general/general-module').then(m => m.GeneralModule)
     }, 
     {
         path: 'credentials',

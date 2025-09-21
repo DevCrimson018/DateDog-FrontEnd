@@ -44,14 +44,39 @@ export class EditUser {
 
   async ngOnInit(){
     await this.getCurrentData()
-    await this.getCountries()
     this.editForm.patchValue({
       firstName: this.user.firstName,
       lastName: this.user.lastName,
+      profilePhoto: this.user.profilePhoto,
       address: {
-        countryId: this.user.address.countryId._id
+        countryId: this.user.address.countryId._id,
+        provinceId: this.user.address.provinceId._id,
+        cityId: this.user.address.cityId._id
       }
     })
+    console.log(this.editForm.value);
+    
+    
+    await this.getCountries()
+    await this.getProvinces()
+    this.editForm.patchValue({
+      address: {
+        countryId: this.user.address.countryId._id,
+        provinceId: this.user.address.provinceId._id,
+        cityId: this.user.address.cityId._id
+      }
+    });
+    await this.getCities()
+    this.editForm.patchValue({
+      address: {
+        countryId: this.user.address.countryId._id,
+        provinceId: this.user.address.provinceId._id,
+        cityId: this.user.address.cityId._id
+      }
+    });
+
+    
+    
   }
 
   async onSubmit(){
@@ -86,6 +111,11 @@ export class EditUser {
 
   async getCities(){
     try {
+      console.log("City");
+
+      console.log(this.editForm.value);
+      
+      
       if(this.editForm.value.address.provinceId != ""){
         console.log("searching city");
         
@@ -106,6 +136,8 @@ export class EditUser {
   async getProvinces(){
     try {
       if(this.editForm.value.address.countryId != ""){
+        console.log("Searching Province");
+        
         const filter = {
           countryId: this.editForm.value.address.countryId
         }

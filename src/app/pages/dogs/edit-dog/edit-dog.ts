@@ -55,15 +55,34 @@ export class EditDog {
     // Inicializar formulario con datos actuales
     await this.getDogCurrentData();
     await this.getBreeds();
-    await this.getCountries();
     this.editForm.patchValue({
       name: this.currentDog.name,
       sex: this.currentDog.sex,
       idBreed: this.currentDog.idBreed._id,
       address: {
-        countryId: this.currentDog.address.countryId._id
+        countryId: this.currentDog.address.countryId._id,
+        provinceId: this.currentDog.address.provinceId._id,
+        cityId: this.currentDog.address.cityId._id
       }
-    });
+    })
+    await this.getCountries();
+    await this.getProvinces();
+    this.editForm.patchValue({
+      address: {
+        countryId: this.currentDog.address.countryId._id,
+        provinceId: this.currentDog.address.provinceId._id,
+        cityId: this.currentDog.address.cityId._id
+      }
+    })
+    await this.getCities();
+    this.editForm.patchValue({
+      address: {
+        countryId: this.currentDog.address.countryId._id,
+        provinceId: this.currentDog.address.provinceId._id,
+        cityId: this.currentDog.address.cityId._id
+      }
+    })
+    ;
   }
 
   async getDogCurrentData(){
@@ -85,11 +104,23 @@ export class EditDog {
 
   async getCities(){
     try {
-      const filter = {
-        countryId: this.editForm.value.address.countryId,
-        provinceId: this.editForm.value.address.provinceId
+      console.log("City");
+
+      console.log(this.editForm.value);
+      
+      
+      if(this.editForm.value.address.provinceId != ""){
+        console.log("searching city");
+        
+        const filter = {
+          countryId: this.editForm.value.address.countryId,
+          provinceId: this.editForm.value.address.provinceId
+        }
+        this.cities = await this.getter.getCities(filterCities(filter, 0, 10))
+      }else{
+        this.cities = []
       }
-      this.cities = await this.getter.getCities(filterCities(filter, 0, 10))
+      this.editForm.value.address.cityId = "";
     } catch (error) {
       console.log(error);
     }
@@ -97,10 +128,20 @@ export class EditDog {
 
   async getProvinces(){
     try {
-      const filter = {
-        countryId: this.editForm.value.address.countryId
+      if(this.editForm.value.address.countryId != ""){
+        console.log("Searching Province");
+        
+        const filter = {
+          countryId: this.editForm.value.address.countryId
+        }
+        this.provinces = await this.getter.getProvinces(filterProvinces(filter, 0, 10))
+      }else{
+        this.provinces = []
       }
-      this.provinces = await this.getter.getProvinces(filterProvinces(filter, 0, 10))
+      this.editForm.value.address.provinceId = "";
+      this.editForm.value.address.cityId = "";
+
+      this.cities = [];
     } catch (error) {
       console.log(error);
     }
@@ -108,7 +149,10 @@ export class EditDog {
 
   async getCountries(){
     try {
-      this.countries = await this.getter.getCountries();  
+
+      this.countries = await this.getter.getCountries();
+      
+      
     } catch (error) {
       console.log(error);
     }

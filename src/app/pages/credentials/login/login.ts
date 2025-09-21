@@ -37,6 +37,8 @@ export class Login {
         if(res.errorCode){
           this.errorMessage = res.errorDescription;
           this.isLoading = false;
+          console.log(res);
+          
           
         }else{
           console.log(res);
