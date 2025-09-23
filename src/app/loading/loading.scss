@@ -1,0 +1,222 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  font-family: 'Comic Neue', cursive;
+
+  // Tamaños
+  &.small {
+    padding: 20px;
+    
+    .loading-content {
+      transform: scale(0.8);
+    }
+  }
+  
+  &.large {
+    padding: 60px;
+    
+    .loading-content {
+      transform: scale(1.2);
+    }
+  }
+}
+
+.loading-content {
+  text-align: center;
+  max-width: 300px;
+}
+
+/* ===== LOADING DE HUESOS BAILARINES ===== */
+.bones-loader {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  
+  .bone {
+    font-size: 2rem;
+    animation: boneBounce 1.5s infinite ease-in-out;
+    
+    &.bone-1 {
+      animation-delay: 0s;
+    }
+    
+    &.bone-2 {
+      animation-delay: 0.2s;
+    }
+    
+    &.bone-3 {
+      animation-delay: 0.4s;
+    }
+  }
+}
+
+@keyframes boneBounce {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-20px) rotate(10deg);
+  }
+  50% {
+    transform: translateY(0) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-10px) rotate(-10deg);
+  }
+}
+
+/* ===== LOADING DE PERRO CORRIENDO ===== */
+.dog-running-loader {
+  margin-bottom: 20px;
+  
+  .dog-track {
+    position: relative;
+    height: 80px;
+    overflow: hidden;
+  }
+  
+  .running-dog {
+    font-size: 3rem;
+    animation: dogRun 2s infinite linear;
+  }
+  
+  .paw-prints {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-around;
+    
+    .paw {
+      opacity: 0;
+      animation: pawFade 2s infinite linear;
+      
+      &:nth-child(1) { animation-delay: 0s; }
+      &:nth-child(2) { animation-delay: 0.5s; }
+      &:nth-child(3) { animation-delay: 1s; }
+    }
+  }
+}
+
+@keyframes dogRun {
+  0% {
+    transform: translateX(-100px) scaleX(1);
+  }
+  49% {
+    transform: translateX(100px) scaleX(1);
+  }
+  50% {
+    transform: translateX(100px) scaleX(-1);
+  }
+  99% {
+    transform: translateX(-100px) scaleX(-1);
+  }
+  100% {
+    transform: translateX(-100px) scaleX(1);
+  }
+}
+
+@keyframes pawFade {
+  0%, 100% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+/* ===== SPINNER CLÁSICO ===== */
+.spinner-loader {
+  margin-bottom: 20px;
+  
+  .spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #d4a76a;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ===== LOADING SIMPLE ===== */
+.simple-loader {
+  margin-bottom: 20px;
+  
+  .simple-dog {
+    font-size: 3rem;
+    animation: dogBlink 2s infinite;
+  }
+}
+
+@keyframes dogBlink {
+  0%, 50%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  25%, 75% {
+    opacity: 0.7;
+    transform: scale(0.9);
+  }
+}
+
+/* ===== TEXTO ===== */
+.loading-message {
+  font-size: 1.2rem;
+  color: #8b5a2b;
+  font-weight: bold;
+  margin: 0 0 10px 0;
+}
+
+.loading-subtext {
+  font-size: 0.9rem;
+  color: #a78a6e;
+  margin: 0;
+  font-style: italic;
+}
+
+/* ===== VARIANTES DE FONDO ===== */
+.loading-container.page-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.95);
+  z-index: 9999;
+  flex-direction: column;
+}
+
+.loading-container.card-loader {
+  background: #fffaf0;
+  border-radius: 15px;
+  border: 2px dashed #f0d9b5;
+  margin: 20px 0;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .loading-container {
+    padding: 20px;
+  }
+  
+  .bones-loader .bone {
+    font-size: 1.5rem;
+  }
+  
+  .running-dog {
+    font-size: 2.5rem !important;
+  }
+  
+  .loading-message {
+    font-size: 1rem;
+  }
+}
