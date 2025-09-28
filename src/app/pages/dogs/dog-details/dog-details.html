@@ -3,71 +3,74 @@
     <div class="dog-header">
       <h1 class="dog-title">🐾 Detalle del Perro</h1>
     </div>
-
-    <div class="dog-profile-content">
-      <!-- Sección izquierda - Foto y datos principales -->
-      <div class="profile-section">
-        <div class="profile-photo-container">
-          <img [src]="dogData.profilePhoto" alt="Foto de {{dogData.name}}" class="profile-image">
-        </div>
-
-        <div class="dog-info">
-          <h2 class="dog-name">{{dogData.name}}</h2>
-          
-          <div class="info-item">
-            <span class="info-label">Sexo:</span>
-            <span class="info-value">{{getSexLabel(dogData.sex)}}</span>
+    @if(loading){
+      <app-loading [size]="'large'" [type]="'bones'"></app-loading>
+    }@else {
+      <div class="dog-profile-content">
+        <!-- Sección izquierda - Foto y datos principales -->
+        <div class="profile-section">
+          <div class="profile-photo-container">
+            <img [src]="dogData.profilePhoto" alt="Foto de {{dogData.name}}" class="profile-image">
           </div>
 
-          <div class="info-item">
-            <span class="info-label">Edad:</span>
-            <span class="info-value">{{getAge(dogData.dateOfBirth)}}</span>
-          </div>
-          
-          <div class="info-item">
-            <span class="info-label">Raza:</span>
-            <span class="info-value">{{dogData.idBreed.name}}</span>
-          </div>
-          
-          <div class="info-item" [routerLink]="'/users/user-details/' + dogData.idOwner._id">
-            <span class="info-label">Dueño:</span>
-            <span class="info-value">{{dogData.idOwner.firstName}}</span>
-          </div>
-          
-          <div class="info-item">
-            <span class="info-label">Dirección:</span>
-            <span class="info-value">{{dogData.address.countryId.name}} <br> {{dogData.address.provinceId.name}} <br> {{dogData.address.cityId.name}}</span>
+          <div class="dog-info">
+            <h2 class="dog-name">{{dogData.name}}</h2>
             
+            <div class="info-item">
+              <span class="info-label">Sexo:</span>
+              <span class="info-value">{{getSexLabel(dogData.sex)}}</span>
+            </div>
+
+            <div class="info-item">
+              <span class="info-label">Edad:</span>
+              <span class="info-value">{{getAge(dogData.dateOfBirth)}}</span>
+            </div>
+            
+            <div class="info-item">
+              <span class="info-label">Raza:</span>
+              <span class="info-value">{{dogData.idBreed.name}}</span>
+            </div>
+            
+            <div class="info-item" [routerLink]="'/users/user-details/' + dogData.idOwner._id">
+              <span class="info-label">Dueño:</span>
+              <span class="info-value">{{dogData.idOwner.firstName}}</span>
+            </div>
+            
+            <div class="info-item">
+              <span class="info-label">Dirección:</span>
+              <span class="info-value">{{dogData.address.countryId.name}} <br> {{dogData.address.provinceId.name}} <br> {{dogData.address.cityId.name}}</span>
+              
+            </div>
+          </div>
+        </div>
+
+        <!-- Sección derecha - Galerías de fotos -->
+        <div class="photos-section">
+          <!-- Fotos Generales -->
+          <div class="photos-group">
+            <h3 class="photos-title">📸 Fotos Generales</h3>
+            <div class="photos-grid">
+              @for (image of dogData.photos; track $index) {
+                <div class="photo-item">
+                  <img [src]="image" [alt]="'Foto General ' + ($index + 1)">
+                </div>
+              }
+            </div>
+          </div>
+
+          <!-- Fotos de Vacunas -->
+          <div class="photos-group">
+            <h3 class="photos-title">💉 Fotos de Vacunas</h3>
+            <div class="photos-grid">
+              @for (vaccine of dogData.vaccines; track $index) {
+                <div class="photo-item">
+                  <img [src]="vaccine" [alt]="'Vacuna ' + ($index + 1)">
+                </div>
+              }
+            </div>
           </div>
         </div>
       </div>
-
-      <!-- Sección derecha - Galerías de fotos -->
-      <div class="photos-section">
-        <!-- Fotos Generales -->
-        <div class="photos-group">
-          <h3 class="photos-title">📸 Fotos Generales</h3>
-          <div class="photos-grid">
-            @for (image of dogData.photos; track $index) {
-              <div class="photo-item">
-                <img [src]="image" [alt]="'Foto General ' + ($index + 1)">
-              </div>
-            }
-          </div>
-        </div>
-
-        <!-- Fotos de Vacunas -->
-        <div class="photos-group">
-          <h3 class="photos-title">💉 Fotos de Vacunas</h3>
-          <div class="photos-grid">
-            @for (vaccine of dogData.vaccines; track $index) {
-              <div class="photo-item">
-                <img [src]="vaccine" [alt]="'Vacuna ' + ($index + 1)">
-              </div>
-            }
-          </div>
-        </div>
-      </div>
-    </div>
+    } 
   </div>
 </div>

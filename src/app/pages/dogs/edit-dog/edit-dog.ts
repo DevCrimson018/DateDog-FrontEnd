@@ -13,6 +13,9 @@ import { Getters } from '../../../core/functions/getters';
 })
 export class EditDog {
 
+  loading:boolean = false
+  loadingComboBox: boolean = false
+
   _id = input.required<string>()
 
   getter = new Getters()
@@ -53,6 +56,7 @@ export class EditDog {
 
   async ngOnInit() {
     // Inicializar formulario con datos actuales
+    this.loading = true
     await this.getDogCurrentData();
     await this.getBreeds();
     this.editForm.patchValue({
@@ -83,6 +87,8 @@ export class EditDog {
       }
     })
     ;
+
+    this.loading = false
   }
 
   async getDogCurrentData(){
@@ -96,14 +102,17 @@ export class EditDog {
   }
 
   async getBreeds(){
+    this.loadingComboBox = true
     const filter = {}
     this.breeds = await this.getter.getBreeds(filterBreeds(filter,0,10))
     console.log(this.breeds);
+    this.loadingComboBox = false
   }
 
 
   async getCities(){
     try {
+      this.loadingComboBox = true
       console.log("City");
 
       console.log(this.editForm.value);
@@ -121,6 +130,7 @@ export class EditDog {
         this.cities = []
       }
       this.editForm.value.address.cityId = "";
+      this.loadingComboBox = false
     } catch (error) {
       console.log(error);
     }
@@ -128,6 +138,7 @@ export class EditDog {
 
   async getProvinces(){
     try {
+      this.loadingComboBox = true
       if(this.editForm.value.address.countryId != ""){
         console.log("Searching Province");
         
@@ -142,6 +153,7 @@ export class EditDog {
       this.editForm.value.address.cityId = "";
 
       this.cities = [];
+      this.loadingComboBox = false
     } catch (error) {
       console.log(error);
     }
@@ -149,9 +161,9 @@ export class EditDog {
 
   async getCountries(){
     try {
-
+      this.loadingComboBox = true
       this.countries = await this.getter.getCountries();
-      
+      this.loadingComboBox = false
       
     } catch (error) {
       console.log(error);

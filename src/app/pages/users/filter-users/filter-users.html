@@ -67,39 +67,44 @@
         </form>
         
         <div class="results-section">
-            <div class="results-header">
-                <h2 class="results-title">Resultados de Búsqueda</h2>
-                <span class="results-count">2 usuarios</span>
-            </div>
-            
-            <div class="users-list">
-                @for (user of searchResults; track $index) {
-                    <div class="user-card">
-                        <img [src]="user.profilePhoto" [alt]="user.firstName" class="user-avatar">
-                        <div class="user-info">
-                            <h3 class="user-name">{{user.firstName}} {{user.lastName}}</h3>
-                            <p class="user-location">
-                                <i class="fas fa-map-marker-alt"></i>
-                                {{user.address.cityId.name}}, {{user.address.provinceId.name}}
-                            </p>
-                            <div class="user-details">
-                                <span class="user-detail">
-                                    <i class="fas fa-paw detail-icon"></i>
-                                    {{user.dogsQuantity}} perros
-                                </span>
-                                <span class="user-detail">
-                                    <i class="fas fa-star detail-icon"></i>
-                                    4.8 (36 reviews)
-                                </span>
-                                <span class="user-detail">
-                                    <i class="fas fa-calendar-alt detail-icon"></i>
-                                    Miembro desde 2022
-                                </span>
+            @if(loading){
+                <app-loading [size]="'large'" [type]="'bones'"></app-loading>
+            }@else{
+                <div class="results-header">
+                    <h2 class="results-title">Resultados de Búsqueda</h2>
+                    <span class="results-count">2 usuarios</span>
+                </div>
+                
+                <div class="users-list">
+                    @for (user of searchResults; track $index) {
+                        <div class="user-card">
+                            <img [src]="user.profilePhoto" [alt]="user.firstName" class="user-avatar">
+                            <div class="user-info">
+                                <h3 class="user-name">{{user.firstName}} {{user.lastName}}</h3>
+                                <p class="user-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    {{user.address.cityId.name}}, {{user.address.provinceId.name}}
+                                </p>
+                                <div class="user-details">
+                                    <span class="user-detail">
+                                        <i class="fas fa-paw detail-icon"></i>
+                                        {{user.dogsQuantity}} perros
+                                    </span>
+                                    <span class="user-detail">
+                                        <i class="fas fa-star detail-icon"></i>
+                                        4.8 (36 reviews)
+                                    </span>
+                                    <span class="user-detail">
+                                        <i class="fas fa-calendar-alt detail-icon"></i>
+                                        Miembro desde 2022
+                                    </span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                }
-            </div>
+                    }
+                </div>
+            }
+            
         </div>
     </div>
 </body>

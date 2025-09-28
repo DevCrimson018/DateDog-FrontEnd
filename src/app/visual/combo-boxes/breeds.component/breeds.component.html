@@ -3,11 +3,18 @@
     <i class="icon dog-icon">🏷️</i> Raza
   </label>
   <select id="breed" formControlName="idBreed" class="dog-input">
-    <option value="" disabled>Seleccione</option>
-    @for (breed of breeds; track $index) {
-      <option [value]="breed._id" >
-          {{breed.name}}
+    @if(loading){
+      <option value="" disabled selected>
+        <app-loading [size]="'extraSmall'" [type]="'spinner'"></app-loading>
       </option>
+    }@else {
+      <option value="" disabled>Seleccione</option>
+      @for (breed of breeds; track $index) {
+        <option [value]="breed._id" >
+            {{breed.name}}
+        </option>
+      }
     }
+    
   </select>
 </div>

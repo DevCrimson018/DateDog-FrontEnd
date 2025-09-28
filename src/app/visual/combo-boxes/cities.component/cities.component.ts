@@ -11,6 +11,7 @@ import { ControlContainer, FormGroupDirective } from '@angular/forms';
 export class CitiesComponent {
 
   @Input() cities!: any
+  @Input() loading: boolean = false
 
   constructor(
     @Optional() @SkipSelf() private controlContainer: ControlContainer

@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class Register {
   registerForm: FormGroup;
   showPassword = false; 
+  loading: boolean = false
   countries: any[] = [];
   provinces: any[] = [];
   cities: any[] = [];
@@ -57,13 +58,14 @@ export class Register {
 
   async onSubmit(){
     try {
+      this.loading = true;
       const message:any = await this.credentialService.register(this.registerForm.value);
       if(message.errorCode){
         alert(message.errorCode)
       }else{
         this.router.navigate(['../'])
       }
-      
+      this.loading = false;
       console.log(message);
       
     } catch (error) {
@@ -74,11 +76,19 @@ export class Register {
 
   async getCities(){
     try {
-      const filter = {
-        countryId: this.registerForm.value.address.countryId,
-        provinceId: this.registerForm.value.address.provinceId
+      this.loading = true;
+      if(this.registerForm.value.address.provinceId != ""){
+        const filter = {
+          countryId: this.registerForm.value.address.countryId,
+          provinceId: this.registerForm.value.address.provinceId
+        }
+        this.cities = await this.getter.getCities(filterCities(filter, 0, 10))
+        
+      }else{
+        this.cities = []
       }
-      this.cities = await this.getter.getCities(filterCities(filter, 0, 10))
+      this.registerForm.value.address.cityId = "";
+      this.loading = false
     } catch (error) {
       console.log(error);
     }
@@ -86,10 +96,21 @@ export class Register {
 
   async getProvinces(){
     try {
-      const filter = {
-        countryId: this.registerForm.value.address.countryId
+      this.loading = true;
+      if(this.registerForm.value.address.countryId != ""){
+        const filter = {
+          countryId: this.registerForm.value.address.countryId
+        }
+        this.provinces = await this.getter.getProvinces(filterProvinces(filter, 0, 10))
+      }else{
+        this.provinces = []
       }
-      this.provinces = await this.getter.getProvinces(filterProvinces(filter, 0, 10))
+      this.registerForm.value.address.provinceId = "";
+      this.registerForm.value.address.cityId = "";
+
+      this.cities = [];
+
+      this.loading = false;
     } catch (error) {
       console.log(error);
     }
@@ -97,7 +118,10 @@ export class Register {
 
   async getCountries(){
     try {
+      this.loading = true;
       this.countries = await this.getter.getCountries();
+      this.loading = false;
+      
     } catch (error) {
       console.log(error);
     }

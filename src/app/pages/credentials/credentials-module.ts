@@ -8,6 +8,7 @@ import { Login } from './login/login';
 import { ForgotPassword } from './forgot-password/forgot-password';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComboBoxesModule } from "../../visual/combo-boxes/combo-boxes-module";
+import { ViewsModule } from "../../visual/views/views-module";
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { ComboBoxesModule } from "../../visual/combo-boxes/combo-boxes-module";
     FormsModule,
     ReactiveFormsModule,
     CredentialsRoutingModule,
-    ComboBoxesModule
+    ComboBoxesModule,
+    ViewsModule
 ]
 })
 export class CredentialsModule { }

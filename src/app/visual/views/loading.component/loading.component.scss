@@ -8,6 +8,14 @@
   font-family: 'Comic Neue', cursive;
 
   // Tamaños
+  &.extraSmall{
+    padding: 1px;
+
+    .loading-content{
+      transform: scale(0.4);
+    }
+
+  }
   &.small {
     padding: 20px;
     
@@ -15,6 +23,7 @@
       transform: scale(0.8);
     }
   }
+  
   
   &.large {
     padding: 60px;

@@ -9,6 +9,7 @@ import { getAge, getSexLabel } from '../../../core/functions/converters-formarte
   styleUrl: './dog-details.scss'
 })
 export class DogDetails {
+  loading:boolean = false
   _id = input.required<string>();
   dogData:any;
 
@@ -18,9 +19,10 @@ export class DogDetails {
   private dogService = inject(DogsService);
 
   async ngOnInit() {
+    this.loading = true
     this.dogData = await this.dogService.getDog(this._id());
     console.log(this.dogData);
-    
+    this.loading = false
   }
   
 }

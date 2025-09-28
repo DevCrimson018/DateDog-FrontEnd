@@ -10,6 +10,7 @@ import { EditDog } from './edit-dog/edit-dog';
 import { ReactiveFormsModule,  } from '@angular/forms';
 import { ComboBoxesModule } from "../../visual/combo-boxes/combo-boxes-module";
 import { CardsModule } from '../../visual/cards/cards-module';
+import { ViewsModule } from "../../visual/views/views-module";
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { CardsModule } from '../../visual/cards/cards-module';
     DogsRoutingModule,
     ReactiveFormsModule,
     ComboBoxesModule,
-    CardsModule
+    CardsModule,
+    ViewsModule
 ]
 })
 export class DogsModule { }

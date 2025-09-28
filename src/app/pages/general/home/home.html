@@ -40,12 +40,17 @@
   <!-- Vista de Lista -->
 
   @if(!showMapView){
-    <div class="list-view">
-      @for (dog of nearbyDogs; track $index) {
-        <app-dogs-home [dog]="dog"></app-dogs-home>
-      }
-      
-    </div>
+    @if(loading){
+      <app-loading [type]="'spinner'" [size]="'medium'"></app-loading>
+    }@else {
+      <div class="list-view">
+        @for (dog of nearbyDogs; track $index) {
+          <app-dogs-home [dog]="dog"></app-dogs-home>
+        }
+        
+      </div>
+    }
+
   }
 
 </div>

@@ -111,13 +111,13 @@
       <div class="form-section" formGroupName="address">
         <h2 class="section-title">📍 Ubicación</h2>
 
-        <app-countries  [countries]="countries" (sending)="getProvinces()"></app-countries>
+        <app-countries  [countries]="countries" (sending)="getProvinces()" [loading]="loading"></app-countries>
 
         <div class="form-row">
           
-          <app-provinces (sending)="getCities()" [provinces]="provinces"></app-provinces>
+          <app-provinces (sending)="getCities()" [provinces]="provinces" [loading]="loading"></app-provinces>
 
-          <app-cities [cities]="cities"></app-cities>
+          <app-cities [cities]="cities" [loading]="loading"></app-cities>
         </div>
 
       </div>

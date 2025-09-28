@@ -16,6 +16,8 @@ export class Home {
   // Estado del mapa
   showMapView = false;
   selectedDog: any = null;
+
+  loading: boolean = true;
   
   private dogService = inject(DogsService);
 
@@ -27,7 +29,9 @@ export class Home {
   async getNearByDogs() {
     // Lógica de filtrado (simplificada)
     try {
+      this.loading = true;
       this.nearbyDogs = await this.dogService.nearByDogs(filterDogs({}, 0, 10));
+      this.loading = false;
       console.log(this.nearbyDogs);
       
     } catch (error) {

@@ -28,11 +28,11 @@
         </div>
 
         <div class="form-row" formGroupName="address">
-          <app-countries  [countries]="countries" (sending)="getProvinces()"></app-countries>
+          <app-countries  [countries]="countries" (sending)="getProvinces()" [loading]="loadingComboBox"></app-countries>
 
-          <app-provinces (sending)="getCities()" [provinces]="provinces"></app-provinces>
+          <app-provinces (sending)="getCities()" [provinces]="provinces" [loading]="loadingComboBox"></app-provinces>
 
-          <app-cities [cities]="cities"></app-cities>
+          <app-cities [cities]="cities" [loading]="loadingComboBox"></app-cities>
         </div>
 
         <div class="form-actions">
@@ -48,23 +48,27 @@
 
     <!-- Resultados de Búsqueda -->
      @if(showResults){
-      <div class="results-section">
-        <h2 class="section-title">📋 Resultados de la Búsqueda</h2>
-        
-        @if(searchResults.length === 0){
-          <div  class="no-results">
-            <p>🐾 ¡No se encontraron perros con los filtros seleccionados!</p>
-          </div>
-        }
-        @if(searchResults.length > 0){
-          <div class="results-grid">
-            @for (dog of searchResults; track $index) {
-              <app-dogs-filtered [dog]="dog"></app-dogs-filtered>
-            }
-          </div>
-        }
+      @if(loading){
+        <app-loading [size]="'large'" [type]="'bones'"></app-loading>
+      }@else {
+        <div class="results-section">
+          <h2 class="section-title">📋 Resultados de la Búsqueda</h2>
+          
+          @if(searchResults.length === 0){
+            <div  class="no-results">
+              <p>🐾 ¡No se encontraron perros con los filtros seleccionados!</p>
+            </div>
+          }
+          @if(searchResults.length > 0){
+            <div class="results-grid">
+              @for (dog of searchResults; track $index) {
+                <app-dogs-filtered [dog]="dog"></app-dogs-filtered>
+              }
+            </div>
+          }
 
-      </div>
+        </div>
+      }
      }
     
   </div>

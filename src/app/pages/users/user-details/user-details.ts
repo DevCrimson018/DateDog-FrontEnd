@@ -11,6 +11,8 @@ import { filterDogs } from '../../../core/models/filters';
   styleUrl: './user-details.scss'
 })
 export class UserDetails {
+
+  loading:boolean = false
   // Datos del usuario (ejemplo)
   _id = input.required<string>()
 
@@ -28,11 +30,16 @@ export class UserDetails {
   getSexLabel = getSexLabel;
 
   async ngOnInit() {
+
+    this.loading = true
+
     this.userData = await this.userService.getUser(this._id())
     this.dogs = await this.getter.getDogs(filterDogs({idOwner: this._id()}, 0, 10))
     console.log(this.userData);
     console.log(this.dogs);
     
+    this.loading = false
+
   }
 
 

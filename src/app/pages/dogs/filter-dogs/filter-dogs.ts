@@ -11,7 +11,9 @@ import { filterBreeds, filterCities, filterDogs, filterProvinces } from '../../.
 })
 export class FilterDogs {
 
-searchForm: FormGroup;
+  loading: boolean = false
+  loadingComboBox: boolean = false
+  searchForm: FormGroup;
   showResults = false;
 
   // Datos de ejemplo para los selects
@@ -54,11 +56,13 @@ searchForm: FormGroup;
 
   async getCities(){
       try {
+        this.loadingComboBox = true;
         const filter = {
           countryId: this.searchForm.value.address.countryId,
           provinceId: this.searchForm.value.address.provinceId
         }
         this.cities = await this.getter.getCities(filterCities(filter, 0, 10))
+        this.loadingComboBox = false
       } catch (error) {
         console.log(error);
       }
@@ -66,10 +70,12 @@ searchForm: FormGroup;
   
   async getProvinces(){
     try {
+      this.loadingComboBox = true;
       const filter = {
         countryId: this.searchForm.value.address.countryId
       }
       this.provinces = await this.getter.getProvinces(filterProvinces(filter, 0, 10))
+      this.loadingComboBox = false
     } catch (error) {
       console.log(error);
     }
@@ -77,13 +83,17 @@ searchForm: FormGroup;
   
   async getCountries(){
     try {
+      this.loadingComboBox = true
       this.countries = await this.getter.getCountries();
+      this.loadingComboBox = false
     } catch (error) {
       console.log(error);
     }
   }
   async onSearch() {
+
     this.showResults = true;
+    this.loading = true;
     // Aquí iría la lógica real de búsqueda con tu API
 
     const filter = {
@@ -102,6 +112,7 @@ searchForm: FormGroup;
 
     this.searchResults = await this.getter.getDogs(filterDogs(filter, 0, 10))
     console.log('Buscando con filtros:', this.searchResults);
+    this.loading = false
   }
 
   clearFilters(): void {

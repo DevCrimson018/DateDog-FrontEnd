@@ -11,6 +11,10 @@ import { UsersService } from '../../../core/services/users.service';
   styleUrl: './edit-user.scss'
 })
 export class EditUser {
+
+  loading: boolean = false
+  loadingComboBox:boolean = false
+
   _id = input.required<string>();
   user: any
 
@@ -43,6 +47,7 @@ export class EditUser {
 
 
   async ngOnInit(){
+    this.loading = true
     await this.getCurrentData()
     this.editForm.patchValue({
       firstName: this.user.firstName,
@@ -75,11 +80,12 @@ export class EditUser {
       }
     });
 
-    
+    this.loading = false
     
   }
 
   async onSubmit(){
+    this.loadingComboBox = true
     if(this.editForm.value.address.countryId == ''){
       delete this.editForm.value.address.countryId
     }
@@ -94,6 +100,8 @@ export class EditUser {
 
     let message = await this.userService.updateUser(this._id(), this.editForm.value)
 
+    this.loadingComboBox = false
+
     console.log(message);
     
 
@@ -101,6 +109,7 @@ export class EditUser {
 
   async getCurrentData(){
     try {
+
       this.user = await this.userService.getUser(this._id())
       console.log(this.user);
       
@@ -111,6 +120,9 @@ export class EditUser {
 
   async getCities(){
     try {
+
+      this.loadingComboBox = true
+
       console.log("City");
 
       console.log(this.editForm.value);
@@ -128,6 +140,9 @@ export class EditUser {
         this.cities = []
       }
       this.editForm.value.address.cityId = "";
+
+      this.loadingComboBox = false
+
     } catch (error) {
       console.log(error);
     }
@@ -135,6 +150,9 @@ export class EditUser {
 
   async getProvinces(){
     try {
+
+      this.loadingComboBox = true
+
       if(this.editForm.value.address.countryId != ""){
         console.log("Searching Province");
         
@@ -149,6 +167,9 @@ export class EditUser {
       this.editForm.value.address.cityId = "";
 
       this.cities = [];
+
+      this.loadingComboBox = false
+
     } catch (error) {
       console.log(error);
     }
@@ -157,8 +178,11 @@ export class EditUser {
   async getCountries(){
     try {
 
+      this.loadingComboBox = true
+
       this.countries = await this.getter.getCountries();
       
+      this.loadingComboBox = false
       
     } catch (error) {
       console.log(error);

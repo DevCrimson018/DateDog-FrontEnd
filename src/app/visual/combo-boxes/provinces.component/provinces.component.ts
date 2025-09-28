@@ -10,6 +10,7 @@ import { ControlContainer, FormGroupDirective } from '@angular/forms';
 })
 export class ProvincesComponent {
   @Input() provinces!: any
+  @Input() loading: boolean = false
   @Output() sending = new EventEmitter<any>()
 
   constructor(

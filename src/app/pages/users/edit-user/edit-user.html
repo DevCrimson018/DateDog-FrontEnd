@@ -8,172 +8,187 @@
 
 </head>
 <body>
+    
     <div class="user-edit-container">
-        <div class="user-edit-card">
-            <div class="user-header">
-                <h1 class="user-title">
-                    <i class="fas fa-user-edit"></i>
-                    Editar Información de Usuario
-                </h1>
-            </div>
-
-            <form class="user-form" [formGroup]="editForm" (submit)="onSubmit()">
-                <!-- Información Básica -->
-                <div class="form-section">
-                    <h2 class="section-title">
-                        <i class="fas fa-user"></i>
-                        Información Básica
-                    </h2>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="firstName" class="user-label">
-                                <i class="fas fa-signature"></i>
-                                Nombre
-                            </label>
-                            <input 
-                                type="text" 
-                                id="firstName" 
-                                class="user-input"
-                                formControlName="firstName"
-                            >
-                        </div>
-
-                        <div class="form-group">
-                            <label for="lastName" class="user-label">
-                                <i class="fas fa-signature"></i>
-                                Apellido
-                            </label>
-                            <input 
-                                type="text" 
-                                id="lastName" 
-                                class="user-input"
-                                formControlName="lastName"
-                            >
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <!-- <div class="form-group">
-                            <label for="username" class="user-label">
-                                <i class="fas fa-at"></i>
-                                Nombre de usuario
-                            </label>
-                            <input 
-                                type="text" 
-                                id="username" 
-                                class="user-input"
-                                value="maria_rdz"
-                            >
-                        </div>
-
-                        <div class="form-group">
-                            <label for="birthdate" class="user-label">
-                                <i class="fas fa-birthday-cake"></i>
-                                Fecha de nacimiento
-                            </label>
-                            <input 
-                                type="date" 
-                                id="birthdate" 
-                                class="user-input"
-                                value="1990-05-15"
-                            >
-                        </div> -->
-                    </div>
+        @if(loading){
+            <app-loading [size]="'large'" [type]="'bones'"></app-loading>
+        }@else {
+            <div class="user-edit-card">
+                <div class="user-header">
+                    <h1 class="user-title">
+                        <i class="fas fa-user-edit"></i>
+                        Editar Información de Usuario
+                    </h1>
                 </div>
 
-                <!-- Foto de Perfil -->
-                <div class="form-section">
-                    <h2 class="section-title">
-                        <i class="fas fa-camera"></i>
-                        Foto de perfil
-                    </h2>
-                    
-                    <div class="photo-upload-container">
-                        <div class="current-photo">
-                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Foto actual" class="profile-image-preview">
-                            <div class="photo-actions">
-                                <label class="file-upload-label">
-                                    <input 
-                                        type="file" 
-                                        accept="image/*" 
-                                        style="display: none;"
-                                    >
-                                    <span class="user-button small secondary">
-                                        <i class="fas fa-camera"></i> Cambiar foto
-                                    </span>
+                <form class="user-form" [formGroup]="editForm" (submit)="onSubmit()">
+                    <!-- Información Básica -->
+                    <div class="form-section">
+                        <h2 class="section-title">
+                            <i class="fas fa-user"></i>
+                            Información Básica
+                        </h2>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName" class="user-label">
+                                    <i class="fas fa-signature"></i>
+                                    Nombre
                                 </label>
-                                <button 
-                                    type="button" 
-                                    class="user-button small danger"
+                                <input 
+                                    type="text" 
+                                    id="firstName" 
+                                    class="user-input"
+                                    formControlName="firstName"
                                 >
-                                    <i class="fas fa-trash"></i> Eliminar
-                                </button>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="lastName" class="user-label">
+                                    <i class="fas fa-signature"></i>
+                                    Apellido
+                                </label>
+                                <input 
+                                    type="text" 
+                                    id="lastName" 
+                                    class="user-input"
+                                    formControlName="lastName"
+                                >
                             </div>
                         </div>
-                        <small class="file-info">
-                            Formatos permitidos: JPG, PNG (Máx. 2MB)
-                        </small>
-                    </div>
-                </div>
 
-                <!-- Sección de ubicación -->
-                <div class="form-section">
-                    <h2 class="section-title">
-                        <i class="fas fa-map-marker-alt"></i>
-                        Ubicación
-                    </h2>
-                    
-                    <div class="form-group" formGroupName="address">
-                        <label for="countryId" class="user-label">
-                            <i class="fas fa-globe-americas"></i>
-                            País
-                        </label>
-                        <select id="countryId" class="user-select" (change)="getProvinces()" formControlName="countryId">
-                            <option value="">Selecciona tu país</option>
-                            @for (country of countries; track $index) {
-                                <option [value]="country._id">{{country.name}}</option>
-                            }
-                        </select>
+                        <div class="form-row">
+                            <!-- <div class="form-group">
+                                <label for="username" class="user-label">
+                                    <i class="fas fa-at"></i>
+                                    Nombre de usuario
+                                </label>
+                                <input 
+                                    type="text" 
+                                    id="username" 
+                                    class="user-input"
+                                    value="maria_rdz"
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="birthdate" class="user-label">
+                                    <i class="fas fa-birthday-cake"></i>
+                                    Fecha de nacimiento
+                                </label>
+                                <input 
+                                    type="date" 
+                                    id="birthdate" 
+                                    class="user-input"
+                                    value="1990-05-15"
+                                >
+                            </div> -->
+                        </div>
                     </div>
 
-                    <div class="form-row">
+                    <!-- Foto de Perfil -->
+                    <div class="form-section">
+                        <h2 class="section-title">
+                            <i class="fas fa-camera"></i>
+                            Foto de perfil
+                        </h2>
+                        
+                        <div class="photo-upload-container">
+                            <div class="current-photo">
+                                <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Foto actual" class="profile-image-preview">
+                                <div class="photo-actions">
+                                    <label class="file-upload-label">
+                                        <input 
+                                            type="file" 
+                                            accept="image/*" 
+                                            style="display: none;"
+                                        >
+                                        <span class="user-button small secondary">
+                                            <i class="fas fa-camera"></i> Cambiar foto
+                                        </span>
+                                    </label>
+                                    <button 
+                                        type="button" 
+                                        class="user-button small danger"
+                                    >
+                                        <i class="fas fa-trash"></i> Eliminar
+                                    </button>
+                                </div>
+                            </div>
+                            <small class="file-info">
+                                Formatos permitidos: JPG, PNG (Máx. 2MB)
+                            </small>
+                        </div>
+                    </div>
+
+                    <!-- Sección de ubicación -->
+                    <div class="form-section">
+                        <h2 class="section-title">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Ubicación
+                        </h2>
+                        
                         <div class="form-group" formGroupName="address">
-                            <label for="provinceId" class="user-label">
-                                <i class="fas fa-map"></i>
-                                Provincia/Estado
+                            <label for="countryId" class="user-label">
+                                <i class="fas fa-globe-americas"></i>
+                                País
                             </label>
-                            <select id="provinceId" class="user-select" (change)="getCities()" formControlName="provinceId">
-                                <option value="">Selecciona tu provincia</option>
-                                @for (province of provinces; track $index) {
-                                    <option [value]="province._id">{{province.name}}</option>
+                            <select id="countryId" class="user-select" (change)="getProvinces()" formControlName="countryId">
+                                <option value="">Selecciona tu país</option>
+                                @for (country of countries; track $index) {
+                                    <option [value]="country._id">{{country.name}}</option>
                                 }
                             </select>
                         </div>
 
-                        <div class="form-group" formGroupName="address">
-                            <label for="cityId" class="user-label">
-                                <i class="fas fa-city"></i>
-                                Ciudad
-                            </label>
-                            <select id="cityId" class="user-select" formControlName="cityId">
-                                <option value="">Selecciona tu ciudad</option>
-                                @for (city of cities; track $index) {
-                                    <option [value]="city._id">{{city.name}}</option>
-                                }
-                            </select>
+                        <div class="form-row">
+                            <div class="form-group" formGroupName="address">
+                                <label for="provinceId" class="user-label">
+                                    <i class="fas fa-map"></i>
+                                    Provincia/Estado
+                                </label>
+                                <select id="provinceId" class="user-select" (change)="getCities()" formControlName="provinceId">
+                                    <option value="">Selecciona tu provincia</option>
+                                    @for (province of provinces; track $index) {
+                                        <option [value]="province._id">{{province.name}}</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="form-group" formGroupName="address">
+                                <label for="cityId" class="user-label">
+                                    <i class="fas fa-city"></i>
+                                    Ciudad
+                                </label>
+                                <select id="cityId" class="user-select" formControlName="cityId">
+                                    <option value="">Selecciona tu ciudad</option>
+                                    @for (city of cities; track $index) {
+                                        <option [value]="city._id">{{city.name}}</option>
+                                    }
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Botón de Actualizar -->
-                <div class="form-actions">
-                    <button type="submit" class="save-button">
-                        <i class="fas fa-save"></i> Guardar Cambios
-                    </button>
-                </div>
-            </form>
-        </div>
+                    <!-- Botón de Actualizar -->
+                    <div class="form-actions">
+
+                        @if(loadingComboBox){
+                            <div class="save-button">
+                                <app-loading [size]="'extraSmall'" [type]="'spinner'"></app-loading>
+                            </div>
+                        }@else {
+                            <button type="submit" class="save-button">
+                                <i class="fas fa-save"></i> Guardar Cambios
+                            </button>
+                        }
+
+
+                    </div>
+                </form>
+            </div>
+        }
+        
     </div>
 </body>
 </html>

@@ -5,6 +5,7 @@ import { CitiesComponent } from './cities.component/cities.component';
 import { ProvincesComponent } from './provinces.component/provinces.component';
 import { CountriesComponent } from './countries.component/countries.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ViewsModule } from "../views/views-module";
 
 
 
@@ -18,8 +19,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    FormsModule
-  ],
+    FormsModule,
+    ViewsModule
+],
   exports: [
     BreedsComponent,
     CitiesComponent,

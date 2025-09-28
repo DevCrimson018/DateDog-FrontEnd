@@ -3,9 +3,15 @@
     <i class="icon dog-icon">🏞️</i> Provincia/Estado
   </label>
   <select id="provinceId" formControlName="provinceId" class="dog-input" (change)="getCities()">
-    <option value="" disabled selected>Selecciona primero tu Provincia</option>
-    @for (province of provinces; track $index) {
-        <option [value]="province._id">{{province.name}}</option>    
+    @if(loading){
+      <option value="" disabled selected>
+        <app-loading [size]="'extraSmall'" [type]="'spinner'"></app-loading>
+      </option>
+    }@else{
+      <option value="" disabled selected>Selecciona primero tu Provincia</option>
+      @for (province of provinces; track $index) {
+          <option [value]="province._id">{{province.name}}</option>    
+      }
     }
   </select>
 </div>

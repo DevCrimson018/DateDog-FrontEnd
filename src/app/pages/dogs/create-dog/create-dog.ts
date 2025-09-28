@@ -13,6 +13,7 @@ import { filterBreeds, filterCities, filterProvinces } from '../../../core/model
 })
 export class CreateDog {
 
+  loading: boolean = false
   dogForm: FormGroup;
   profileImage: string | ArrayBuffer | null = 'assets/dog-default-avatar.png';
   generalImages: (string | ArrayBuffer)[] = [];
@@ -58,11 +59,19 @@ export class CreateDog {
 
   async getCities(){
     try {
-      const filter = {
-        countryId: this.dogForm.value.address.countryId,
-        provinceId: this.dogForm.value.address.provinceId
+      this.loading = true;
+      if(this.dogForm.value.address.provinceId != ""){
+        const filter = {
+          countryId: this.dogForm.value.address.countryId,
+          provinceId: this.dogForm.value.address.provinceId
+        }
+        this.cities = await this.getter.getCities(filterCities(filter, 0, 10))
+        
+      }else{
+        this.cities = []
       }
-      this.cities = await this.getter.getCities(filterCities(filter, 0, 10))
+      this.dogForm.value.address.cityId = "";
+      this.loading = false
     } catch (error) {
       console.log(error);
     }
@@ -70,10 +79,21 @@ export class CreateDog {
 
   async getProvinces(){
     try {
-      const filter = {
-        countryId: this.dogForm.value.address.countryId
+      this.loading = true;
+      if(this.dogForm.value.address.countryId != ""){
+        const filter = {
+          countryId: this.dogForm.value.address.countryId
+        }
+        this.provinces = await this.getter.getProvinces(filterProvinces(filter, 0, 10))
+      }else{
+        this.provinces = []
       }
-      this.provinces = await this.getter.getProvinces(filterProvinces(filter, 0, 10))
+      this.dogForm.value.address.provinceId = "";
+      this.dogForm.value.address.cityId = "";
+
+      this.cities = [];
+
+      this.loading = false;
     } catch (error) {
       console.log(error);
     }
@@ -81,7 +101,10 @@ export class CreateDog {
 
   async getCountries(){
     try {
-      this.countries = await this.getter.getCountries();  
+      this.loading = true;
+      this.countries = await this.getter.getCountries();
+      this.loading = false;
+      
     } catch (error) {
       console.log(error);
     }

@@ -1,80 +1,85 @@
 <div class="user-detail-container">
-  <div class="user-profile-card">
-    <!-- Header -->
-    <div class="user-header">
-      <h1 class="user-title">👤 Detalles del Usuario</h1>
-    </div>
+  @if(loading){
+    <app-loading [size]="'large'" [type]="'bones'"></app-loading>
+  }@else {
+    <div class="user-profile-card">
+      <!-- Header -->
+      <div class="user-header">
+        <h1 class="user-title">👤 Detalles del Usuario</h1>
+      </div>
 
-    <!-- Información del Usuario -->
-    <div class="user-info-section">
-      <div class="user-profile-main">
-        <!-- Foto de Perfil -->
-        <div class="user-photo-container">
-          <img [src]="userData.profilePhoto" alt="Foto de perfil" class="user-profile-image">
-        </div>
+      <!-- Información del Usuario -->
+      <div class="user-info-section">
+        <div class="user-profile-main">
+          <!-- Foto de Perfil -->
+          <div class="user-photo-container">
+            <img [src]="userData.profilePhoto" alt="Foto de perfil" class="user-profile-image">
+          </div>
 
-        <!-- Información Principal -->
-        <div class="user-basic-info">
-          <h2 class="user-name">{{userData.firstName}} {{userData.lastName}}</h2>
-          
-          <div class="info-grid">
-            <div class="info-item">
-              <span class="info-label">Edad:</span>
-              <span class="info-value">{{getAge(userData.dateOfBirth)}}</span>
-            </div>
+          <!-- Información Principal -->
+          <div class="user-basic-info">
+            <h2 class="user-name">{{userData.firstName}} {{userData.lastName}}</h2>
             
-            <div class="info-item">
-              <span class="info-label">Sexo:</span>
-              <span class="info-value">{{getSexLabel(userData.sex)}}</span>
-            </div>
-            
-            <div class="info-item">
-              <span class="info-label">Ciudad:</span>
-              <span class="info-value">{{userData.address.cityId.name}}</span>
-            </div>
-            
-            <div class="info-item">
-              <span class="info-label">Provincia:</span>
-              <span class="info-value">{{userData.address.provinceId.name}}</span>
-            </div>
-            
-            <div class="info-item">
-              <span class="info-label">País:</span>
-              <span class="info-value">{{userData.address.countryId.name}}</span>
+            <div class="info-grid">
+              <div class="info-item">
+                <span class="info-label">Edad:</span>
+                <span class="info-value">{{getAge(userData.dateOfBirth)}}</span>
+              </div>
+              
+              <div class="info-item">
+                <span class="info-label">Sexo:</span>
+                <span class="info-value">{{getSexLabel(userData.sex)}}</span>
+              </div>
+              
+              <div class="info-item">
+                <span class="info-label">Ciudad:</span>
+                <span class="info-value">{{userData.address.cityId.name}}</span>
+              </div>
+              
+              <div class="info-item">
+                <span class="info-label">Provincia:</span>
+                <span class="info-value">{{userData.address.provinceId.name}}</span>
+              </div>
+              
+              <div class="info-item">
+                <span class="info-label">País:</span>
+                <span class="info-value">{{userData.address.countryId.name}}</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Sección de Perros -->
-    <div class="dogs-section">
-      <h2 class="dogs-title">🐕 Mis Perros</h2>
-      
-      @if(userData.dogsQuantity === 0){
-        <div lass="no-dogs">
-          <p>📝 No hay perros registrados</p>
-        </div>
-      }
-      
-      @if(userData.dogsQuantity > 0){
-        <div class="dogs-grid">
-          @for (dog of dogs; track $index) {
-            <app-user-dogs [dog]="dog"></app-user-dogs>
-          }
-        </div>
-      }
-      
-    </div>
+      <!-- Sección de Perros -->
+      <div class="dogs-section">
+        <h2 class="dogs-title">🐕 Mis Perros</h2>
+        
+        @if(userData.dogsQuantity === 0){
+          <div lass="no-dogs">
+            <p>📝 No hay perros registrados</p>
+          </div>
+        }
+        
+        @if(userData.dogsQuantity > 0){
+          <div class="dogs-grid">
+            @for (dog of dogs; track $index) {
+              <app-user-dogs [dog]="dog"></app-user-dogs>
+            }
+          </div>
+        }
+        
+      </div>
 
-    <!-- Acciones -->
-    <div class="user-actions">
-      <button class="dog-button" [routerLink]="'/users/edit-user/' + userData._id">
-        <i class="icon">✏️</i> Editar Perfil
-      </button>
-      <button class="dog-button secondary" routerLink="/dogs/create-dog">
-        <i class="icon">🐕</i> Agregar Perro
-      </button>
+      <!-- Acciones -->
+      <div class="user-actions">
+        <button class="dog-button" [routerLink]="'/users/edit-user/' + userData._id">
+          <i class="icon">✏️</i> Editar Perfil
+        </button>
+        <button class="dog-button secondary" routerLink="/dogs/create-dog">
+          <i class="icon">🐕</i> Agregar Perro
+        </button>
+      </div>
     </div>
-  </div>
+  }
+  
 </div>

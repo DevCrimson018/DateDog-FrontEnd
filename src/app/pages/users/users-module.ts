@@ -8,6 +8,7 @@ import { UserDetails } from './user-details/user-details';
 import { EditUser } from './edit-user/edit-user';
 import { CardsModule } from "../../visual/cards/cards-module";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ViewsModule } from "../../visual/views/views-module";
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
     UsersRoutingModule,
-    CardsModule
+    CardsModule,
+    ViewsModule
 ]
 })
 export class UsersModule { }

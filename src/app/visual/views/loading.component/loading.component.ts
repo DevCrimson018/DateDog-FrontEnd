@@ -2,12 +2,12 @@ import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-loading',
-  imports: [],
-  templateUrl: './loading.html',
-  styleUrl: './loading.scss'
+  standalone: false,
+  templateUrl: './loading.component.html',
+  styleUrl: './loading.component.scss'
 })
-export class Loading {
+export class LoadingComponent {
   @Input() message: string = 'Cargando...';
   @Input() type: 'spinner' | 'bones' | 'dog-running' | 'simple' = 'bones';
-  @Input() size: 'small' | 'medium' | 'large' = 'medium';
+  @Input() size: 'extraSmall' | 'small' | 'medium' | 'large' = 'medium';
 }

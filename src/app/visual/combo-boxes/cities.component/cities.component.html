@@ -3,9 +3,16 @@
     <i class="icon dog-icon">🏘️</i> Ciudad
   </label>
   <select id="cityId" formControlName="cityId" class="dog-input" >
-    <option value="" disabled selected>Selecciona primero tu Ciudad</option>
-     @for (city of cities; track $index) {
-        <option [value]="city._id">{{city.name}}</option>
-     }
+    @if(loading){
+      <option disabled selected value=""> 
+        <app-loading [size]="'extraSmall'" [type]="'spinner'"></app-loading>
+      </option>
+    }@else{
+      <option value="" disabled selected>Selecciona primero tu Ciudad</option>
+      @for (city of cities; track $index) {
+          <option [value]="city._id">{{city.name}}</option>
+      }
+    }
   </select>
+  
 </div>
