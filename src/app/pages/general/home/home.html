@@ -1,4 +1,9 @@
 <div class="nearby-dogs-container">
+  <!-- Botón para abrir el menú -->
+  <button class="menu-toggle-btn" (click)="toggleMenu()">
+    ☰
+  </button>
+
   <!-- Header -->
   <div class="header">
     <h1>🐕 Perros Cerca de Ti</h1>
@@ -23,10 +28,8 @@
     </button>
   </div>
 
-  <!-- Filtros -->
-
-  <!-- Vista de Mapa (Placeholder) -->
-   @if(showMapView){
+  <!-- Vista de Mapa -->
+  @if(showMapView){
     <div class="map-view">
       <div class="map-placeholder">
         <div class="map-icon">🗺️</div>
@@ -35,10 +38,9 @@
         <small>✨ Próximamente con integración de Google Maps</small>
       </div>
     </div>
-   }
+  }
 
   <!-- Vista de Lista -->
-
   @if(!showMapView){
     @if(loading){
       <app-loading [type]="'spinner'" [size]="'medium'"></app-loading>
@@ -47,10 +49,26 @@
         @for (dog of nearbyDogs; track $index) {
           <app-dogs-home [dog]="dog"></app-dogs-home>
         }
-        
       </div>
     }
-
   }
 
+  <!-- Menú flotante en esquina -->
+  <nav class="main-menu" [class.open]="isMenuOpen">
+    <div class="menu-header">
+      <h3>Menú Principal</h3>
+      <button class="close-menu" (click)="toggleMenu()">×</button>
+    </div>
+    <ul class="menu-list">
+      <li *ngFor="let item of menuItems" 
+          [class.active]="item.active"
+          class="menu-item">
+        <span class="menu-icon">{{item.icon}}</span>
+        <span class="menu-label">{{item.label}}</span>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Overlay para cerrar el menú -->
+  <div class="menu-overlay" [class.active]="isMenuOpen" (click)="toggleMenu()"></div>
 </div>
