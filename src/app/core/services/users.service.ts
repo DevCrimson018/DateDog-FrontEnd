@@ -34,4 +34,10 @@ export class UsersService {
       this.http.delete<any>(`${environment.apiUrl}/user/${_id}`)
     )
   }
+
+  endSession() {
+    return firstValueFrom(
+      this.http.delete<any>(`${environment.apiUrl}/user/endSession`)
+    )
+  }
 }

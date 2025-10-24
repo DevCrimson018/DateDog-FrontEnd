@@ -1,0 +1,33 @@
+  <button class="menu-toggle-btn" (click)="toggleMenu()">
+    ☰
+  </button>
+
+   <!-- Menú flotante en esquina -->
+  <nav class="main-menu" [class.open]="isMenuOpen">
+    <div class="menu-header">
+      <h3>Menú Principal</h3>
+      <button class="close-menu" (click)="toggleMenu()">×</button>
+    </div>
+    <ul class="menu-list">
+      <!-- <li *ngFor="let item of menuItems" 
+          [class.active]="item.active"
+          class="menu-item">
+        <span class="menu-icon">{{item.icon}}</span>
+        <span class="menu-label">{{item.label}}</span>
+      </li> -->
+      @for (item of menuItems; track $index) {
+        <li  class="menu-item" [routerLink]="item.route">
+          <span class="menu-icon">{{item.icon}}</span>
+          <span class="menu-label">{{item.label}}</span>
+        </li>
+      }
+      <li class="menu-item" (click)="cerrarSesion()">
+        <span class="menu-icon">🚪</span>
+        <span class="menu-label">Cerrar Sesión</span>
+      </li>
+
+    </ul>
+  </nav>
+
+  <!-- Overlay para cerrar el menú -->
+  <div class="menu-overlay" [class.active]="isMenuOpen" (click)="toggleMenu()"></div>

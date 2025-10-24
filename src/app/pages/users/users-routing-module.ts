@@ -3,24 +3,31 @@ import { RouterModule, Routes } from '@angular/router';
 import { FilterUsers } from './filter-users/filter-users';
 import { UserDetails } from './user-details/user-details';
 import { EditUser } from './edit-user/edit-user';
+import { Users } from './users';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'filter-users',
-    pathMatch: 'full'
-  },
-  {
-    path: 'filter-users',
-    component: FilterUsers
-  },
-  {
-    path: 'edit-user/:_id',
-    component: EditUser
-  },
-  {
-    path: 'user-details/:_id',
-    component: UserDetails
+    component: Users,
+    children: [
+      {
+        path: '',
+        redirectTo: 'filter-users',
+        pathMatch: 'full'
+      },
+      {
+        path: 'filter-users',
+        component: FilterUsers
+      },
+      {
+        path: 'edit-user/:_id',
+        component: EditUser
+      },
+      {
+        path: 'user-details/:_id',
+        component: UserDetails
+      }
+    ]
   }
 ];
 
