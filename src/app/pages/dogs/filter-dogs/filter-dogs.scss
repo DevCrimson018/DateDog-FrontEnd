@@ -1,25 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap');
 
 .dog-search-container {
   display: flex;
   justify-content: center;
   align-items: flex-start;
   min-height: 100vh;
-  //background: linear-gradient(135deg, #f5e6ca 0%, #e8cfa9 100%);
   background: #d9e6f6;
-  font-family: 'Comic Neue', cursive;
+  font-family: 'Segoe UI', sans-serif;
   padding: 20px;
 }
 
 .dog-search-card {
   background: white;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
   padding: 30px;
   width: 100%;
   max-width: 1000px;
-  //border: 3px solid #f8d7a3;
-  border: 3px solid #7ebef3;
+  border: 2px solid #7ebef3;
 }
 
 .dog-header {
@@ -27,36 +25,36 @@
   margin-bottom: 25px;
   
   .dog-title {
-    // color: #8b5a2b;
-     color: #2c3e50;
-    margin: 0 0 5px 0;
-    font-size: 2rem;
+    color: #2c3e50;
+    margin: 0 0 8px 0;
+    font-size: 1.8rem;
+    font-weight: 600;
   }
   
   .dog-subtitle {
-    // color: #a78a6e;
-     color: #2c3e50;
+    color: #2c3e50;
     margin: 0;
-    font-size: 1rem;
+    font-size: 0.95rem;
+    opacity: 0.8;
   }
 }
 
 .search-form {
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 
 .form-section {
-  background: #fffdf8;
-  border-radius: 15px;
+  background: #f9fbff;
+  border-radius: 12px;
   padding: 20px;
-  border: 2px dashed #7ebef3;
+  border-left: 4px solid #29a9ad;
 }
 
 .section-title {
   color: #2c3e50;
-  margin-top: 0;
-  margin-bottom: 20px;
-  font-size: 1.3rem;
+  margin: 0 0 15px 0;
+  font-size: 1.2rem;
+  font-weight: 600;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -69,44 +67,43 @@
   
   @media (max-width: 768px) {
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
   }
 }
 
 .form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
   flex: 1;
 }
 
 .dog-label {
-   color: #2c3e50;
-  font-weight: bold;
+  color: #2c3e50;
+  font-weight: 600;
+  margin-bottom: 5px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+  font-size: 0.9rem;
 }
 
 .dog-input, select.dog-input {
-  padding: 12px 15px;
-  border: 2px dashed #7ebef3;
-  border-radius: 10px;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  background-color: white;
-  font-family: 'Comic Neue', cursive;
+  width: 100%;
+  padding: 10px 12px;
+  border: 2px solid #d9e6f6;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  background: white;
   
   &:focus {
     outline: none;
-    border: 2px dashed #7ebef3;
-    box-shadow: 0 0 0 3px rgba(212, 167, 106, 0.2);
+    border-color: #29a9ad;
+    box-shadow: 0 0 0 3px rgba(41,169,173,0.1);
   }
 }
 
 .form-actions {
   display: flex;
-  gap: 15px;
+  gap: 12px;
   justify-content: center;
   margin-top: 20px;
   
@@ -116,30 +113,30 @@
 }
 
 .dog-button {
-  background: #7ebef3;
+  background: #2c3e50;
   color: white;
   border: none;
-  padding: 12px 20px;
-  border-radius: 10px;
-  font-size: 1rem;
-  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   
   &:hover {
-    background: #7ebef3;
-    transform: translateY(-2px);
+    background: #29a9ad;
+    transform: translateY(-1px);
   }
   
   &.primary {
-    background: #7ebef3;
+    background: #29a9ad;
     
     &:hover {
-      background: #7ebef3;
+      background: #238e91;
     }
   }
   
@@ -147,48 +144,49 @@
     background: #7ebef3;
     
     &:hover {
-      background: #7ebef3;
+      background: #5ca8f0;
     }
   }
   
   &.small {
-    padding: 8px 12px;
-    font-size: 0.9rem;
+    padding: 6px 12px;
+    font-size: 0.85rem;
   }
 }
 
 /* Resultados */
 .results-section {
-  margin-top: 30px;
+  margin-top: 25px;
 }
 
 .no-results {
   text-align: center;
   padding: 40px;
-  color: #a78a6e;
-  font-size: 1.1rem;
+  color: #7ebef3;
+  font-size: 1rem;
 }
 
 .results-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
   
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
+    gap: 15px;
   }
 }
 
 .dog-card {
-  background: #fffdf8;
-  border-radius: 15px;
+  background: #f9fbff;
+  border-radius: 12px;
   padding: 20px;
-  border: 2px solid #f0d9b5;
-  transition: transform 0.3s ease;
+  border-left: 4px solid #52d1d4;
+  transition: all 0.3s ease;
   
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
   }
 }
 
@@ -200,8 +198,8 @@
 }
 
 .dog-card-image {
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid #7ebef3;
@@ -212,21 +210,23 @@
   
   .dog-card-name {
     color: #2c3e50;
-    margin: 0 0 5px 0;
-    font-size: 1.3rem;
-    font-weight: bold;
+    margin: 0 0 4px 0;
+    font-size: 1.2rem;
+    font-weight: 600;
   }
   
   .dog-card-breed {
-    color: #2c3e50;
-    margin: 0 0 5px 0;
+    color: #29a9ad;
+    margin: 0 0 4px 0;
     font-size: 0.9rem;
+    font-weight: 500;
   }
   
   .dog-card-location {
     color: #2c3e50;
     margin: 0;
     font-size: 0.8rem;
+    opacity: 0.8;
   }
 }
 
@@ -234,11 +234,12 @@
   margin-bottom: 15px;
   
   .dog-card-birthday, .dog-card-age {
-    margin: 5px 0;
+    margin: 4px 0;
     color: #2c3e50;
     display: flex;
     align-items: center;
     gap: 5px;
+    font-size: 0.9rem;
   }
 }
 
@@ -254,10 +255,23 @@
   }
   
   .dog-title {
-    font-size: 1.7rem;
+    font-size: 1.5rem;
   }
   
   .section-title {
     font-size: 1.1rem;
+  }
+  
+  .form-section {
+    padding: 15px;
+  }
+  
+  .dog-card-header {
+    gap: 12px;
+  }
+  
+  .dog-card-image {
+    width: 60px;
+    height: 60px;
   }
 }

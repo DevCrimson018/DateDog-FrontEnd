@@ -1,45 +1,41 @@
-@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap');
 
 .dog-register-container {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  // background: linear-gradient(135deg, #f5e6ca 0%, #e8cfa9 100%);
-  background-color: #d9e6f6;
-  font-family: 'Comic Neue', cursive;
+  background: #d9e6f6;
+  font-family: 'Segoe UI', sans-serif;
   padding: 20px;
 }
 
 .dog-register-card {
   background: white;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  padding: 40px 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  padding: 30px;
   width: 100%;
   max-width: 700px;
-  // border: 3px solid #f8d7a3;
-  border: 3px solid #7ebef3;
+  border: 2px solid #7ebef3;
 }
 
 .dog-header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 
 .dog-title {
- // color: #8b5a2b;
-   color: #2c3e50;
+  color: #2c3e50;
   margin-bottom: 5px;
-  font-size: 2rem;
+  font-size: 1.8rem;
+  font-weight: 600;
 }
 
 .dog-subtitle {
-  //color: #a78a6e;
   color: #2c3e50;
-  margin-bottom: 0;
-  font-size: 1rem;
+  opacity: 0.8;
+  font-size: 0.95rem;
 }
 
 .dog-form {
@@ -49,20 +45,17 @@
 }
 
 .form-section {
-  // background: #fffdf8;
-  background: #fff;
-  border-radius: 15px;
+  background: #f9fbff;
+  border-radius: 12px;
   padding: 20px;
-  // border: 2px dashed #f0d9b5;
-  border: 2px dashed #7ebef3;
+  border-left: 4px solid #52d1d4;
 }
 
 .section-title {
-  // color: #8b5a2b;
   color: #2c3e50;
-  margin-top: 0;
-  margin-bottom: 15px;
-  font-size: 1.2rem;
+  margin: 0 0 15px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -74,57 +67,54 @@
   
   @media (max-width: 600px) {
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
   }
 }
 
 .form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
   margin-bottom: 15px;
   flex: 1;
 }
 
 .dog-label {
-  // color: #8b5a2b;
-   color: #2c3e50;
-  font-weight: bold;
+  color: #2c3e50;
+  font-weight: 600;
+  margin-bottom: 5px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+  font-size: 0.9rem;
 }
 
 .dog-input, select.dog-input {
-  padding: 12px 15px;
-  // border: 2px solid #f0d9b5;
+  width: 100%;
+  padding: 10px 12px;
   border: 2px solid #d9e6f6;
-  border-radius: 10px;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  background-color: white;
-  font-family: 'Comic Neue', cursive;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  background: white;
   
   &:focus {
     outline: none;
-    border-color: #2c3e50;
-    box-shadow: 0 0 0 3px rgba(212, 167, 106, 0.2);
+    border-color: #29a9ad;
+    box-shadow: 0 0 0 3px rgba(41,169,173,0.1);
   }
 }
 
-/* Estilos para la foto de perfil */
+/* Foto de perfil */
 .profile-photo-container {
   display: flex;
   justify-content: center;
+  margin: 15px 0;
 }
 
 .profile-photo-preview {
-  width: 150px;
-  height: 150px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid #d9e6f6;
-  //  border: 3px solid #f8d7a3;
+  border: 3px solid #7ebef3;
   position: relative;
   
   .profile-image {
@@ -145,11 +135,16 @@
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+  padding: 8px 12px;
+  background: #2c3e50;
+  color: white;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: background 0.2s ease;
   
-  &.full-width {
-    width: 100%;
-    justify-content: center;
+  &:hover {
+    background: #29a9ad;
   }
 }
 
@@ -157,11 +152,10 @@
   color: #7ebef3;
   font-size: 0.8rem;
   margin-top: 5px;
-  display: block;
   text-align: center;
 }
 
-/* Estilos para las galerías de fotos */
+/* Galerías de fotos */
 .photos-container {
   margin-top: 15px;
 }
@@ -169,15 +163,15 @@
 .photos-preview {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
   margin-bottom: 15px;
-  min-height: 80px;
+  min-height: 60px;
 }
 
 .photo-thumbnail {
-  width: 80px;
-  height: 80px;
-  border-radius: 10px;
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
   overflow: hidden;
   position: relative;
   border: 2px solid #d9e6f6;
@@ -195,14 +189,14 @@
     background: #e74c3c;
     color: white;
     border: none;
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 10px;
     line-height: 1;
   }
 }
@@ -212,42 +206,53 @@
   color: white;
   border: none;
   padding: 12px 20px;
-  border-radius: 10px;
+  border-radius: 8px;
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   
   &:hover {
-    background: #2c3e50;
+    background: #29a9ad;
+    transform: translateY(-1px);
   }
   
   &:disabled {
     background: #ccc;
     cursor: not-allowed;
+    transform: none;
   }
   
   &.small {
-    padding: 8px 12px;
-    font-size: 0.9rem;
+    padding: 6px 10px;
+    font-size: 0.85rem;
   }
 }
 
 /* Responsive */
 @media (max-width: 600px) {
   .dog-register-card {
-    padding: 25px 15px;
+    padding: 20px 15px;
   }
   
   .dog-title {
-    font-size: 1.7rem;
+    font-size: 1.5rem;
   }
   
   .section-title {
-    font-size: 1.1rem;
+    font-size: 1rem;
+  }
+  
+  .form-section {
+    padding: 15px;
+  }
+  
+  .profile-photo-preview {
+    width: 100px;
+    height: 100px;
   }
 }
