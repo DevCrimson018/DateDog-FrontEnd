@@ -1,35 +1,90 @@
 @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+           // background: linear-gradient(135deg, #D9E6F6 0%, #7EBEF3 100%);
+           background-color: #D9E6F6;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+// .user-detail-container {
+//   display: flex;
+//   justify-content: center;
+//   align-items: flex-start;
+//   min-height: 100vh;
+//   background: #d9e6f6;
+//   font-family: 'Comic Neue', cursive;
+//   padding: 20px;
+// }
+
 .user-detail-container {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  min-height: 100vh;
-  background: #d9e6f6;
-  font-family: 'Comic Neue', cursive;
-  padding: 20px;
-}
-
-.user-profile-card {
-  background: white;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  padding: 30px;
   width: 100%;
-  max-width: 800px;
-  border: 3px solid #7ebef3;
+  max-width: 700px;
 }
 
-.user-header {
-  text-align: center;
-  margin-bottom: 25px;
-  
+// .user-profile-card {
+//   background: white;
+//   border-radius: 15px;
+//   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+//   overflow: hidden;
+// }
+
+
+// .user-profile-card {
+//   background: white;
+//   border-radius: 20px;
+//   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+//   padding: 30px;
+//   width: 100%;
+//   max-width: 800px;
+//   border: 3px solid #7ebef3;
+// }
+
+  .user-profile-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    width: 100%;
+    padding: 30px;
+    max-width: 800px;
+    border: 3px solid #7ebef3;
+  }
+
+  .user-header {
+    //background: linear-gradient(135deg, #2C3E50 0%, #29A9AD 100%);
+    background-color: #7EBEF3;
+    color: white;
+    padding: 25px;
+    text-align: center;
+  }
+
   .user-title {
-    color: #2c3e50;
+    color: #fff;
     margin: 0;
     font-size: 2rem;
   }
-}
+
+// .user-header {
+//   text-align: center;
+//   margin-bottom: 25px;
+  
+//   .user-title {
+//     color: #2c3e50;
+//     margin: 0;
+//     font-size: 2rem;
+//   }
+// }
 
 /* Información del Usuario */
 .user-info-section {

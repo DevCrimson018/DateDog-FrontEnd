@@ -17,7 +17,7 @@
               <label class="file-upload-label">
                 <input type="file" (change)="onProfilePhotoSelected($event)" accept="image/*" style="display: none;">
                 <span class="dog-button small">
-                  <i class="icon">📷</i> Seleccionar
+                  <!-- <i class="icon">📷</i> Seleccionar -->
                 </span>
               </label>
               <small class="file-info">{{ dogForm.get('profilePhoto')?.value?.name || 'Ningún archivo seleccionado' }}</small>

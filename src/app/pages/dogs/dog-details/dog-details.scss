@@ -15,22 +15,26 @@
   background: white;
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  padding: 30px;
+ // padding: 30px;
   width: 100%;
   max-width: 900px;
   border: 3px solid #7ebef3;
 }
 
 .dog-header {
-  text-align: center;
-  margin-bottom: 25px;
-  
+           // background: linear-gradient(135deg, #2C3E50 0%, #29A9AD 100%);
+           background-color: #7EBEF3;
+            color: white;
+            padding: 25px;
+            text-align: center;
+
+}
+
   .dog-title {
-    color: #2c3e50;
+    color: #fff;
     margin: 0;
     font-size: 2rem;
   }
-}
 
 .dog-profile-content {
   display: flex;
