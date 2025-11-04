@@ -15,7 +15,7 @@ export class EditUser {
   loading: boolean = false
   loadingComboBox:boolean = false
 
-  _id = input.required<string>();
+  
   user: any
 
   getter = new Getters()
@@ -98,7 +98,7 @@ export class EditUser {
       delete this.editForm.value.address.cityId
     }
 
-    let message = await this.userService.updateUser(this._id(), this.editForm.value)
+    let message = await this.userService.updateUser(this.user._id, this.editForm.value)
 
     this.loadingComboBox = false
 
@@ -110,7 +110,7 @@ export class EditUser {
   async getCurrentData(){
     try {
 
-      this.user = await this.userService.getUser(this._id())
+      this.user = await this.userService.getUser('myself')
       console.log(this.user);
       
     } catch (error) {

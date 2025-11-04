@@ -20,7 +20,7 @@ const routes: Routes = [
         component: FilterUsers
       },
       {
-        path: 'edit-user/:_id',
+        path: 'edit-user/myself',
         component: EditUser
       },
       {
