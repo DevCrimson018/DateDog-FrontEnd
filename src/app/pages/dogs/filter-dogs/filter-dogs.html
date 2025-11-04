@@ -11,10 +11,14 @@
         <h2 class="section-title">🎯 Filtros de Búsqueda</h2>
         
         <div class="form-row">
-          
-          <!-- Combo-Box of Breeds -->
-          <app-breeds  [breeds]="breeds"></app-breeds>
+          <div class="form-group">
+            <label class="dog-label">
+              <!-- <i class="icon dog-icon">🐕</i> Raza -->
+            </label>
+            <app-breeds [breeds]="breeds"></app-breeds>
+          </div>
 
+          <!-- Sexo -->
           <div class="form-group">
             <label for="sex" class="dog-label">
               <i class="icon dog-icon">♂️♀️</i> Sexo
@@ -28,11 +32,29 @@
         </div>
 
         <div class="form-row" formGroupName="address">
-          <app-countries  [countries]="countries" (sending)="getProvinces()" [loading]="loadingComboBox"></app-countries>
+          <!-- País -->
+          <div class="form-group">
+            <label class="dog-label">
+              <i class="icon">🌎</i> País
+            </label>
+            <app-countries [countries]="countries" (sending)="getProvinces()" [loading]="loadingComboBox"></app-countries>
+          </div>
 
-          <app-provinces (sending)="getCities()" [provinces]="provinces" [loading]="loadingComboBox"></app-provinces>
+          <!-- Provincia -->
+          <div class="form-group">
+            <label class="dog-label">
+              <i class="icon">🗺️</i> Provincia
+            </label>
+            <app-provinces (sending)="getCities()" [provinces]="provinces" [loading]="loadingComboBox"></app-provinces>
+          </div>
 
-          <app-cities [cities]="cities" [loading]="loadingComboBox"></app-cities>
+          <!-- Ciudad -->
+          <div class="form-group">
+            <label class="dog-label">
+              <i class="icon">🏙️</i> Ciudad
+            </label>
+            <app-cities [cities]="cities" [loading]="loadingComboBox"></app-cities>
+          </div>
         </div>
 
         <div class="form-actions">
@@ -40,22 +62,29 @@
             <i class="icon">🔍</i> Buscar Perros
           </button>
           <button type="button" class="dog-button secondary" (click)="clearFilters()">
-            <i class="icon">🗑️</i> Limpiar
+            <i class="icon">🗑️</i> Limpiar Filtros
           </button>
         </div>
       </div>
     </form>
 
     <!-- Resultados de Búsqueda -->
-     @if(showResults){
+    @if(showResults){
       @if(loading){
-        <app-loading [size]="'large'" [type]="'bones'"></app-loading>
+        <div class="loading-container">
+          <app-loading [size]="'large'" [type]="'bones'"></app-loading>
+        </div>
       }@else {
         <div class="results-section">
-          <h2 class="section-title">📋 Resultados de la Búsqueda</h2>
+          <div class="results-header">
+            <h2 class="section-title">📋 Resultados de la Búsqueda</h2>
+            <div class="results-count">
+              {{searchResults.length}} perro(s) encontrado(s)
+            </div>
+          </div>
           
           @if(searchResults.length === 0){
-            <div  class="no-results">
+            <div class="no-results">
               <p>🐾 ¡No se encontraron perros con los filtros seleccionados!</p>
             </div>
           }
@@ -66,10 +95,8 @@
               }
             </div>
           }
-
         </div>
       }
-     }
-    
+    }
   </div>
 </div>
