@@ -13,47 +13,55 @@
 .dog-search-card {
   background: white;
   border-radius: 15px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
   padding: 30px;
   width: 100%;
-  max-width: 1000px;
+  max-width: 1200px; // Aumentado para mejor distribución
   border: 2px solid #7ebef3;
 }
 
 .dog-header {
+  background: #7ebef3; // Cambiado a verde para consistencia
+  color: white;
+  padding: 25px;
   text-align: center;
-  margin-bottom: 25px;
+  border-radius: 12px 12px 0 0;
+  margin: -30px -30px 25px -30px;
   
   .dog-title {
-    color: #2c3e50;
+    color: white;
     margin: 0 0 8px 0;
     font-size: 1.8rem;
     font-weight: 600;
   }
   
   .dog-subtitle {
-    color: #2c3e50;
+    color: white;
     margin: 0;
-    font-size: 0.95rem;
-    opacity: 0.8;
+    font-size: 1rem;
+    opacity: 0.9;
   }
 }
 
 .search-form {
-  margin-bottom: 25px;
+  margin-bottom: 30px;
 }
 
 .form-section {
   background: #f9fbff;
   border-radius: 12px;
-  padding: 20px;
-  border-left: 4px solid #29a9ad;
+  padding: 25px;
+  border-left: 4px solid #52D1D4;
+  
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
 }
 
 .section-title {
   color: #2c3e50;
-  margin: 0 0 15px 0;
-  font-size: 1.2rem;
+  margin: 0 0 20px 0;
+  font-size: 1.3rem;
   font-weight: 600;
   display: flex;
   align-items: center;
@@ -62,23 +70,37 @@
 
 .form-row {
   display: flex;
-  gap: 15px;
-  margin-bottom: 15px;
+  gap: 20px;
+  margin-bottom: 20px;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
   
   @media (max-width: 768px) {
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
+    margin-bottom: 15px;
   }
 }
 
 .form-group {
   flex: 1;
+  
+  // Estilos para componentes anidados
+  app-breeds,
+  app-countries,
+  app-provinces,
+  app-cities {
+    width: 100%;
+    display: block;
+  }
 }
 
 .dog-label {
   color: #2c3e50;
   font-weight: 600;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -87,10 +109,10 @@
 
 .dog-input, select.dog-input {
   width: 100%;
-  padding: 10px 12px;
+  padding: 12px 15px;
   border: 2px solid #d9e6f6;
   border-radius: 8px;
-  font-size: 0.95rem;
+  font-size: 1rem;
   transition: all 0.2s ease;
   background: white;
   
@@ -103,12 +125,13 @@
 
 .form-actions {
   display: flex;
-  gap: 12px;
+  gap: 15px;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 25px;
   
   @media (max-width: 480px) {
     flex-direction: column;
+    gap: 12px;
   }
 }
 
@@ -116,24 +139,25 @@
   background: #2c3e50;
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 12px 24px;
   border-radius: 8px;
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 8px;
+  min-width: 160px;
   
   &:hover {
     background: #29a9ad;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
   }
   
   &.primary {
-    background: #29a9ad;
+    background: #7ebef3;
     
     &:hover {
       background: #238e91;
@@ -141,7 +165,7 @@
   }
   
   &.secondary {
-    background: #7ebef3;
+    background: #238e91;
     
     &:hover {
       background: #5ca8f0;
@@ -149,60 +173,107 @@
   }
   
   &.small {
-    padding: 6px 12px;
-    font-size: 0.85rem;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    min-width: auto;
   }
 }
 
-/* Resultados */
+/* Resultados Mejorados */
 .results-section {
-  margin-top: 25px;
+  margin-top: 30px;
+  padding-top: 25px;
+  border-top: 2px solid #d9e6f6;
+}
+
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  
+  @media (max-width: 600px) {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+}
+
+.results-count {
+  color: #29a9ad;
+  font-weight: 600;
+  background: rgba(41, 169, 173, 0.1);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
 }
 
 .no-results {
   text-align: center;
-  padding: 40px;
+  padding: 50px 30px;
   color: #7ebef3;
-  font-size: 1rem;
+  font-size: 1.1rem;
+  background: rgba(126, 190, 243, 0.1);
+  border-radius: 12px;
+  
+  p {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
 }
 
 .results-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+  
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
   
   @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  @media (max-width: 600px) {
     grid-template-columns: 1fr;
     gap: 15px;
   }
 }
 
+/* Tarjetas de Perros Mejoradas */
 .dog-card {
   background: #f9fbff;
   border-radius: 12px;
-  padding: 20px;
+  padding: 25px;
   border-left: 4px solid #52d1d4;
   transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
   
   &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
   }
 }
 
 .dog-card-header {
   display: flex;
   align-items: center;
-  gap: 15px;
-  margin-bottom: 15px;
+  gap: 20px;
+  margin-bottom: 20px;
 }
 
 .dog-card-image {
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid #7ebef3;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
 }
 
 .dog-card-info {
@@ -210,52 +281,119 @@
   
   .dog-card-name {
     color: #2c3e50;
-    margin: 0 0 4px 0;
-    font-size: 1.2rem;
+    margin: 0 0 6px 0;
+    font-size: 1.3rem;
     font-weight: 600;
   }
   
   .dog-card-breed {
     color: #29a9ad;
-    margin: 0 0 4px 0;
-    font-size: 0.9rem;
+    margin: 0 0 6px 0;
+    font-size: 1rem;
     font-weight: 500;
   }
   
   .dog-card-location {
     color: #2c3e50;
     margin: 0;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     opacity: 0.8;
+    display: flex;
+    align-items: center;
+    gap: 5px;
   }
 }
 
 .dog-card-details {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   
   .dog-card-birthday, .dog-card-age {
-    margin: 4px 0;
+    margin: 6px 0;
     color: #2c3e50;
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 8px;
     font-size: 0.9rem;
+    
+    .detail-icon {
+      color: #29a9ad;
+      font-size: 1rem;
+    }
   }
 }
 
 .dog-card-actions {
   display: flex;
+  gap: 10px;
   justify-content: center;
+  
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
 }
 
-/* Responsive */
-@media (max-width: 600px) {
+/* Estados de carga */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+/* Responsive Mejorado */
+@media (max-width: 1024px) {
   .dog-search-card {
-    padding: 20px 15px;
+    max-width: 95%;
+  }
+}
+
+@media (max-width: 768px) {
+  .dog-search-container {
+    padding: 15px;
+  }
+  
+  .dog-search-card {
+    padding: 20px;
+  }
+  
+  .dog-header {
+    margin: -20px -20px 20px -20px;
+    padding: 20px;
   }
   
   .dog-title {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
+  }
+  
+  .dog-subtitle {
+    font-size: 0.95rem;
+  }
+  
+  .section-title {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dog-search-container {
+    padding: 10px;
+  }
+  
+  .dog-search-card {
+    padding: 15px;
+  }
+  
+  .dog-header {
+    margin: -15px -15px 15px -15px;
+    padding: 15px;
+  }
+  
+  .dog-title {
+    font-size: 1.4rem;
+  }
+  
+  .dog-subtitle {
+    font-size: 0.9rem;
   }
   
   .section-title {
@@ -266,12 +404,16 @@
     padding: 15px;
   }
   
+  .dog-card {
+    padding: 20px;
+  }
+  
   .dog-card-header {
-    gap: 12px;
+    gap: 15px;
   }
   
   .dog-card-image {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
   }
 }

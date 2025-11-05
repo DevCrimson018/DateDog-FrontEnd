@@ -1,74 +1,93 @@
-@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap');
 
 .dog-detail-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  //background: linear-gradient(135deg, #f5e6ca 0%, #e8cfa9 100%);
   background-color: #d9e6f6;
-  font-family: 'Comic Neue', cursive;
+  font-family: 'Segoe UI', sans-serif;
   padding: 20px;
 }
 
 .dog-profile-card {
   background: white;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
- // padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
   width: 100%;
-  max-width: 900px;
-  border: 3px solid #7ebef3;
+  max-width: 1200px; // Aumentado para más espacio
+  border: 2px solid #7ebef3;
+  overflow: hidden;
 }
 
 .dog-header {
-           // background: linear-gradient(135deg, #2C3E50 0%, #29A9AD 100%);
-           background-color: #7EBEF3;
-            color: white;
-            padding: 25px;
-            text-align: center;
-
+  background: #7ebef3; // Cambiado a verde para consistencia
+  color: white;
+  padding: 25px;
+  text-align: center;
 }
 
-  .dog-title {
-    color: #fff;
-    margin: 0;
-    font-size: 2rem;
-  }
+.dog-title {
+  color: white;
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
 
 .dog-profile-content {
   display: flex;
   gap: 30px;
+  padding: 30px;
+  
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    gap: 25px;
+  }
   
   @media (max-width: 768px) {
-    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
   }
 }
 
+/* Sección izquierda - Información del perro */
 .profile-section {
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  padding: 20px;
-  background: #fff;
-  border-radius: 15px;
-  border: 2px dashed #d9e6f6;
+  gap: 25px;
+}
+
+/* Sección de información principal del perro */
+.dog-main-info {
+  background: #f9fbff;
+  border-radius: 12px;
+  padding: 25px;
+  border-left: 4px solid #52D1D4;
+  
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
 }
 
 .profile-photo-container {
-  width: 200px;
-  height: 200px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
   overflow: hidden;
-  border: 4px solid #7ebef3;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border: 4px solid #2C3E50;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 0 auto 20px;
   
   .profile-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+  
+  @media (max-width: 480px) {
+    width: 150px;
+    height: 150px;
   }
 }
 
@@ -76,56 +95,151 @@
   width: 100%;
   
   .dog-name {
-    color: #2c3e50;
+    color: #2C3E50;
     text-align: center;
     margin-bottom: 20px;
-    font-size: 1.8rem;
-    border-bottom: 2px solid #d9e6f6;
-    padding-bottom: 10px;
+    font-size: 1.6rem;
+    font-weight: 600;
+    
+    @media (max-width: 768px) {
+      font-size: 1.4rem;
+    }
   }
   
   .info-item {
     display: flex;
-    margin-bottom: 15px;
-    padding: 10px;
-    // background: rgba(212, 167, 106, 0.1);
-    background: #d9e6f6;
+    margin-bottom: 12px;
+    padding: 12px;
+    background: rgba(41, 169, 173, 0.08);
     border-radius: 8px;
     
     .info-label {
-      font-weight: bold;
-      color: #2c3e50;
-      min-width: 80px;
+      font-weight: 600;
+      color: #2C3E50;
+      min-width: 100px;
+      font-size: 0.9rem;
     }
     
     .info-value {
-      color: #2c3e50;
+      color: #2C3E50;
       flex: 1;
+      font-size: 0.95rem;
     }
   }
 }
 
+/* Sección derecha - Dueño y Fotos */
+.photos-owner-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* Sección del dueño - AHORA ARRIBA */
+.owner-section {
+  background: #f9fbff;
+  border-radius: 12px;
+  padding: 25px;
+  border-left: 4px solid #7EBEF3;
+  
+  .owner-title {
+    color: #2C3E50;
+    margin: 0 0 20px 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
+}
+
+.owner-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  
+  @media (max-width: 480px) {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+  }
+  
+  .owner-photo-container {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #2C3E50;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    
+    .owner-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  
+  .owner-details {
+    flex: 1;
+    
+    .owner-name {
+      color: #2C3E50;
+      margin: 0 0 8px 0;
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+    
+    .owner-contact {
+      color: #29A9AD;
+      margin: 0;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+  }
+}
+
+.owner-actions {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+  
+  @media (max-width: 480px) {
+    justify-content: center;
+  }
+}
+
+/* Sección de fotos - AHORA ABAJO DEL DUEÑO */
 .photos-section {
-  flex: 2;
   display: flex;
   flex-direction: column;
   gap: 25px;
 }
 
 .photos-group {
-  background: #fff;
-  border-radius: 15px;
-  padding: 20px;
-  border: 2px dashed #d9e6f6;
+  background: #f9fbff;
+  border-radius: 12px;
+  padding: 25px;
+  border-left: 4px solid #52D1D4;
   
   .photos-title {
-    color: #2c3e50;
-    margin-top: 0;
-    margin-bottom: 15px;
+    color: #2C3E50;
+    margin: 0 0 20px 0;
     font-size: 1.3rem;
+    font-weight: 600;
     display: flex;
     align-items: center;
     gap: 8px;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 20px;
   }
 }
 
@@ -138,13 +252,15 @@
     aspect-ratio: 1;
     border-radius: 10px;
     overflow: hidden;
-    border: 2px solid #d9e6f6;
+    border: 3px solid #D9E6F6;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: all 0.2s ease;
+    position: relative;
     
     &:hover {
       transform: scale(1.05);
-      border-color: #7ebef3;
+      border-color: #29A9AD;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
     
     img {
@@ -153,23 +269,78 @@
       object-fit: cover;
     }
   }
+  
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 12px;
+  }
+  
+  @media (max-width: 480px) {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  }
+}
+
+/* Botones */
+.dog-button {
+  background: #2C3E50;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  
+  &:hover {
+    background: #29A9AD;
+    transform: translateY(-1px);
+  }
+  
+  &.secondary {
+    background: #7EBEF3;
+    
+    &:hover {
+      background: #5ca8f0;
+    }
+  }
+  
+  &.small {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
 }
 
 /* Responsive */
 @media (max-width: 600px) {
-  .dog-profile-card {
-    padding: 20px 15px;
-  }
-  
-  .dog-title {
-    font-size: 1.7rem;
+  .dog-header {
+    padding: 20px;
+    
+    .dog-title {
+      font-size: 1.5rem;
+    }
   }
   
   .dog-name {
-    font-size: 1.5rem !important;
+    font-size: 1.4rem !important;
   }
   
-  .photos-grid {
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  .dog-main-info,
+  .owner-section,
+  .photos-group {
+    padding: 20px;
+  }
+  
+  .info-item {
+    flex-direction: column;
+    gap: 4px;
+    
+    .info-label {
+      min-width: auto;
+    }
   }
 }

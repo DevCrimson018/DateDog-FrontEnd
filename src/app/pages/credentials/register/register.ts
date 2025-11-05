@@ -22,6 +22,7 @@ export class Register {
   selectedFile: File | null = null;
   getter = new Getters()
   
+  
 
   constructor(
     private fb: FormBuilder,
