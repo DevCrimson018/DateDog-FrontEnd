@@ -55,5 +55,6 @@ export interface dogProjection {
     address: any,
     photos: string[],
     vaccines: string[]
-    active: boolean
+    active: boolean,
+    isOwner: boolean
 }

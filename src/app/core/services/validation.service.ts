@@ -15,6 +15,12 @@ export class ValidationService {
     )
   }
 
+  validateIsTheSameUser(_id: string){
+    return firstValueFrom(
+      this.http.get<any>(`${environment.apiUrl}/validation/isSameUser/${_id}`)
+    )
+  }
+
   validateAdmin(){
     return firstValueFrom(
       this.http.get<any>(`${environment.apiUrl}/validation/isAdmin`)

@@ -64,7 +64,7 @@
         @if(userData.dogsQuantity > 0){
           <div class="dogs-grid">
             @for (dog of dogs; track $index) {
-              <app-user-dogs [dog]="dog"></app-user-dogs>
+              <app-user-dogs [dog]="dog" [isSameUser]="isSameUser"></app-user-dogs>
             }
           </div>
         }
@@ -72,14 +72,14 @@
       </div>
 
       <!-- Acciones -->
-      <div class="user-actions">
+      <!-- <div class="user-actions">
         <button class="dog-button" [routerLink]="'/users/edit-user/' + userData._id">
           <i class="icon">✏️</i> Editar Perfil
         </button>
         <button class="dog-button secondary" routerLink="/dogs/create-dog">
           <i class="icon">🐕</i> Agregar Perro
         </button>
-      </div>
+      </div> -->
     </div>
   }
   
