@@ -3,6 +3,7 @@ import { UsersService } from '../../../core/services/users.service';
 import { formatBirthDate, getAge, getSexLabel, getSexSymbol } from '../../../core/functions/converters-formarters';
 import { Getters } from '../../../core/functions/getters';
 import { filterDogs } from '../../../core/models/filters';
+import { Validators } from '../../../core/functions/validators';
 
 @Component({
   selector: 'app-user-details',
@@ -20,9 +21,10 @@ export class UserDetails {
 
   userData:any
   dogs: any[] = []
+  isSameUser: boolean = false;
 
   userService = inject(UsersService);
-  
+  private val = new Validators();
 
   formatBirthDate = formatBirthDate;
   getAge = getAge;
@@ -31,10 +33,13 @@ export class UserDetails {
 
   async ngOnInit() {
 
-    this.loading = true
-
+    this.loading = true;
+    
+    
     this.userData = await this.userService.getUser(this._id())
     this.dogs = await this.getter.getDogs(filterDogs({idOwner: this._id()}, 0, 10))
+    this.isSameUser = await this.val.checkIsTheSameUser(this.userData._id)
+    console.log(this.isSameUser);
     console.log(this.userData);
     console.log(this.dogs);
     

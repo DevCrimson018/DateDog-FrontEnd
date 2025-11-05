@@ -9,6 +9,7 @@ import { getAge, getSexLabel, getSexSymbol } from '../../../core/functions/conve
 })
 export class UserDogsComponents {
   @Input() dog:any
+  @Input() isSameUser: boolean = false;
 
   getSexSymbol = getSexSymbol;
   getSexLabel = getSexLabel;
