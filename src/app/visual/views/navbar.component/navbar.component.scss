@@ -1,5 +1,9 @@
 
 // Botón para abrir el menú en esquina
+*{
+    font-family: 'Montserrat', sans-serif;
+}
+
 .menu-toggle-btn {
   position: fixed;
   top: 20px;
