@@ -42,6 +42,9 @@ export interface userProjection {
     profilePhoto: string,
     address: any,
     dogsQuantity: number,
+    instagram: string,
+    facebook: string,
+    whatsapp: string,
     active: boolean
 }
 

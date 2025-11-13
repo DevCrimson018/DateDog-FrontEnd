@@ -64,12 +64,12 @@
             }@else{
                 <div class="results-header">
                     <h2 class="results-title">Resultados de Búsqueda</h2>
-                    <span class="results-count">2 usuarios</span>
+                    <span class="results-count">{{searchResults.length}} Usuarios</span>
                 </div>
                 
                 <div class="users-list">
                     @for (user of searchResults; track $index) {
-                        <div class="user-card">
+                        <div class="user-card" [routerLink]="'/users/user-details/' + user._id">
                             <img [src]="user.profilePhoto" [alt]="user.firstName" class="user-avatar">
                             <div class="user-info">
                                 <h3 class="user-name">{{user.firstName}} {{user.lastName}}</h3>

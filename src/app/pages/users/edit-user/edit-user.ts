@@ -3,6 +3,7 @@ import { Getters } from '../../../core/functions/getters';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { filterCities, filterProvinces } from '../../../core/models/filters';
 import { UsersService } from '../../../core/services/users.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-user',
@@ -31,7 +32,8 @@ export class EditUser {
 
   constructor(
     private userService: UsersService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ){
     this.editForm = this.fb.group({
       firstName: ['', Validators.minLength(2)],
@@ -102,7 +104,12 @@ export class EditUser {
 
     this.loadingComboBox = false
 
-    console.log(message);
+    if(message.errorDescription){
+      alert(message.errorDescription)
+    }else{
+      alert('User Updated')
+      this.router.navigate(['/'])
+    }
     
 
   }

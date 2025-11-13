@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DogsService } from '../../../core/services/dogs.service';
 import { Getters } from '../../../core/functions/getters';
 import { filterBreeds, filterCities, filterProvinces } from '../../../core/models/filters';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-dog',
@@ -29,6 +30,7 @@ export class CreateDog {
   constructor(
     private fb: FormBuilder,
     private dogService: DogsService,
+    private router: Router
   ) {
     this.dogForm = this.fb.group({
       profilePhoto: [null],
@@ -154,8 +156,18 @@ export class CreateDog {
 
   async onSubmit() {
     if (this.dogForm.valid) {
-      let message = await this.dogService.addDog(this.dogForm.value)
+      let message:any = null
+      message = await this.dogService.addDog(this.dogForm.value)
+      if(message.errorDescription){
+        alert(message.errorDescription)
+      }else{
+        alert('Dog Added')
+        this.router.navigate(['/'])
+      }
+
+      alert(message);
       console.log('Formulario enviado', message);
+
     }
   }
 }

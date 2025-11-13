@@ -4,6 +4,7 @@ import { DogsService } from '../../../core/services/dogs.service';
 
 import { filterBreeds, filterCities, filterProvinces } from '../../../core/models/filters';
 import { Getters } from '../../../core/functions/getters';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-dog',
@@ -37,6 +38,7 @@ export class EditDog {
   constructor(
     private fb: FormBuilder,
     private dogService: DogsService,
+    private router: Router
   ) {
     this.editForm = this.fb.group({
       profilePhoto: [null],
@@ -245,9 +247,14 @@ export class EditDog {
 
       
 
-      console.log('Formulario actualizado:', message);
-      // Aquí iría la lógica para actualizar en el backend
-      alert('¡Información del perro actualizada correctamente! 🐾');
+      if(message.errorDescription){
+        alert(message.errorDescription)
+      }else{
+        // Aquí iría la lógica para actualizar en el backend
+        alert('¡Información del perro actualizada correctamente! 🐾');
+        this.router.navigate(['/']);
+      }
+      
     }
   }
 }
