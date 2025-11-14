@@ -49,17 +49,22 @@
                   <span class="info-value">{{userData.address.countryId.name}}</span>
                 </div>
                   <div class="info-item">
-                  <span class="info-label">Telefono:</span>
-                  <span class="info-value"></span>
+                  <span class="info-label">WhatsApp:</span>
+                  <span class="info-value">{{userData.whatsapp}}</span>
                 </div>
+                <a  [href]="'https://instagram.com/' + userData.instagram" >
                   <div class="info-item">
-                  <span class="info-label">Instagram:</span>
-                  <span class="info-value"></span>
-                </div>
-                <div class="info-item">
-                  <span class="info-label">Facebook:</span>
-                  <span class="info-value"></span>
-                </div>
+                    <span class="info-label">Instagram:</span>
+                    <span class="info-value">{{userData.instagram}}</span>
+                  </div>
+                </a>
+                
+                <a [href]="'https://facebook.com/' + userData.facebook">
+                  <div class="info-item">
+                    <span class="info-label">Facebook:</span>
+                    <span class="info-value">{{userData.facebook}}</span>
+                  </div>
+                </a>
               </div>
             </div>
           </div>

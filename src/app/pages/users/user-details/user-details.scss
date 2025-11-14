@@ -332,6 +332,11 @@ body {
     }
 }
 
+
+a{
+    text-decoration: none;
+}
+
 @media (max-width: 480px) {
     .user-profile-main {
         gap: 15px;

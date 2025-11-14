@@ -16,7 +16,6 @@ export class EditUser {
   loading: boolean = false
   loadingComboBox:boolean = false
 
-  
   user: any
 
   getter = new Getters()
@@ -39,6 +38,9 @@ export class EditUser {
       firstName: ['', Validators.minLength(2)],
       lastName: ['', Validators.minLength(2)],
       profilePhoto: [''],
+      instagram: [''],
+      facebook: [''],
+      whatsapp: [''],
       address: this.fb.group({
         cityId: [''],
         provinceId: [''],
@@ -59,7 +61,10 @@ export class EditUser {
         countryId: this.user.address.countryId._id,
         provinceId: this.user.address.provinceId._id,
         cityId: this.user.address.cityId._id
-      }
+      },
+      instagram: this.user.instagram,
+      facebook: this.user.facebook,
+      whatsapp: this.user.whatsapp
     })
     console.log(this.editForm.value);
     

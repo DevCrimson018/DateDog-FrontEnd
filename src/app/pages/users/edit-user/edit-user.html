@@ -22,12 +22,7 @@
                 </div>
 
                 <form class="user-form" [formGroup]="editForm" (submit)="onSubmit()">
-                    <div class="form-section">
-                        <h2 class="section-title">
-                            <i class="fa-solid fa-share"></i>
-                            Redes
-                        </h2>
-                    </div>
+                    
                     <!---->
                     <!-- Información Básica -->
                     <div class="form-section">
@@ -173,6 +168,54 @@
                                         <option [value]="city._id">{{city.name}}</option>
                                     }
                                 </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h2 class="section-title">
+                            <i class="fa-solid fa-share"></i>
+                            Redes
+                        </h2>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="instagram" class="user-label">
+                                    <i class="fa-brands fa-instagram"></i>
+                                    Instagram
+                                </label>
+                                <input
+                                    type="text"  
+                                    id="instagram" 
+                                    class="user-input"
+                                    formControlName="instagram"
+                                >
+                                
+                            </div>
+                            <div class="form-group">
+                                <label for="facebook" class="user-label">
+                                    <i class="fa-brands fa-facebook"></i>
+                                    Facebook
+                                </label>
+                                <input
+                                    type="text"  
+                                    id="facebook" 
+                                    class="user-input"
+                                    formControlName="facebook"
+                                >
+                                
+                            </div>
+                            <div class="form-group">
+                                <label for="whatsapp" class="user-label">
+                                    <i class="fa-brands fa-whatsapp"></i>
+                                    Whatsapp
+                                </label>
+                                <input
+                                    type="text"  
+                                    id="whatsapp" 
+                                    class="user-input"
+                                    formControlName="whatsapp"
+                                >
+                                
                             </div>
                         </div>
                     </div>
