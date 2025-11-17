@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { filterCities, filterProvinces } from '../../../core/models/filters';
 import { UsersService } from '../../../core/services/users.service';
 import { Router } from '@angular/router';
+import { ImagesServices } from '../../../core/services/images.services';
 
 @Component({
   selector: 'app-edit-user',
@@ -12,6 +13,9 @@ import { Router } from '@angular/router';
   styleUrl: './edit-user.scss'
 })
 export class EditUser {
+
+  preview: string | ArrayBuffer | null = null;
+  uploadedUrl = '';
 
   loading: boolean = false
   loadingComboBox:boolean = false
@@ -31,6 +35,7 @@ export class EditUser {
 
   constructor(
     private userService: UsersService,
+    private imageService: ImagesServices,
     private fb: FormBuilder,
     private router: Router
   ){
@@ -48,6 +53,8 @@ export class EditUser {
       })
     })
   }
+
+
 
 
   async ngOnInit(){
@@ -199,6 +206,21 @@ export class EditUser {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  async onFileChange(event: any){
+    const file = event.target.files[0];
+
+    const reader = new FileReader();
+    reader.onload = () => this.preview = reader.result;
+    reader.readAsDataURL(file);
+
+    this.imageService.uploadImage(file).subscribe((resp: any) => {
+      this.uploadedUrl = resp.secure_url;
+      console.log('Imagen Subida!! URL: ' + resp.secure_url);
+      
+    })
+
   }
 
 }
