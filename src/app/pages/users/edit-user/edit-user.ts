@@ -73,6 +73,8 @@ export class EditUser {
       facebook: this.user.facebook,
       whatsapp: this.user.whatsapp
     })
+    console.log(this.user);
+    
     console.log(this.editForm.value);
     
     
@@ -215,7 +217,7 @@ export class EditUser {
     reader.onload = () => this.preview = reader.result;
     reader.readAsDataURL(file);
 
-    this.imageService.uploadImage(file).subscribe((resp: any) => {
+    (await this.imageService.uploadImage(file, 'Tyler_The_Creator', 'Tyler_2')).subscribe((resp: any) => {
       this.uploadedUrl = resp.secure_url;
       console.log('Imagen Subida!! URL: ' + resp.secure_url);
       
