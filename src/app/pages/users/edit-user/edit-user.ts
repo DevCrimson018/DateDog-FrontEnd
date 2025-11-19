@@ -5,6 +5,7 @@ import { filterCities, filterProvinces } from '../../../core/models/filters';
 import { UsersService } from '../../../core/services/users.service';
 import { Router } from '@angular/router';
 import { ImagesServices } from '../../../core/services/images.services';
+import { Images } from '../../../core/functions/images.functions';
 
 @Component({
   selector: 'app-edit-user',
@@ -14,7 +15,8 @@ import { ImagesServices } from '../../../core/services/images.services';
 })
 export class EditUser {
 
-  preview: string | ArrayBuffer | null = null;
+  file: any;
+  preview: any//string | ArrayBuffer | null = null;
   uploadedUrl = '';
 
   loading: boolean = false
@@ -32,6 +34,8 @@ export class EditUser {
 
 
   profileImage: string | ArrayBuffer | null  = null;
+
+
 
   constructor(
     private userService: UsersService,
@@ -114,7 +118,25 @@ export class EditUser {
       delete this.editForm.value.address.cityId
     }
 
-    let message = await this.userService.updateUser(this.user._id, this.editForm.value)
+    
+
+    if(this.preview){
+      console.log(this.preview);
+      
+      await this.uploadImage(this.file, 'users', this.user._id)
+      
+      
+      this.editForm.patchValue({
+        profilePhoto: this.uploadedUrl
+
+      })
+    }
+
+    console.log(this.uploadedUrl);
+    
+    console.log(this.editForm.value);
+    
+    let message = await this.userService.updateUser(this.user._id, this.editForm.value);
 
     this.loadingComboBox = false
 
@@ -211,18 +233,16 @@ export class EditUser {
   }
 
   async onFileChange(event: any){
-    const file = event.target.files[0];
-
-    const reader = new FileReader();
-    reader.onload = () => this.preview = reader.result;
-    reader.readAsDataURL(file);
-
-    (await this.imageService.uploadImage(file, 'Tyler_The_Creator', 'Tyler_2')).subscribe((resp: any) => {
-      this.uploadedUrl = resp.secure_url;
-      console.log('Imagen Subida!! URL: ' + resp.secure_url);
-      
-    })
-
+    this.file = event.target.files[0];
+    const Image = new Images();
+    this.preview = await Image.previewImage(this.file)
+    
   }
+
+  async uploadImage(file:any, folder: string, public_id?: string){
+    let res:any = await this.imageService.uploadImage(file, folder, public_id)
+    this.uploadedUrl = res.secure_url;
+  }
+
 
 }

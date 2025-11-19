@@ -97,10 +97,10 @@
                         
                         <div class="photo-upload-container">
                             <div class="current-photo">
-                                @if(uploadedUrl){
-                                    <img [src]="uploadedUrl" alt="Foto actual" class="profile-image-preview">
-                                }@else {
+                                @if(preview){
                                     <img [src]="preview" alt="Foto actual" class="profile-image-preview">
+                                }@else {
+                                    <img [src]="user.profilePhoto" alt="Foto actual" class="profile-image-preview">
                                 }
                                 <div class="photo-actions">
                                     <label class="file-upload-label">

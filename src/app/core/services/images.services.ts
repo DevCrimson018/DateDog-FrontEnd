@@ -7,9 +7,6 @@ import { firstValueFrom } from 'rxjs';
   providedIn: 'root'
 })
 export class ImagesServices {
-  
-  //private cloudName = 'dnjivgpns';
-  private uploadPreset = 'imagenes_test';
 
   http = inject(HttpClient);
 
@@ -17,9 +14,6 @@ export class ImagesServices {
 
     const { timestamp, signature, apiKey, cloudName } =
     await this.getSignature(folder, public_id);
-
-    console.log({ timestamp, signature, apiKey, cloudName });
-    
 
     const formData = new FormData;
     formData.append('file', file);
@@ -29,19 +23,11 @@ export class ImagesServices {
     if (folder) formData.append("folder", folder);
     if (public_id) formData.append("public_id", public_id);
 
-    //formData.append('upload_preset', this.uploadPreset);
-    // formData.append('public_id', 'TEST');
-
-
-    
-
-
     const url = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
 
-    console.log(formData);
-    
-
-    return this.http.post(url, formData)
+    return firstValueFrom(
+      this.http.post(url, formData)
+    )
   }
 
   private getSignature(folder: string, public_id?: string){
