@@ -32,7 +32,7 @@ export class EditUser {
   provinces: any[] = [];
   cities: any[] = [];
 
-
+  Image = new Images();
   profileImage: string | ArrayBuffer | null  = null;
 
 
@@ -123,7 +123,7 @@ export class EditUser {
     if(this.preview){
       console.log(this.preview);
       
-      await this.uploadImage(this.file, 'users', this.user._id)
+      this.uploadedUrl = await this.Image.uploadImage(this.file, 'users', this.user._id)
       
       
       this.editForm.patchValue({
@@ -234,15 +234,11 @@ export class EditUser {
 
   async onFileChange(event: any){
     this.file = event.target.files[0];
-    const Image = new Images();
-    this.preview = await Image.previewImage(this.file)
+    
+    this.preview = await this.Image.previewImage(this.file)
     
   }
 
-  async uploadImage(file:any, folder: string, public_id?: string){
-    let res:any = await this.imageService.uploadImage(file, folder, public_id)
-    this.uploadedUrl = res.secure_url;
-  }
 
 
 }

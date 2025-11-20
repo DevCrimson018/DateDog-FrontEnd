@@ -5,6 +5,7 @@ import { DogsService } from '../../../core/services/dogs.service';
 import { filterBreeds, filterCities, filterProvinces } from '../../../core/models/filters';
 import { Getters } from '../../../core/functions/getters';
 import { Router } from '@angular/router';
+import { Images } from '../../../core/functions/images.functions';
 
 @Component({
   selector: 'app-edit-dog',
@@ -13,6 +14,12 @@ import { Router } from '@angular/router';
   styleUrl: './edit-dog.scss'
 })
 export class EditDog {
+
+
+  Image = new Images();
+  profilePhotoFile: any
+  previewProfilePhoto: any
+  uploadedPhotoUrl: string = '';
 
   loading:boolean = false
   loadingComboBox: boolean = false
@@ -41,7 +48,7 @@ export class EditDog {
     private router: Router
   ) {
     this.editForm = this.fb.group({
-      profilePhoto: [null],
+      profilePhoto: [''],
       name: ['', [Validators.required, Validators.minLength(2)]],
       // dateOfBirth: ['', Validators.required],
       sex: ['', Validators.required],
@@ -171,69 +178,7 @@ export class EditDog {
       console.log(error);
     }
   }
-
-
-  onProfilePhotoSelected(event: any): void {
-    const file = event.target.files[0];
-    if (file) {
-      this.selectedProfileFile = file;
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        this.profileImage = e.target?.result as string;
-      };
-      reader.readAsDataURL(file);
-      this.editForm.patchValue({ profilePhoto: file });
-    }
-  }
-
-  onGeneralPhotosSelected(event: any): void {
-    this.handleMultipleFiles(event, this.generalImages, 'generalPhotos');
-  }
-
-  onVaccinePhotosSelected(event: any): void {
-    this.handleMultipleFiles(event, this.vaccineImages, 'vaccinePhotos');
-  }
-
-  private handleMultipleFiles(event: any, imagesArray: (string | ArrayBuffer)[], controlName: string): void {
-    const files = event.target.files;
-    if (files && files.length > 0) {
-      const newFiles = Array.from(files).slice(0, 5 - imagesArray.length);
-      
-      newFiles.forEach((file: any) => {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          imagesArray.push(e.target?.result as string);
-        };
-        reader.readAsDataURL(file);
-      });
-
-      const currentFiles = this.editForm.get(controlName)?.value || [];
-      this.editForm.patchValue({ 
-        [controlName]: [...currentFiles, ...newFiles] 
-      });
-    }
-  }
-
-  removeGeneralPhoto(index: number): void {
-    this.generalImages.splice(index, 1);
-    const currentFiles = this.editForm.get('generalPhotos')?.value || [];
-    currentFiles.splice(index, 1);
-    this.editForm.patchValue({ generalPhotos: currentFiles });
-  }
-
-  removeVaccinePhoto(index: number): void {
-    this.vaccineImages.splice(index, 1);
-    const currentFiles = this.editForm.get('vaccinePhotos')?.value || [];
-    currentFiles.splice(index, 1);
-    this.editForm.patchValue({ vaccinePhotos: currentFiles });
-  }
-
-  removeProfilePhoto(): void {
-    this.profileImage = 'assets/dog-default-avatar.png';
-    this.selectedProfileFile = null;
-    this.editForm.patchValue({ profilePhoto: null });
-  }
-
+  
   async onSubmit() {
     if (this.editForm.valid) {
 
@@ -243,6 +188,18 @@ export class EditDog {
         delete this.editForm.value.address
       }
 
+
+      if(this.previewProfilePhoto){
+        console.log(this.previewProfilePhoto);
+        
+        this.uploadedPhotoUrl = await this.Image.uploadImage(this.profilePhotoFile, 'dogs', this.currentDog._id)
+        
+        
+        this.editForm.patchValue({
+          profilePhoto: this.uploadedPhotoUrl
+
+        })
+      }
       let message = await this.dogService.updateDog(this._id(), this.editForm.value)
 
       
@@ -257,4 +214,12 @@ export class EditDog {
       
     }
   }
+
+  async onFileChange(event: any){
+    this.profilePhotoFile = event.target.files[0];
+    
+    this.previewProfilePhoto = await this.Image.previewImage(this.profilePhotoFile)
+    
+  }
+
 }
