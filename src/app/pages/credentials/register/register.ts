@@ -4,6 +4,8 @@ import { CredentialsService } from '../../../core/services/credentials.service';
 import { filterCities, filterProvinces } from '../../../core/models/filters';
 import { Getters } from '../../../core/functions/getters';
 import { Router } from '@angular/router';
+import { Images } from '../../../core/functions/images.functions';
+import { UsersService } from '../../../core/services/users.service';
 
 @Component({
   selector: 'app-register',
@@ -12,6 +14,12 @@ import { Router } from '@angular/router';
   styleUrl: './register.scss'
 })
 export class Register {
+
+  file: any;
+  preview: any
+  uploadedUrl = '';
+  Image = new Images();
+
   registerForm: FormGroup;
   showPassword = false; 
   loading: boolean = false
@@ -27,17 +35,16 @@ export class Register {
   constructor(
     private fb: FormBuilder,
     private credentialService: CredentialsService,
+    private userService: UsersService,
     private router: Router
 
   ) {
-
-
 
     this.registerForm = this.fb.group({
       firstName: ['', [Validators.required, Validators.minLength(2)]],
       lastName: ['', [Validators.required, Validators.minLength(2)]],
       dateOfBirth: ['', [Validators.required, Validators.min(1), Validators.max(30)]],
-
+      profilePhoto: [''],
       sex: ['', Validators.required],
       email: ['', Validators.required],
       username: ['', [Validators.required, Validators.minLength(4)]],
@@ -60,7 +67,19 @@ export class Register {
   async onSubmit(){
     try {
       this.loading = true;
+
+      
+
       const message:any = await this.credentialService.register(this.registerForm.value);
+
+      if(this.preview){
+        console.log(this.preview);
+        
+        this.uploadedUrl = await this.Image.uploadImage(this.file, 'users', message.id)
+
+        await this.userService.updateUser(message.id, {profilePhoto: this.uploadedUrl})
+        
+      }
       if(message.errorCode){
         alert(message.errorCode)
       }else{
@@ -130,6 +149,13 @@ export class Register {
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
+  }
+
+  async onFileChange(event: any){
+    this.file = event.target.files[0];
+    
+    this.preview = await this.Image.previewImage(this.file)
+    
   }
   
 }

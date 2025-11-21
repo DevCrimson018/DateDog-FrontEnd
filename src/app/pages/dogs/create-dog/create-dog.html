@@ -12,10 +12,10 @@
         
         <div class="profile-photo-container">
           <div class="profile-photo-preview">
-            <img [src]="profileImage" alt="Foto de perfil actual" class="profile-image">
+            <img [src]="preview" alt="Foto de perfil actual" class="profile-image">
             <div class="file-upload-container">
               <label class="file-upload-label">
-                <input type="file" (change)="onProfilePhotoSelected($event)" accept="image/*" style="display: none;">
+                <input type="file" (change)="onFileChange($event)" accept="image/*" style="display: none;">
                 <span class="dog-button small">
                   <!-- <i class="icon">📷</i> Seleccionar -->
                 </span>

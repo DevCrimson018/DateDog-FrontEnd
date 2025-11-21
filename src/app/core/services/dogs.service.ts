@@ -31,7 +31,7 @@ export class DogsService {
 
   addDog(newDog: any) {
     return firstValueFrom(
-      this.http.post<any[]>(`${environment.apiUrl}/dog/add`, newDog)
+      this.http.post<any>(`${environment.apiUrl}/dog/add`, newDog)
     )
   }
 

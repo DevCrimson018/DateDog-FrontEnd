@@ -72,6 +72,7 @@ export class EditDog {
       name: this.currentDog.name,
       sex: this.currentDog.sex,
       idBreed: this.currentDog.idBreed._id,
+      profilePhoto: this.currentDog.profilePhoto,
       address: {
         countryId: this.currentDog.address.countryId._id,
         provinceId: this.currentDog.address.provinceId._id,
@@ -96,6 +97,7 @@ export class EditDog {
       }
     })
     ;
+
 
     this.loading = false
   }

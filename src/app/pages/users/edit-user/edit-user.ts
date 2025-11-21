@@ -18,6 +18,7 @@ export class EditUser {
   file: any;
   preview: any//string | ArrayBuffer | null = null;
   uploadedUrl = '';
+  Image = new Images();
 
   loading: boolean = false
   loadingComboBox:boolean = false
@@ -32,14 +33,11 @@ export class EditUser {
   provinces: any[] = [];
   cities: any[] = [];
 
-  Image = new Images();
-  profileImage: string | ArrayBuffer | null  = null;
-
+  
 
 
   constructor(
     private userService: UsersService,
-    private imageService: ImagesServices,
     private fb: FormBuilder,
     private router: Router
   ){

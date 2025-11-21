@@ -5,6 +5,7 @@ import { DogsService } from '../../../core/services/dogs.service';
 import { Getters } from '../../../core/functions/getters';
 import { filterBreeds, filterCities, filterProvinces } from '../../../core/models/filters';
 import { Router } from '@angular/router';
+import { Images } from '../../../core/functions/images.functions';
 
 @Component({
   selector: 'app-create-dog',
@@ -13,6 +14,11 @@ import { Router } from '@angular/router';
   styleUrl: './create-dog.scss'
 })
 export class CreateDog {
+
+  file: any;
+  preview: any
+  uploadedUrl = '';
+  Image = new Images();
 
   loading: boolean = false
   dogForm: FormGroup;
@@ -112,6 +118,7 @@ export class CreateDog {
     }
   }
 
+  //////////////////////////////////////////////////////////
 
   onProfilePhotoSelected(event: any): void {
     const file = event.target.files[0];
@@ -154,19 +161,47 @@ export class CreateDog {
     array.splice(index, 1);
   }
 
+  ///////////////////////////////////////////////////////
+
+  async onFileChange(event: any){
+    this.file = event.target.files[0];
+    
+    this.preview = await this.Image.previewImage(this.file)
+    
+  }
+
   async onSubmit() {
     if (this.dogForm.valid) {
-      let message:any = null
-      message = await this.dogService.addDog(this.dogForm.value)
-      if(message.errorDescription){
-        alert(message.errorDescription)
+      let res:any = null
+      res = await this.dogService.addDog(this.dogForm.value);
+
+
+      if(res.errorDescription){
+        alert(res.errorDescription)
       }else{
+
+        if(this.preview){
+          console.log(this.preview);
+          console.log(res);
+          
+          
+          this.uploadedUrl = await this.Image.uploadImage(this.file, 'dogs', res[0]._id)
+
+          console.log(this.uploadedUrl);
+          
+
+          const newDogPhoto = await this.dogService.updateDog(res[0]._id, {profilePhoto: this.uploadedUrl});
+
+          console.log(newDogPhoto);
+          
+          console.log('Foto actualizada');
+          
+          
+        }
         alert('Dog Added')
         this.router.navigate(['/'])
       }
 
-      alert(message);
-      console.log('Formulario enviado', message);
 
     }
   }

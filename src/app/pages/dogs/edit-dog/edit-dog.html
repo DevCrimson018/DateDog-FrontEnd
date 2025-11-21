@@ -54,7 +54,7 @@
                 @if(previewProfilePhoto){
                   <img [src]="previewProfilePhoto" alt="Foto actual" class="profile-image-preview">
                 }@else {
-                  <img [src]="profileImage" alt="Foto actual" class="profile-image-preview">
+                  <img [src]="currentDog.profilePhoto" alt="Foto actual" class="profile-image-preview">
                 }
                 <div class="photo-actions">
                   <label class="file-upload-label">
