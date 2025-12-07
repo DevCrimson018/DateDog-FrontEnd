@@ -21,6 +21,11 @@ export class EditDog {
   previewProfilePhoto: any
   uploadedPhotoUrl: string = '';
 
+  generalPhotosFiles: any[] = [];
+  previewsGeneralPhoto: any[] = [];
+
+  
+
   loading:boolean = false
   loadingComboBox: boolean = false
 
@@ -222,6 +227,26 @@ export class EditDog {
     
     this.previewProfilePhoto = await this.Image.previewImage(this.profilePhotoFile)
     
+  }
+
+
+  async addGeneralPhoto(event: any){
+    const file = event.target.files[0];
+    
+    let photoId = `general_${this._id()}_${Math.random()}`
+    
+    const photoUrl = await this.Image.uploadImage(file, 'general', photoId)
+
+    this.currentDog.photos.push({id: photoId, url: photoUrl})
+    console.log(this.currentDog.photos);
+    console.log(this.currentDog._id);
+    
+    const res = await this.dogService.updateDog(this.currentDog._id, {photos: this.currentDog.photos})
+
+    console.log(res);
+    
+
+    //this.previewsGeneralPhoto.push(await this.Image.previewImage(event.target.files[0]))
   }
 
 }

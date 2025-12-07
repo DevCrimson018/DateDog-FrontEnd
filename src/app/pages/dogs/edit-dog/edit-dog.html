@@ -90,23 +90,22 @@
             
             <div class="photos-container">
               <div class="photos-preview">
-                <div *ngFor="let photo of generalImages; let i = index" class="photo-thumbnail">
-                  <img [src]="photo" alt="Foto general {{i + 1}}">
+                @for(photo of currentDog.photos; track $index){
+                  <img [src]="photo.url" alt="Foto general {{photo + 1}}">
                   <button 
                     type="button" 
                     class="remove-photo" 
-                    
                   >
                     ×
                   </button>
-                </div>
+                }
               </div>
               
               <div class="upload-controls" *ngIf="generalImages.length < 5">
                 <label class="file-upload-label">
                   <input 
                     type="file" 
-                    
+                    (change)="addGeneralPhoto($event)"
                     accept="image/*" 
                     multiple 
                     style="display: none;"
