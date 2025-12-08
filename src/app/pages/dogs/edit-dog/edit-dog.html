@@ -95,6 +95,7 @@
                   <button 
                     type="button" 
                     class="remove-photo" 
+                    (click)="removePhoto('general', photo)"
                   >
                     ×
                   </button>
@@ -105,7 +106,7 @@
                 <label class="file-upload-label">
                   <input 
                     type="file" 
-                    (change)="addGeneralPhoto($event)"
+                    (change)="addPhoto('general', $event)"
                     accept="image/*" 
                     multiple 
                     style="display: none;"
@@ -125,23 +126,23 @@
             
             <div class="photos-container">
               <div class="photos-preview">
-                <div *ngFor="let vaccine of vaccineImages; let i = index" class="photo-thumbnail">
-                  <img [src]="vaccine" alt="Vacuna {{i + 1}}">
+                @for(vaccine of currentDog.vaccines; track $index){
+                  <img [src]="vaccine.url" alt="Vacuna {{vaccine + 1}}">
                   <button 
                     type="button" 
                     class="remove-photo" 
-                   
+                   (click)="removePhoto('vaccine', vaccine)"
                   >
                     ×
                   </button>
-                </div>
+                }
               </div>
               
               <div class="upload-controls" *ngIf="vaccineImages.length < 5">
                 <label class="file-upload-label">
                   <input 
                     type="file" 
-                    
+                    (change)="addPhoto('vaccine', $event)"
                     accept="image/*" 
                     multiple 
                     style="display: none;"

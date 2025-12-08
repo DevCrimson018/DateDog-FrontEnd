@@ -22,9 +22,14 @@ export class Images{
     }
     
 
-    async uploadImage(file:any, folder: string, public_id?: string){
+    async uploadImage(file:any, folder: string, public_id: string){
         let res:any = await this.imageService.uploadImage(file, folder, public_id)
         return res.secure_url;
+    }
+
+    async deleteImage( public_id: string){
+        let res:any = await this.imageService.deleteImage(public_id)
+        return res;
     }
 
 }

@@ -230,23 +230,46 @@ export class EditDog {
   }
 
 
-  async addGeneralPhoto(event: any){
+  async addPhoto(folder: string, event: any){
     const file = event.target.files[0];
     
-    let photoId = `general_${this._id()}_${Math.random()}`
+    let photoId = `${folder}_${this._id()}_${Math.random()}`
     
-    const photoUrl = await this.Image.uploadImage(file, 'general', photoId)
+    const photoUrl = await this.Image.uploadImage(file, folder, photoId)
 
-    this.currentDog.photos.push({id: photoId, url: photoUrl})
+    let res:any;
+
+    if(folder == 'general'){
+      this.currentDog.photos.push({id: photoId, url: photoUrl})
+      res = await this.dogService.updateDog(this.currentDog._id, {photos: this.currentDog.photos})
+    }else{
+      this.currentDog.vaccines.push({id: photoId, url: photoUrl})
+      res = await this.dogService.updateDog(this.currentDog._id, {vaccines: this.currentDog.vaccines})
+
+    }
+    
     console.log(this.currentDog.photos);
     console.log(this.currentDog._id);
     
-    const res = await this.dogService.updateDog(this.currentDog._id, {photos: this.currentDog.photos})
+    console.log(res);
 
+  }
+
+  async removePhoto(folder:string, photo: any){
+
+    const res = await this.Image.deleteImage(`${folder}/${photo.id}`)
     console.log(res);
     
 
-    //this.previewsGeneralPhoto.push(await this.Image.previewImage(event.target.files[0]))
-  }
+    if(folder == 'general'){
+      this.currentDog.photos = this.currentDog.photos.filter((x: { id: any; }) => x.id != photo.id)
+      console.log(this.currentDog.photos);
 
+      
+    }else{
+      this.currentDog.vaccines = this.currentDog.photos.filter((x: { id: any; }) => x.id != photo.id)
+      console.log(this.currentDog.vaccines);
+      
+    }
+  }
 }

@@ -75,7 +75,7 @@
               <div class="photos-grid">
                 @for (image of dogData.photos; track $index) {
                   <div class="photo-item">
-                    <img [src]="image" [alt]="'Foto General ' + ($index + 1)">
+                    <img [src]="image.url" [alt]="'Foto General ' + ($index + 1)">
                   </div>
                 }
               </div>
@@ -87,7 +87,7 @@
               <div class="photos-grid">
                 @for (vaccine of dogData.vaccines; track $index) {
                   <div class="photo-item">
-                    <img [src]="vaccine" [alt]="'Vacuna ' + ($index + 1)">
+                    <img [src]="vaccine.url" [alt]="'Vacuna ' + ($index + 1)">
                   </div>
                 }
               </div>
